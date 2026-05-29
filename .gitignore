@@ -15,3 +15,9 @@ venv/
 # IDE
 .vscode/
 .idea/
+
+# Collected data
+data/
+
+# Built vector store (regenerable from data/ via build_vector_store.py)
+faiss_index/
