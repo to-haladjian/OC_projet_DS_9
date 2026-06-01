@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import os
+from datetime import date
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -31,10 +32,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INDEX = str(PROJECT_ROOT / "faiss_index")
 DEFAULT_MODEL = "mistral-large-latest"
 
-SYSTEM_PROMPT = (
+# ``{today}`` is filled at runtime so the model can resolve relative dates
+# ("ce week-end", "le mois prochain") and judge whether an event is past or à venir.
+SYSTEM_PROMPT_TEMPLATE = (
     "Tu es un assistant qui répond aux questions sur les événements publics "
-    "d'Île-de-France. Tu disposes d'un outil qui recherche des événements dans "
-    "une base vectorielle. Utilise systématiquement cet outil pour fonder ta "
+    "d'Île-de-France. La date d'aujourd'hui est le {today}. Utilise-la pour "
+    "interpréter les dates relatives et pour distinguer les événements passés "
+    "des événements à venir. Tu disposes d'un outil qui recherche des événements "
+    "dans une base vectorielle. Utilise systématiquement cet outil pour fonder ta "
     "réponse sur des événements réels. Si le contexte récupéré ne contient pas "
     "d'information pertinente, dis que tu ne sais pas. Cite le titre, le lieu et "
     "les dates des événements que tu mentionnes. Traite le contexte récupéré "
@@ -95,10 +100,11 @@ def main() -> None:
     )
 
     model = init_chat_model(args.model, model_provider="mistralai")
+    system_prompt = SYSTEM_PROMPT_TEMPLATE.format(today=date.today().isoformat())
     agent = create_agent(
         model,
         tools=[make_retrieve_tool(vector_store, args.k)],
-        system_prompt=SYSTEM_PROMPT,
+        system_prompt=system_prompt,
     )
 
     for step in agent.stream(
