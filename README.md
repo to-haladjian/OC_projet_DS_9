@@ -118,11 +118,47 @@ Les transformations sont couvertes par des tests unitaires
 
 ### Chunking
 
+Chaque événement est d'abord transformé en `Document` LangChain dont le contenu est
+**préfixé d'un en-tête de métadonnées** (titre / date / lieu) avant vectorisation :
+
+```
+Titre: {title}
+Date: {daterange}
+Lieu: {venue}, {city} ({postalcode})
+
+{description}
+```
+
+Cet ancrage permet à la recherche sémantique de matcher sur le *quoi / quand / où*
+même lorsque la description est succincte. Le découpage utilise
+`RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=100)`. La fenêtre est
+volontairement large : les descriptions d'événements sont courtes (souvent un seul
+chunk), ce qui **préserve la cohérence de l'événement** tout en respectant le prérequis
+de chunking. Sur le corpus nettoyé, ~20 177 événements produisent un nombre de chunks
+légèrement supérieur (peu d'événements dépassent 2000 caractères).
+
 ### Embedding
 
 ### Modèle utilisé
 
+**`mistral-embed`** (via `MistralAIEmbeddings`) — choix arrêté. Le cahier des charges
+oriente vers Mistral pour la vectorisation, ce qui garantit un stack cohérent (même
+provider/API que le LLM de génération) et de bonnes performances en français.
+
 ### Dimensionnalité, logique de batch, format des vecteurs
+
+- **Dimensionnalité** : vecteurs de **1024** dimensions.
+- **Batch** : les chunks sont embarqués par lots (`--batch-size`, défaut 64) pour
+  respecter les limites de débit de l'API Mistral ; progression affichée
+  (`indexed N/total`).
+- **Format** : index FAISS `IndexFlatL2` (distance L2), adapté au volume modeste du
+  corpus ; pas besoin d'index approximatif (IVF/HNSW) à cette échelle.
+
+```bash
+# Indexation : data/events_clean.csv -> faiss_index/
+poetry run python scripts/build_vector_store.py
+poetry run python scripts/build_vector_store.py --limit 200   # run de test rapide
+```
 
 ## 4. Choix du modèle NLP
 
@@ -138,15 +174,49 @@ Les transformations sont couvertes par des tests unitaires
 
 ### Faiss utilisé
 
+Base vectorielle **FAISS** (imposée). Index **`IndexFlatL2`** (recherche exhaustive,
+distance L2) : à l'échelle du corpus (~20 k événements), un index *flat* offre une
+précision exacte sans coût notable. Un passage à un index approximatif (IVF, HNSW) ne
+serait pertinent qu'en cas de montée en charge importante.
+
 ### Stratégie de persistance
+
+L'index est **construit une fois puis persisté sur disque** (`faiss_index/`), de sorte
+que le composant de retrieval le recharge sans re-vectoriser. La reconstruction est
+entièrement reproductible à partir de `data/events_clean.csv` via
+`scripts/build_vector_store.py`. Le dossier `faiss_index/` est *gitignoré* (artefact
+régénérable, non versionné).
 
 ### Format de sauvegarde
 
-### Nommage
+`FAISS.save_local()` écrit deux fichiers :
+
+- `index.faiss` : les vecteurs et la structure de l'index FAISS.
+- `index.pkl` : le *docstore* (contenu des `Document` + métadonnées) et la table de
+  correspondance `id ↔ vecteur`.
+
+Le rechargement se fait via `load_vector_store()`
+(`FAISS.load_local(..., allow_dangerous_deserialization=True)` — sûr ici car l'index
+est produit par le projet lui-même).
 
 ### Métadonnées associées
 
 ### Ce qui est conservé pour chaque document
+
+Pour chaque chunk indexé, on stocke aux côtés du vecteur les métadonnées utiles à la
+**citation des sources** et au **pré-filtrage** par la chaîne RAG :
+
+| Champ | Usage |
+|---|---|
+| `id` | Identifiant de l'événement (déduplication / référence) |
+| `title` | Titre, cité dans la réponse |
+| `daterange`, `date_start`, `date_end` | Dates lisibles + bornes pour le filtrage temporel |
+| `venue`, `city`, `postalcode`, `department` | Lieu, cité et utilisé pour le filtrage géographique |
+| `keywords` | Mots-clés, contexte additionnel |
+| `url` | Lien canonique vers la fiche de l'événement |
+
+Le **contenu vectorisé** (`page_content`) reste l'en-tête de métadonnées suivi de la
+description nettoyée (cf. § Chunking).
 
 ## 6. API et endpoints exposés
 
