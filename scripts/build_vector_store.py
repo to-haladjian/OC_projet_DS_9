@@ -3,7 +3,7 @@
 This follows the LangChain RAG indexing pattern
 (https://docs.langchain.com/oss/python/langchain/rag): turn the source data into
 ``Document`` objects, split them into chunks, embed the chunks and index them in a
-vector store. Here the source is the CSV produced by ``collect_events.py``, the
+vector store. Here the source is the cleaned CSV produced by ``clean_events.py``, the
 embeddings come from Mistral (``mistral-embed``), and the store is FAISS, persisted
 to disk so the RAG retriever can load it without re-embedding.
 
@@ -19,7 +19,11 @@ from __future__ import annotations
 
 import argparse
 import os
+import sys
 from pathlib import Path
+
+# Make ``src`` importable when run as a plain script.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
 from dotenv import load_dotenv
@@ -28,42 +32,30 @@ from langchain_core.documents import Document
 from langchain_mistralai import MistralAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# Project root (the directory above this script's ``scripts/`` folder), so default
-# data/index paths resolve there regardless of the current working directory.
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+from src import config
 
-# Column holding the rich, free-text description we embed for semantic search.
-CONTENT_FIELD = "longdescription_fr"
+PROJECT_ROOT = config.PROJECT_ROOT
 
-# Columns kept as document metadata: useful for filtering and for citing sources
-# back to the user (title, link, dates, location).
-METADATA_FIELDS = [
-    "uid",
-    "canonicalurl",
-    "title_fr",
-    "daterange_fr",
-    "firstdate_begin",
-    "lastdate_end",
-    "location_name",
-    "location_city",
-    "location_postalcode",
-    "location_department",
-    "keywords_fr",
-]
+# Column holding the rich, free-text description we embed for semantic search,
+# and the metadata columns carried alongside each vector (for citations/filtering).
+CONTENT_FIELD = config.CONTENT_FIELD
+METADATA_FIELDS = config.METADATA_FIELDS
 
 
 def load_documents(csv_path: Path) -> list[Document]:
-    """Read the events CSV and turn each event into a LangChain ``Document``.
+    """Read the cleaned events CSV and turn each event into a LangChain ``Document``.
 
-    Only events with a non-empty long description are kept (that is the text we
-    embed). The title is prepended to the body so it is part of what gets indexed.
+    Only events with a non-empty description are kept (that is the text we embed).
+    The title is prepended to the body so it is part of what gets indexed.
     """
-    df = pd.read_csv(csv_path)
+    # Keep the location codes as strings (CSV would otherwise re-infer them as floats),
+    # so they stay clean in the FAISS metadata.
+    df = pd.read_csv(csv_path, dtype={"postalcode": "string", "department": "string"})
     df = df[df[CONTENT_FIELD].notna()]
 
     documents: list[Document] = []
     for row in df.to_dict(orient="records"):
-        title = row.get("title_fr")
+        title = row.get("title")
         body = str(row[CONTENT_FIELD])
         page_content = f"{title}\n\n{body}" if pd.notna(title) else body
 
@@ -115,13 +107,13 @@ def main() -> None:
     parser.add_argument(
         "--csv",
         type=Path,
-        default=PROJECT_ROOT / "data" / "openagenda_idf_events.csv",
-        help="Path to the events CSV (default: <project>/data/openagenda_idf_events.csv).",
+        default=config.CLEAN_CSV,
+        help="Path to the cleaned events CSV (default: <project>/data/events_clean.csv).",
     )
     parser.add_argument(
         "--outdir",
         type=Path,
-        default=PROJECT_ROOT / "faiss_index",
+        default=config.FAISS_DIR,
         help="Directory to save the FAISS index into (default: <project>/faiss_index).",
     )
     parser.add_argument(

@@ -18,8 +18,16 @@ dependencies = [
     "mistralai (>=2.4.8,<3.0.0)",
     "matplotlib (>=3.10.9,<4.0.0)",
     "numpy (>=2.4.6,<3.0.0)",
+    "requests (>=2.32.0,<3.0.0)",
+    "beautifulsoup4 (>=4.14.0,<5.0.0)",
+    "python-dotenv (>=1.2.0,<2.0.0)",
 ]
 
+
+[tool.poetry]
+# Use Poetry for dependency management only: this is an application (run via the
+# scripts/ entrypoints), not an importable library, so there is no package to install.
+package-mode = false
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -28,5 +36,10 @@ build-backend = "poetry.core.masonry.api"
 [dependency-groups]
 dev = [
     "ipykernel (>=7.2.0,<8.0.0)",
-    "jupyterlab (>=4.5.7,<5.0.0)"
+    "jupyterlab (>=4.5.7,<5.0.0)",
+    "pytest (>=9.0.0,<10.0.0)"
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
