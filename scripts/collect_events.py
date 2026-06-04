@@ -1,7 +1,7 @@
 """CLI: collect Île-de-France events from OpenAgenda for the last year + upcoming.
 
 Thin wrapper around :mod:`src.data.fetch_openagenda`. Writes the raw export to
-``data/openagenda_idf_events.{json,csv}`` (consumed next by ``scripts/clean_events.py``).
+``data/openagenda_idf_events.csv`` (consumed next by ``scripts/clean_events.py``).
 
 Usage:
     python scripts/collect_events.py
@@ -11,7 +11,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -58,15 +57,10 @@ def main() -> None:
     print(f"Downloaded {len(events)} events.")
 
     args.outdir.mkdir(parents=True, exist_ok=True)
-    json_path = args.outdir / "openagenda_idf_events.json"
     csv_path = args.outdir / "openagenda_idf_events.csv"
 
-    json_path.write_text(
-        json.dumps(events, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
     pd.DataFrame(events).to_csv(csv_path, index=False)
 
-    print(f"Saved JSON -> {json_path}")
     print(f"Saved CSV  -> {csv_path}")
 
 

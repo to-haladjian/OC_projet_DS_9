@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 DATA_DIR = PROJECT_ROOT / "data"
-RAW_JSON = DATA_DIR / "openagenda_idf_events.json"
 RAW_CSV = DATA_DIR / "openagenda_idf_events.csv"
 CLEAN_CSV = DATA_DIR / "events_clean.csv"
 FAISS_DIR = PROJECT_ROOT / "faiss_index"
