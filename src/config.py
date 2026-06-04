@@ -71,6 +71,16 @@ CHUNK_SIZE = 2000
 CHUNK_OVERLAP = 100
 EMBED_MODEL = "mistral-embed"
 
+# --- RAG chain (two Mistral calls: filter extraction, then generation) ---
+# Call 1 (NER): structured-filter extraction — deterministic JSON, so temperature 0.
+FILTER_MODEL = "mistral-small-latest"
+FILTER_TEMPERATURE = 0.0
+# Call 2: answer generation — low temperature for grounded, stable answers.
+GENERATION_MODEL = "mistral-small-latest"
+GENERATION_TEMPERATURE = 0.1
+# Documents retrieved per query (after metadata pre-filtering).
+RETRIEVAL_K = 6
+
 
 def load_mistral_api_key() -> str:
     """Return the Mistral API key from the environment (loading ``.env`` first)."""
