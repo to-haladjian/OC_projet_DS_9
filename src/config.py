@@ -64,6 +64,13 @@ METADATA_FIELDS = [
     "url",
 ]
 
+# --- Indexing ---
+# Chunking: large window deliberately (event descriptions are short, often a single
+# chunk) — preserves event coherence while still satisfying the chunking requirement.
+CHUNK_SIZE = 2000
+CHUNK_OVERLAP = 100
+EMBED_MODEL = "mistral-embed"
+
 
 def load_mistral_api_key() -> str:
     """Return the Mistral API key from the environment (loading ``.env`` first)."""
