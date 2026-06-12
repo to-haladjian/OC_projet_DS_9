@@ -74,18 +74,26 @@ class RAGChain:
         response = self.gen_llm.invoke([("system", system), ("human", human)])
         return getattr(response, "content", str(response))
 
-    def answer(self, question: str) -> dict:
-        """Answer ``question`` and return the answer, the extracted filters and sources."""
+    def answer(self, question: str, return_contexts: bool = False) -> dict:
+        """Answer ``question`` and return the answer, the extracted filters and sources.
+
+        When ``return_contexts`` is true, the retrieved chunk texts are also included under
+        ``"contexts"`` — used by the Ragas evaluation, which scores the answer against the
+        context it was grounded on. The default keeps the API response unchanged.
+        """
         today = date.today()
         filters = extract_filters(question, self.filter_llm, today)
         docs = self._retrieve(question, filters)
         context = format_docs(docs)
         answer = self._generate(question, context, today)
-        return {
+        result = {
             "answer": answer,
             "filters": filters,
             "sources": [doc.metadata for doc in docs],
         }
+        if return_contexts:
+            result["contexts"] = [doc.page_content for doc in docs]
+        return result
 
     def as_runnable(self) -> Runnable:
         """Expose the same flow as an LCEL Runnable taking ``{"question": ...}``."""

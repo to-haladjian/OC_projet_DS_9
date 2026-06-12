@@ -80,6 +80,24 @@ GENERATION_TEMPERATURE = 0.1
 # Documents retrieved per query (after metadata pre-filtering).
 RETRIEVAL_K = 6
 
+# --- Evaluation (Ragas) ---
+EVAL_DIR = PROJECT_ROOT / "evaluation"
+EVAL_CORPUS = EVAL_DIR / "corpus.csv"  # committed event subset the test set targets
+EVAL_TESTSET = EVAL_DIR / "testset.json"  # curated + reviewed-generated Q/R pairs
+EVAL_RESULTS_DIR = EVAL_DIR / "results"  # per-run scores (gitignored)
+# Judge model for the Ragas metrics. mistral-small is fast enough to evaluate the whole
+# test set within a CI window; throttled concurrency (see evaluate_rag.py) keeps its
+# structured-output calls under the rate limit. Switch to mistral-large-latest for a
+# higher-fidelity (but much slower) judge.
+EVAL_JUDGE_MODEL = "mistral-small-latest"
+# Minimum acceptable mean score per metric (used by evaluate_rag.py --fail-under / CI).
+EVAL_THRESHOLDS = {
+    "faithfulness": 0.70,
+    "answer_relevancy": 0.70,
+    "context_precision": 0.50,
+    "context_recall": 0.50,
+}
+
 
 def load_mistral_api_key() -> str:
     """Return the Mistral API key from the environment (loading ``.env`` first)."""

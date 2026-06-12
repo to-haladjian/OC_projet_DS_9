@@ -1,0 +1,146 @@
+[
+  {
+    "question": "Où et quand se produit le groupe Ayom ?",
+    "ground_truth": "Le groupe Ayom se produit à La CLEF, à Saint-Germain-en-Laye, le samedi 14 mars à 20h30 (en concert avec Djêu).",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Quelle animation autour du miel est organisée dans le Val-d'Oise ?",
+    "ground_truth": "Une animation et dégustation de miel gratuite a lieu au Carrefour d'Ermont (95120) les 3 et 4 octobre 2025, dans le cadre de l'Api'Week 2025.",
+    "category": "topic_location",
+    "source": "curated"
+  },
+  {
+    "question": "Y a-t-il des ateliers gratuits pour les enfants à Saint-Ouen-sur-Seine ?",
+    "ground_truth": "Oui, « Les Mercredis des Possibles » propose des ateliers gratuits, artistiques et culturels pour les enfants tous les mercredis de 14h à 16h au Foyer (Mains d'Œuvres) à Saint-Ouen-sur-Seine.",
+    "category": "topic_location",
+    "source": "curated"
+  },
+  {
+    "question": "Quels événements traitent de l'intelligence artificielle ?",
+    "ground_truth": "Une conférence « L'IA ou l'analphabétisme des images » au Château de Fontainebleau (7 juin 2025) et un webinaire gratuit « L'IA au service du BTP » à Fontenay-le-Fleury (25 juin 2025) traitent de l'intelligence artificielle.",
+    "category": "topic",
+    "source": "curated"
+  },
+  {
+    "question": "Quelle église peut-on visiter à Paris dans le cadre du patrimoine ?",
+    "ground_truth": "L'église Sainte-Odile (Paris 75017), classée au Patrimoine du XXe siècle et de style Art Déco, est ouverte en visite libre les 20 et 21 septembre 2025.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Quelle animation sur les jardins du Moyen Âge est proposée dans l'Essonne ?",
+    "ground_truth": "« Un jardin au Moyen-Âge » au Conservatoire National des Plantes à Milly-la-Forêt (91490), le 5 juillet 2025 : découverte du jardin des simples et repartez avec une tisane médiévale, à partir de 5 ans.",
+    "category": "topic_location",
+    "source": "curated"
+  },
+  {
+    "question": "Où est joué le spectacle des Fables de Marie de France ?",
+    "ground_truth": "Le spectacle musical « Fables, de Marie de France » est donné à l'Auditorium de Coulanges, à Gonesse (95500), les 24 et 25 novembre 2025.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Y a-t-il une balade à vélo organisée à Bois-Colombes ?",
+    "ground_truth": "Oui, un parcours à vélo dans les trois quartiers de Bois-Colombes est proposé les 20 et 21 septembre 2025 par l'association Mieux se déplacer à bicyclette, au départ du complexe sportif Smirlian.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Quel documentaire sur le Sénégal est projeté à Paris ?",
+    "ground_truth": "Le documentaire « Yandé Codou, la griotte de Senghor » (Angèle Diabang, 2008) est projeté gratuitement à la Fondation Lucien Paye, Paris 75014, le jeudi 26 mars à 19h00.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Quand a lieu le Forum Apprentissage du CFA de l'Université Paris-Saclay ?",
+    "ground_truth": "Le Forum Apprentissage du CFA de l'Université Paris-Saclay se tient les 10 et 11 juin 2025, en ligne (Faculté des sciences d'Orsay).",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Comment découvrir l'offre de formation de l'UPEC ?",
+    "ground_truth": "L'UPEC organise une journée portes ouvertes à Créteil (94010) le samedi 14 février à partir de 10h, ouverte à tous, pour découvrir son offre de formation et échanger avec les enseignants.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Quel atelier d'écriture autour de la rivière Bièvre est proposé à Fresnes ?",
+    "ground_truth": "L'atelier « Écrire la Bièvre » est proposé à l'Écomusée de Fresnes (94260) le samedi 20 septembre 2025 à 15h00, autour de la rivière de la source à l'embouchure.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Y a-t-il une soirée de projection de films à Mains d'Œuvres à Saint-Ouen ?",
+    "ground_truth": "Oui, « Down the Rabbit Hole », une soirée de projection de courts et moyens métrages du collectif Faux Plafond, a lieu à Mains d'Œuvres à Saint-Ouen-sur-Seine le vendredi 17 avril à 19h00.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Quels événements sont proposés dans les Yvelines ?",
+    "ground_truth": "Dans les Yvelines (78) figurent notamment le concert d'Ayom à La CLEF (Saint-Germain-en-Laye) le 14 mars, et un webinaire gratuit sur l'IA pour les artisans du BTP à Fontenay-le-Fleury le 25 juin 2025.",
+    "category": "location_multi",
+    "source": "curated"
+  },
+  {
+    "question": "Existe-t-il une formation pour devenir second de cuisine ?",
+    "ground_truth": "Oui, SODEXO propose une formation (POEI) débouchant sur un CDI pour devenir Second de cuisine en restauration collective, présentée le mardi 14 avril à 10h00 (agence de Villeneuve-la-Garenne / Guyancourt).",
+    "category": "topic",
+    "source": "curated"
+  },
+  {
+    "question": "Quelles activités gratuites de dégustation sont proposées ?",
+    "ground_truth": "Une dégustation gratuite de miels est proposée au Carrefour d'Ermont (95) les 3 et 4 octobre 2025 dans le cadre de l'Api'Week.",
+    "category": "topic",
+    "source": "curated"
+  },
+  {
+    "question": "Quels concerts de musique du monde sont programmés ?",
+    "ground_truth": "Le groupe Ayom, ensemble afro-latin et brésilien mené par Jabu Morales, est en concert à La CLEF à Saint-Germain-en-Laye le 14 mars à 20h30.",
+    "category": "topic",
+    "source": "curated"
+  },
+  {
+    "question": "Quels événements ont lieu au Château de Fontainebleau ?",
+    "ground_truth": "La conférence « L'IA ou l'analphabétisme des images » se tient au Château de Fontainebleau (quartier Henri IV) le samedi 7 juin 2025 à 12h00.",
+    "category": "factual_lookup",
+    "source": "curated"
+  },
+  {
+    "question": "Y a-t-il des webinaires en ligne proposés ?",
+    "ground_truth": "Oui, un webinaire gratuit « L'IA au service du BTP » (ChatGPT et outils IA pour les artisans) a lieu en ligne le 25 juin 2025, et le Forum Apprentissage du CFA Paris-Saclay se tient en ligne les 10 et 11 juin 2025.",
+    "category": "topic",
+    "source": "curated"
+  },
+  {
+    "question": "Quelle activité famille autour des plantes est proposée en Essonne ?",
+    "ground_truth": "« Un jardin au Moyen-Âge » à Milly-la-Forêt (91490) le 5 juillet 2025 : découverte du jardin des simples et d'une tisane médiévale, en famille à partir de 5 ans.",
+    "category": "topic_location",
+    "source": "curated"
+  },
+  {
+    "question": "Y a-t-il un concert de Taylor Swift au Stade de France en décembre 2030 ?",
+    "ground_truth": "Non, aucun événement de ce type n'est mentionné dans les données disponibles.",
+    "category": "edge_unknown",
+    "source": "curated"
+  },
+  {
+    "question": "Quels festivals sont organisés à Marseille ?",
+    "ground_truth": "Aucun événement à Marseille n'est disponible : les données ne couvrent que l'Île-de-France.",
+    "category": "edge_outofscope",
+    "source": "curated"
+  },
+  {
+    "question": "Où puis-je assister à un Grand Prix de Formule 1 en Île-de-France ?",
+    "ground_truth": "Aucun événement de Formule 1 n'est mentionné dans les données disponibles.",
+    "category": "edge_unknown",
+    "source": "curated"
+  },
+  {
+    "question": "Quel spectacle s'inspire du matrimoine et du Moyen Âge dans le Val-d'Oise ?",
+    "ground_truth": "« Fables, de Marie de France », spectacle musical jeune public inspiré de la poétesse médiévale Marie de France, est donné à l'Auditorium de Coulanges à Gonesse (95500) les 24 et 25 novembre 2025.",
+    "category": "topic_location",
+    "source": "curated"
+  }
+]
