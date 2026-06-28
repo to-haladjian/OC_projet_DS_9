@@ -37,6 +37,28 @@ poetry run python evaluate_rag.py                # évaluation Ragas
 cibles ; les plus utiles sont `make install`, `make pipeline` (collecte → nettoyage →
 index), `make api`, `make ui`, `make test` et `make eval`.
 
+### Lancement via Docker (sans installer Python ni Poetry)
+
+La stack complète (API + interface Dash) se lance en une commande ; il suffit de
+**Docker** et d'un `.env` à la racine contenant `MISTRAL_API_KEY` (cf. `.env.example`).
+
+```bash
+cp .env.example .env          # éditer .env -> MISTRAL_API_KEY=...
+docker compose up --build     # ou : make docker-up
+#   API REST  -> http://localhost:8000  (Swagger sur /docs)
+#   Interface -> http://localhost:8050
+```
+
+L'index FAISS n'est **pas embarqué** dans l'image (artefact régénérable, dont la
+construction appelle l'API Mistral). Au **premier démarrage**, si le volume monté
+`./faiss_index` est vide, le conteneur exécute automatiquement le pipeline complet
+(collecte → nettoyage → indexation) ; ce lancement initial est donc plus long. Les
+dossiers `./data` et `./faiss_index` sont **montés en volumes**, donc l'index persiste
+sur l'hôte et les démarrages suivants sont immédiats (un index déjà construit via
+`make pipeline` est réutilisé tel quel). La clé Mistral n'est lue qu'à l'exécution,
+jamais écrite dans l'image. Cibles associées : `make docker-build`, `make docker-up`,
+`make docker-down`, `make docker-logs`.
+
 ---
 
 ## 1. Objectifs du projet
@@ -90,7 +112,7 @@ données OpenAgenda, livrable de bout en bout :
 | Fenêtre temporelle : dernière année + tous les événements à venir | Historique complet pluriannuel |
 | Q/R **mono-tour** (API sans état, historique côté client uniquement) | Dialogue multi-tours avec mémoire serveur |
 | Filtrage ville / département / dates | Filtres prix, catégorie, public, accessibilité |
-| Déploiement local (Poetry, Uvicorn, Dash) | Déploiement cloud / conteneurisation / authentification utilisateurs |
+| Déploiement local (Poetry, Uvicorn, Dash) **+ conteneurisation Docker** (API + UI via `docker compose`) | Déploiement cloud managé / orchestration / authentification utilisateurs |
 
 ## 2. Architecture du système
 
@@ -224,6 +246,7 @@ Détails en §6.
 | Tests | **pytest**, **httpx** | 62 tests unitaires |
 | Évaluation | **Ragas**, **datasets** | Métriques de qualité RAG + porte CI |
 | Config / secrets | **python-dotenv** | Chargement de `MISTRAL_API_KEY` depuis `.env` |
+| Conteneurisation | **Docker**, **docker compose** | Image multi-stage, stack API + UI lancée en une commande |
 
 ## 3. Préparation et vectorisation des données
 
@@ -633,7 +656,7 @@ un exemple de run figure ci-dessous :
 ### Ce qui fonctionne bien
 
 - **Pipeline reproductible** de bout en bout (collecte → nettoyage → index → API),
-  testé (62 tests) et reconstructible à chaud via `/rebuild` (permutation atomique).
+  testé (62 tests) et reconstructible à chaud via `/rebuild`.
 - **Chaîne à deux appels** : le pré-filtrage par métadonnées resserre nettement la
   recherche tout en restant robuste grâce au repli plein-corpus.
 - **Réponses sourcées et honnêtes** : citations systématiques et refus explicite
@@ -653,19 +676,17 @@ un exemple de run figure ci-dessous :
 
 ### Améliorations possibles
 
-- **Filtres enrichis** : catégorie, gratuité, public, accessibilité (nécessite une
-  normalisation plus poussée des champs `keywords` / `conditions`).
+- **Filtres enrichis** : catégorie, gratuité, public, accessibilité.
 - **Retrieval avancé** : reranking, recherche hybride (BM25 + dense), `k` adaptatif.
 - **Index scalable** : passage à IVF/HNSW si le corpus s'étend (national, historique).
-- **Optimisation des appels** : fusionner extraction et génération, ou mettre en
-  cache les filtres ; mémoïsation des questions fréquentes.
 - **Dialogue multi-tours** avec mémoire de conversation côté serveur.
-- **Élargir le jeu de test** et intégrer davantage de paires *generated* relues.
+- **Élargir le jeu de test** et intégrer davantage de paires générées et écrites manuellement.
 
 ### Passage en production via…
 
-- **Conteneurisation** (Docker) de l'API et de l'interface, orchestration
-  (Kubernetes / service managé), variables d'environnement et secrets gérés hors dépôt.
+- **Conteneurisation livrée** : `Dockerfile` multi-stage + `docker-compose` (services
+  API et UI) fournis (cf. *Démarrage rapide*). Étapes restantes pour la production :
+  orchestration (Kubernetes / service managé) et gestion des secrets hors dépôt (coffre).
 - **Index versionné / stockage objet** : génération du FAISS par un job batch
   planifié, publication dans un stockage partagé, rechargement à chaud (`/rebuild`).
 - **Observabilité** : journalisation structurée, métriques (latence, taux de repli,
@@ -702,6 +723,11 @@ un exemple de run figure ci-dessous :
 ├── .github/workflows/        # CI : tests pytest (push/PR) + évaluation Ragas (workflow_dispatch)
 ├── evaluate_rag.py           # Harnais d'évaluation Ragas (+ porte CI --fail-under)
 ├── api_test.py               # Smoke test fonctionnel de l'API (appels réels)
+├── Dockerfile                # Image multi-stage (venv Poetry + code), partagée API/UI
+├── docker-compose.yml        # Stack conteneurisée : services api (8000) + ui (8050)
+├── docker-entrypoint.sh      # Build de l'index au 1er démarrage, puis lance le service
+├── .dockerignore             # Exclusions du contexte de build Docker
+├── Makefile                  # Raccourcis (pipeline, api, ui, test, docker-*)
 ├── pyproject.toml            # Dépendances et configuration (Poetry)
 └── .env.example              # Modèle de configuration des secrets
 ```

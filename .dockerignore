@@ -1,0 +1,29 @@
+# Keep the build context small and free of secrets / regenerable artefacts.
+.git
+.gitignore
+.github
+
+# Python caches / virtualenvs
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets — provided at runtime via env_file / -e, never baked into the image
+.env
+
+# Regenerable artefacts — mounted as volumes at runtime
+data/
+faiss_index/
+evaluation/results/
+evaluation/generated_candidates.json
+
+# Docs / IDE / misc
+*.docx
+.vscode/
+.idea/
+README.md
+PLAN.md

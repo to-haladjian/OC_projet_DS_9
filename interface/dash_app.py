@@ -162,4 +162,10 @@ def reset(_n_clicks):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8050)
+    # Defaults preserve the local dev experience (loopback + reloader); in a container
+    # set DASH_HOST=0.0.0.0 and DASH_DEBUG=0 so the UI is reachable and stable.
+    app.run(
+        host=os.environ.get("DASH_HOST", "127.0.0.1"),
+        port=int(os.environ.get("DASH_PORT", "8050")),
+        debug=os.environ.get("DASH_DEBUG", "1") == "1",
+    )

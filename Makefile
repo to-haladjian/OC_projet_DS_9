@@ -3,7 +3,8 @@
 # contenant MISTRAL_API_KEY (cf. .env.example).
 
 .DEFAULT_GOAL := help
-.PHONY: help install collect clean index pipeline api ui query test eval
+.PHONY: help install collect clean index pipeline api ui query test eval \
+	docker-build docker-up docker-down docker-logs
 
 help: ## Affiche les cibles disponibles
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -37,3 +38,17 @@ test: ## Lance les tests unitaires (hors ligne, sans clé API)
 
 eval: ## Lance l'évaluation Ragas (nécessite MISTRAL_API_KEY)
 	poetry run python evaluate_rag.py
+
+docker-build: ## Construit l'image Docker (API + UI)
+	docker compose build
+
+docker-up: ## Lance la stack conteneurisée -> API http://localhost:8000/docs · UI http://localhost:8050
+	docker compose up -d --build
+	@echo "API  -> http://localhost:8000/docs"
+	@echo "UI   -> http://localhost:8050"
+
+docker-down: ## Arrête la stack conteneurisée (l'index reste sur l'hôte)
+	docker compose down
+
+docker-logs: ## Suit les logs des conteneurs
+	docker compose logs -f
