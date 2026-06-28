@@ -5,24 +5,37 @@ output, and merge the good pairs into ``evaluation/testset.json`` (with
 ``"source": "generated"``). It is deliberately NOT wired into evaluate_rag.py or CI — the
 committed ``testset.json`` is the source of truth.
 
+Building the knowledge graph runs an LLM extractor per source document over the *whole*
+corpus (independent of ``--size``), so ``--docs`` caps how many documents are used to keep
+cost/time bounded and stay under Mistral's rate limit.
+
     poetry run python evaluation/generate_testset.py --size 8 --out evaluation/generated_candidates.json
+    poetry run python evaluation/generate_testset.py --size 12 --docs 80   # more, over more docs
+    poetry run python evaluation/generate_testset.py --docs 0              # use the whole corpus
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import random
+import sys
 from pathlib import Path
 
-import evaluation._compat  # noqa: F401  (registers the langchain/ragas shim on import)
-from langchain.chat_models import init_chat_model
-from ragas.embeddings import LangchainEmbeddingsWrapper
-from ragas.llms import LangchainLLMWrapper
-from ragas.testset import TestsetGenerator
+# Make the project root importable when run as a plain script (so ``evaluation`` and
+# ``src`` resolve), then register the ragas/langchain shim BEFORE any ragas import.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src import config
-from src.indexing.build_index import load_events, make_embeddings
-from src.indexing.chunking import build_documents
+import evaluation._compat  # noqa: E402,F401  (registers the langchain/ragas shim on import)
+from langchain.chat_models import init_chat_model  # noqa: E402
+from ragas.embeddings import LangchainEmbeddingsWrapper  # noqa: E402
+from ragas.llms import LangchainLLMWrapper  # noqa: E402
+from ragas.run_config import RunConfig  # noqa: E402
+from ragas.testset import TestsetGenerator  # noqa: E402
+
+from src import config  # noqa: E402
+from src.indexing.build_index import load_events, make_embeddings  # noqa: E402
+from src.indexing.chunking import build_documents  # noqa: E402
 
 
 def main() -> None:
@@ -30,13 +43,28 @@ def main() -> None:
     parser.add_argument("--corpus", type=Path, default=config.EVAL_CORPUS)
     parser.add_argument("--size", type=int, default=8, help="Number of pairs to generate.")
     parser.add_argument(
+        "--docs",
+        type=int,
+        default=50,
+        help=(
+            "Cap the number of source documents fed to the knowledge-graph transforms "
+            "(sampled deterministically). The transforms run an LLM call per document, so "
+            "this bounds cost/time; 0 = use the whole corpus."
+        ),
+    )
+    parser.add_argument(
         "--out", type=Path, default=config.EVAL_DIR / "generated_candidates.json"
     )
     args = parser.parse_args()
 
     config.load_mistral_api_key()
     documents = build_documents(load_events(args.corpus))
-    print(f"Loaded {len(documents)} documents from {args.corpus}.")
+    if args.docs and len(documents) > args.docs:
+        # Deterministic subsample: building the KG runs an LLM extractor per document over
+        # the whole corpus regardless of --size, which is slow and trips Mistral's rate
+        # limit. A fixed-seed sample keeps it cheap and reproducible.
+        documents = random.Random(42).sample(documents, args.docs)
+    print(f"Using {len(documents)} documents from {args.corpus}.")
 
     generator = TestsetGenerator(
         llm=LangchainLLMWrapper(
@@ -44,7 +72,12 @@ def main() -> None:
         ),
         embedding_model=LangchainEmbeddingsWrapper(make_embeddings()),
     )
-    dataset = generator.generate_with_langchain_docs(documents, testset_size=args.size)
+    # Throttle concurrency + retry like evaluate_rag.py: the default 16 workers overruns
+    # Mistral's rate limit (HTTP 429) during the extractor passes.
+    run_config = RunConfig(max_workers=3, timeout=300, max_retries=15, max_wait=90)
+    dataset = generator.generate_with_langchain_docs(
+        documents, testset_size=args.size, run_config=run_config
+    )
 
     df = dataset.to_pandas()
     candidates = [
