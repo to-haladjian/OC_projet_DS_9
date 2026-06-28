@@ -29,9 +29,13 @@ poetry run uvicorn src.api.main:app              # http://localhost:8000
 poetry run python interface/dash_app.py          # http://localhost:8050
 
 # 5. Tests et évaluation
-poetry run pytest                                # 50 tests unitaires
+poetry run pytest                                # tests unitaires (hors ligne)
 poetry run python evaluate_rag.py                # évaluation Ragas
 ```
+
+**Raccourci `Makefile`** : un `Makefile` regroupe ces commandes. `make help` liste les
+cibles ; les plus utiles sont `make install`, `make pipeline` (collecte → nettoyage →
+index), `make api`, `make ui`, `make test` et `make eval`.
 
 ---
 
@@ -96,6 +100,40 @@ Le système se décompose en deux flux : un **pipeline batch** (hors ligne) qui
 construit l'index, et une **chaîne de requête** (en ligne) déclenchée par chaque
 question.
 
+```mermaid
+flowchart TB
+    subgraph BATCH["Pipeline batch (hors ligne)"]
+        direction LR
+        OA["OpenAgenda<br/>(Opendatasoft<br/>Explore v2.1)"]
+        --> COL["collect_events.py<br/>fetch_openagenda.py"]
+        --> CLN["clean_events.py<br/>src/data/clean.py"]
+        --> IDX["build_vector_store.py<br/>chunking + mistral-embed"]
+        --> FAISS[("faiss_index/<br/>IndexFlatL2")]
+    end
+
+    subgraph QUERY["Chaîne de requête (en ligne) — src/rag/chain.py"]
+        direction TB
+        Q["Question (NL)"]
+        --> F["Call 1 : extraction de filtres<br/>mistral-small (NER, JSON)"]
+        --> R["Retrieval FAISS<br/>pré-filtré sur métadonnées<br/>(+ repli plein-corpus)"]
+        --> G["Call 2 : génération ancrée<br/>mistral-small"]
+        --> ANS["Réponse + filtres + sources"]
+    end
+
+    subgraph EXPO["Exposition"]
+        API["API REST FastAPI<br/>/health · /metadata · /ask · /rebuild"]
+        UI["Interface chat Dash"]
+    end
+
+    FAISS -. "rechargé au démarrage" .-> R
+    R -. "lit l'index" .-> FAISS
+    API --> Q
+    UI --> API
+```
+
+<details>
+<summary>Variante ASCII (même flux)</summary>
+
 ```text
   ┌──────────────────────── PIPELINE BATCH (hors ligne) ────────────────────────┐
   │  OpenAgenda            collect_events.py      clean_events.py                │
@@ -117,8 +155,10 @@ question.
   │              [Call 2: génération ancrée] ─► Réponse + filtres + sources        │
   │                 mistral-small (grounded)                                       │
   └───────────────────────────────────────────────────────────────────────────────┘
-       Exposé par : FastAPI (/health, /ask, /rebuild)  ◄──  Interface Dash (chat)
+       Exposé par : FastAPI (/health, /metadata, /ask, /rebuild)  ◄── Interface Dash
 ```
+
+</details>
 
 La logique métier (`src/rag/`) est **découplée** de toute interface : elle est
 importée à l'identique par la CLI (`scripts/rag_query.py`), l'API (`src/api/`) et le
@@ -165,8 +205,8 @@ comme `Runnable` LCEL (`as_runnable`) pour la composition.
 ### Exposition via API
 
 La chaîne est servie par une **API REST FastAPI** (`src/api/main.py`) : un seul objet
-`RAGChain` est instancié au démarrage et partagé entre les requêtes. Trois endpoints :
-`GET /health`, `POST /ask`, `POST /rebuild`. Une **interface de chat Dash**
+`RAGChain` est instancié au démarrage et partagé entre les requêtes. Quatre endpoints :
+`GET /health`, `GET /metadata`, `POST /ask`, `POST /rebuild`. Une **interface de chat Dash**
 (`interface/dash_app.py`, bonus) consomme `/ask` pour une démonstration visuelle.
 Détails en §6.
 
@@ -181,7 +221,7 @@ Détails en §6.
 | Données | **pandas**, **requests**, **BeautifulSoup4** | Collecte, nettoyage, structuration |
 | API | **FastAPI** + **Uvicorn** | Endpoints REST, Swagger automatique |
 | Interface | **Dash** | Chat de démonstration |
-| Tests | **pytest**, **httpx** | 50 tests unitaires |
+| Tests | **pytest**, **httpx** | 62 tests unitaires |
 | Évaluation | **Ragas**, **datasets** | Métriques de qualité RAG + porte CI |
 | Config / secrets | **python-dotenv** | Chargement de `MISTRAL_API_KEY` depuis `.env` |
 
@@ -408,6 +448,7 @@ poetry run uvicorn src.api.main:app     # http://localhost:8000  (Swagger sur /d
 | Méthode | Chemin | Rôle | Codes |
 |---|---|---|---|
 | `GET` | `/health` | Liveness + nombre de documents indexés | 200 |
+| `GET` | `/metadata` | Statistiques du corpus indexé (événements, villes, départements, plage de dates) | 200 |
 | `POST` | `/ask` | Répond à une question, ancrée dans les événements récupérés | 200, 422, 502 |
 | `POST` | `/rebuild` | Rafraîchissement complet en tâche de fond (recollecte → renettoyage → réindexation), puis rechargement de l'index | 202, 401, 409 |
 
@@ -436,6 +477,15 @@ Modèles Pydantic (`src/api/schemas.py`), qui pilotent aussi le schéma Swagger.
 
 // GET /health  — réponse 200
 { "status": "ok", "documents": 20177 }
+
+// GET /metadata  — réponse 200 (agrégée depuis l'index, sans appel LLM)
+{
+  "events": 19342,
+  "cities": 612,
+  "departments": { "75": 8123, "77": 1402, "78": 1310, "91": 1004,
+                   "92": 2451, "93": 1876, "94": 1689, "95": 1487 },
+  "date_range": { "from": "2025-06-28", "to": "2027-01-15" }
+}
 ```
 
 La question est validée (`min_length=1`, non vide après strip) ; une requête vide ou
@@ -448,6 +498,9 @@ curl -s -X POST http://localhost:8000/ask \
      -H "Content-Type: application/json" \
      -d '{"question": "Des expositions en Seine-Saint-Denis ?"}' | jq
 
+# Statistiques du corpus indexé
+curl -s http://localhost:8000/metadata | jq
+
 # Déclencher une reconstruction protégée par jeton
 curl -s -X POST http://localhost:8000/rebuild -H "X-API-Key: $REBUILD_TOKEN"
 ```
@@ -457,15 +510,18 @@ Un script de **smoke test fonctionnel** (`api_test.py`, appels Mistral réels) a
 
 ### Tests effectués et documentés
 
-**50 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
-mockés) :
+**62 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
+mockés). Ils sont **relancés automatiquement en CI** à chaque push / pull request
+(workflow `tests`, sans clé API), en plus de l'évaluation Ragas (§7) :
 
 | Fichier | Couvre | # |
 |---|---|---|
 | `tests/test_clean.py` | Nettoyage : HTML, dates, code postal, département, doublons, périmètre IDF | 14 |
 | `tests/test_filters.py` | Extraction JSON (fences, prose, clés inconnues) + prédicats de filtrage | 11 |
-| `tests/test_api.py` | Endpoints `/health` `/ask` `/rebuild` : succès, 422, 502, 409, garde par jeton | 8 |
+| `tests/test_api.py` | Endpoints `/health` `/metadata` `/ask` `/rebuild` : succès, 422, 502, 409, garde par jeton | 9 |
+| `tests/test_chain.py` | Chaîne RAG : récupération (+ repli plein-corpus), génération, format des réponses | 8 |
 | `tests/test_dash.py` | Rendu des messages / sources de l'interface | 7 |
+| `tests/test_build_index.py` | Vectorisation : batching d'embeddings, typage des codes, aller-retour index | 5 |
 | `tests/test_chunking.py` | En-tête de métadonnées + découpage des documents | 5 |
 | `tests/test_fetch.py` | Construction de la requête de collecte OpenAgenda | 5 |
 
@@ -577,7 +633,7 @@ un exemple de run figure ci-dessous :
 ### Ce qui fonctionne bien
 
 - **Pipeline reproductible** de bout en bout (collecte → nettoyage → index → API),
-  testé (50 tests) et reconstructible à chaud via `/rebuild` (permutation atomique).
+  testé (62 tests) et reconstructible à chaud via `/rebuild` (permutation atomique).
 - **Chaîne à deux appels** : le pré-filtrage par métadonnées resserre nettement la
   recherche tout en restant robuste grâce au repli plein-corpus.
 - **Réponses sourcées et honnêtes** : citations systématiques et refus explicite
@@ -640,10 +696,10 @@ un exemple de run figure ci-dessous :
 ├── interface/                # Interface de chat Dash (bonus) -> dash_app.py + assets/
 ├── evaluation/               # Évaluation Ragas : corpus.csv, testset.json,
 │                             #   generate_testset.py, _compat.py, results/ (gitignoré)
-├── tests/                    # 50 tests unitaires (pytest)
+├── tests/                    # 62 tests unitaires (pytest)
 ├── data/                     # Données collectées/nettoyées (gitignoré)
 ├── faiss_index/              # Index vectoriel persisté (gitignoré, régénérable)
-├── .github/workflows/        # CI : évaluation Ragas (workflow_dispatch)
+├── .github/workflows/        # CI : tests pytest (push/PR) + évaluation Ragas (workflow_dispatch)
 ├── evaluate_rag.py           # Harnais d'évaluation Ragas (+ porte CI --fail-under)
 ├── api_test.py               # Smoke test fonctionnel de l'API (appels réels)
 ├── pyproject.toml            # Dépendances et configuration (Poetry)
