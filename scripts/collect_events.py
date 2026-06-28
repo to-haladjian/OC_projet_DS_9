@@ -1,7 +1,9 @@
-"""CLI: collect Île-de-France events from OpenAgenda for the last year + upcoming.
+"""CLI: collect events from OpenAgenda for the last year + upcoming.
 
-Thin wrapper around :mod:`src.data.fetch_openagenda`. Writes the raw export to
-``data/openagenda_idf_events.csv`` (consumed next by ``scripts/clean_events.py``).
+Thin wrapper around :mod:`src.data.fetch_openagenda`. The OpenAgenda API has no
+department filter, so this downloads the whole Île-de-France dataset; the cleaning step
+(``scripts/clean_events.py``) narrows it to the POC scope (Hauts-de-Seine, 92). Writes
+the raw export to ``data/openagenda_92_events.csv``.
 
 Usage:
     python scripts/collect_events.py
@@ -49,7 +51,7 @@ def main() -> None:
     where = fetch.build_where(since)
 
     expected = fetch.count_events(where)
-    print(f"Collecting Île-de-France events with end date >= {since} ...")
+    print(f"Collecting OpenAgenda events with end date >= {since} ...")
     print(f"Matching events reported by the API: {expected}")
 
     fields = None if args.all_fields else fetch.DEFAULT_FIELDS
@@ -57,7 +59,7 @@ def main() -> None:
     print(f"Downloaded {len(events)} events.")
 
     args.outdir.mkdir(parents=True, exist_ok=True)
-    csv_path = args.outdir / "openagenda_idf_events.csv"
+    csv_path = args.outdir / "openagenda_92_events.csv"
 
     pd.DataFrame(events).to_csv(csv_path, index=False)
 

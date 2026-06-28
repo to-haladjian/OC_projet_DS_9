@@ -11,6 +11,8 @@ from __future__ import annotations
 import sys
 import types
 
+import langchain_community.llms as community_llms
+
 
 def apply() -> None:
     """Register stub ``langchain_community`` Vertex AI symbols (idempotent)."""
@@ -25,8 +27,6 @@ def apply() -> None:
         sys.modules[module_name] = stub
 
     # ``from langchain_community.llms import VertexAI`` also needs to resolve.
-    import langchain_community.llms as community_llms
-
     if not hasattr(community_llms, "VertexAI"):
         community_llms.VertexAI = sys.modules[module_name].ChatVertexAI
 

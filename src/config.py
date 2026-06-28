@@ -17,13 +17,14 @@ from dotenv import load_dotenv
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 DATA_DIR = PROJECT_ROOT / "data"
-RAW_CSV = DATA_DIR / "openagenda_idf_events.csv"
+RAW_CSV = DATA_DIR / "openagenda_92_events.csv"
 CLEAN_CSV = DATA_DIR / "events_clean.csv"
 FAISS_DIR = PROJECT_ROOT / "faiss_index"
 
-# Île-de-France department codes: Paris (75) + petite couronne (92/93/94) +
-# grande couronne (77/78/91/95). Used to keep only IDF events during cleaning.
-IDF_DEPARTMENT_CODES = frozenset({"75", "77", "78", "91", "92", "93", "94", "95"})
+# POC scope: Hauts-de-Seine only (INSEE department code 92). Used to keep only
+# Hauts-de-Seine events during cleaning. A frozenset so the ``.isin`` filter and a
+# future multi-department scope both stay one-line changes.
+TARGET_DEPARTMENT_CODES = frozenset({"92"})
 
 # Columns of the cleaned dataset (output of ``src.data.clean.clean``).
 SCHEMA_COLUMNS = [

@@ -4,7 +4,7 @@ Start the server first, then run this script:
 
     poetry run uvicorn src.api.main:app
     poetry run python scripts/api_test.py
-    poetry run python scripts/api_test.py --url http://localhost:8000 "Des expositions à Paris ?"
+    poetry run python scripts/api_test.py --url http://localhost:8000 "Des expositions à Vanves ?"
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ import argparse
 
 import httpx
 
-DEFAULT_QUESTION = "Quels concerts de jazz à Paris ce week-end ?"
+DEFAULT_QUESTION = "Quels concerts de jazz à Nanterre ce week-end ?"
 
 
 def main() -> None:

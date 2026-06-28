@@ -1,4 +1,4 @@
-"""Dash chat interface (bonus) for the Île-de-France events RAG.
+"""Dash chat interface (bonus) for the Hauts-de-Seine (92) events RAG.
 
 A thin demo client: it POSTs questions to the FastAPI ``/ask`` endpoint and renders the
 grounded answer with its cited sources. The conversation history lives client-side in a
@@ -80,13 +80,13 @@ def render_message(entry: dict):
     return html.Div(children, className="bubble assistant")
 
 
-app = Dash(__name__, title="RAG Événements Île-de-France")
+app = Dash(__name__, title="RAG Événements Hauts-de-Seine")
 server = app.server  # exposed for WSGI / containerized serving
 
 app.layout = html.Div(
     className="app",
     children=[
-        html.H1("Assistant — Événements culturels en Île-de-France"),
+        html.H1("Assistant — Événements culturels des Hauts-de-Seine"),
         html.P(
             "Posez une question en langage naturel ; les réponses sont fondées sur les "
             "événements indexés.",
@@ -102,7 +102,7 @@ app.layout = html.Div(
                 dcc.Input(
                     id="question",
                     type="text",
-                    placeholder="Ex. : Quels concerts à Paris ce week-end ?",
+                    placeholder="Ex. : Quels concerts à Nanterre ce week-end ?",
                     className="question-input",
                     n_submit=0,
                 ),

@@ -61,7 +61,7 @@ def test_output_has_exactly_the_schema_columns(cleaned):
 def test_html_is_stripped_in_description(cleaned):
     descriptions = cleaned["description"].tolist()
     assert all("<" not in d for d in descriptions)
-    assert "Un super concert à Paris" in descriptions
+    assert "Un super concert à Nanterre" in descriptions
 
 
 def test_dates_are_datetime_with_nat_for_missing(cleaned):
@@ -71,9 +71,9 @@ def test_dates_are_datetime_with_nat_for_missing(cleaned):
 
 
 def test_postalcode_and_department_are_normalized(cleaned):
-    paris = cleaned.loc[cleaned["id"] == "1"].iloc[0]
-    assert paris["postalcode"] == "75014"
-    assert paris["department"] == "75"
+    event = cleaned.loc[cleaned["id"] == "1"].iloc[0]
+    assert event["postalcode"] == "92000"
+    assert event["department"] == "92"
 
 
 def test_duplicate_id_collapses_to_newest(cleaned):
@@ -82,7 +82,7 @@ def test_duplicate_id_collapses_to_newest(cleaned):
     assert rows.iloc[0]["title"] == "Concert (mis à jour)"
 
 
-def test_non_idf_event_is_dropped(cleaned):
+def test_non_target_event_is_dropped(cleaned):
     assert "4" not in set(cleaned["id"])
 
 
@@ -92,7 +92,7 @@ def test_textless_event_is_dropped(cleaned):
 
 def test_department_recovered_from_name_when_no_postalcode(cleaned):
     festival = cleaned.loc[cleaned["id"] == "6"].iloc[0]
-    assert festival["department"] == "95"
+    assert festival["department"] == "92"
     assert pd.isna(festival["postalcode"])
 
 

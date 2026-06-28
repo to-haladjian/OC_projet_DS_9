@@ -18,16 +18,17 @@ import argparse
 import json
 import sys
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
+
+from langchain.chat_models import init_chat_model
 
 # Make ``src`` importable and register the ragas/langchain compatibility shim BEFORE any
 # ragas import happens.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import evaluation._compat  # noqa: E402,F401
 
-import pandas as pd  # noqa: E402
-from langchain.chat_models import init_chat_model  # noqa: E402
 from ragas import EvaluationDataset, evaluate  # noqa: E402
 from ragas.embeddings import LangchainEmbeddingsWrapper  # noqa: E402
 from ragas.llms import LangchainLLMWrapper  # noqa: E402
@@ -56,13 +57,33 @@ def load_testset(path: Path, sample: int | None) -> list[dict]:
     return entries[:sample] if sample else entries
 
 
+def _answer_with_retry(chain: RAGChain, question: str, max_retries: int = 6) -> dict:
+    """Call the chain, backing off on Mistral 429s.
+
+    Unlike the Ragas scoring phase (throttled via RunConfig), this loop fires 2 LLM calls
+    per question; over a large test set that bursts past Mistral's rate limit. Exponential
+    backoff keeps the whole test set runnable without dropping questions.
+    """
+    delay = 5.0
+    for attempt in range(max_retries + 1):
+        try:
+            return chain.answer(question, return_contexts=True)
+        except Exception as exc:  # noqa: BLE001 - retry only on rate limits
+            if "429" not in str(exc) or attempt == max_retries:
+                raise
+            print(f"      rate-limited, retrying in {delay:.0f}s ...")
+            time.sleep(delay)
+            delay = min(delay * 2, 90)
+    raise RuntimeError("unreachable")
+
+
 def run_chain(chain: RAGChain, entries: list[dict]) -> EvaluationDataset:
     """Run the RAG chain on each question, collecting Ragas-shaped samples."""
     samples = []
     for i, entry in enumerate(entries, 1):
         question = entry["question"]
         print(f"  [{i}/{len(entries)}] {question}")
-        result = chain.answer(question, return_contexts=True)
+        result = _answer_with_retry(chain, question)
         samples.append(
             {
                 "user_input": question,

@@ -1,146 +1,602 @@
 [
   {
-    "question": "Où et quand se produit le groupe Ayom ?",
-    "ground_truth": "Le groupe Ayom se produit à La CLEF, à Saint-Germain-en-Laye, le samedi 14 mars à 20h30 (en concert avec Djêu).",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Quelle animation autour du miel est organisée dans le Val-d'Oise ?",
-    "ground_truth": "Une animation et dégustation de miel gratuite a lieu au Carrefour d'Ermont (95120) les 3 et 4 octobre 2025, dans le cadre de l'Api'Week 2025.",
+    "question": "Quelles visites guidées de médiathèques sont proposées à Clamart ?",
+    "ground_truth": "À Clamart, une visite guidée de la Médiathèque La Buanderie est proposée le samedi 20 septembre 2025 à 15h00, sur inscription.",
     "category": "topic_location",
     "source": "curated"
   },
   {
-    "question": "Y a-t-il des ateliers gratuits pour les enfants à Saint-Ouen-sur-Seine ?",
-    "ground_truth": "Oui, « Les Mercredis des Possibles » propose des ateliers gratuits, artistiques et culturels pour les enfants tous les mercredis de 14h à 16h au Foyer (Mains d'Œuvres) à Saint-Ouen-sur-Seine.",
+    "question": "Y a-t-il des expositions à Fontenay-aux-Roses ?",
+    "ground_truth": "Oui : l'exposition de Pierre Olivier Kohler est présentée à la Médiathèque de Fontenay-aux-Roses, du 3 au 5 octobre 2025.",
     "category": "topic_location",
     "source": "curated"
   },
   {
-    "question": "Quels événements traitent de l'intelligence artificielle ?",
-    "ground_truth": "Une conférence « L'IA ou l'analphabétisme des images » au Château de Fontainebleau (7 juin 2025) et un webinaire gratuit « L'IA au service du BTP » à Fontenay-le-Fleury (25 juin 2025) traitent de l'intelligence artificielle.",
+    "question": "Quels spectacles de cirque ont lieu à Nanterre ?",
+    "ground_truth": "À Nanterre, des spectacles de cirque « Les Échappées Cirque » sont proposés dans plusieurs parcs de la ville durant l'été 2025 (entrée gratuite).",
+    "category": "topic_location",
+    "source": "curated"
+  },
+  {
+    "question": "Quels ateliers de jardinage sont organisés ?",
+    "ground_truth": "Un atelier bouturage est organisé au Jardin partagé Hoffmann à Bourg-la-Reine, le dimanche 30 août à 15h00.",
     "category": "topic",
     "source": "curated"
   },
   {
-    "question": "Quelle église peut-on visiter à Paris dans le cadre du patrimoine ?",
-    "ground_truth": "L'église Sainte-Odile (Paris 75017), classée au Patrimoine du XXe siècle et de style Art Déco, est ouverte en visite libre les 20 et 21 septembre 2025.",
-    "category": "factual_lookup",
+    "question": "Quels événements autour du cinéma sont proposés ?",
+    "ground_truth": "Le Ciné d'Issy à Issy-les-Moulineaux propose la projection de « La Vénus électrique », du 17 au 21 juin.",
+    "category": "topic",
     "source": "curated"
   },
   {
-    "question": "Quelle animation sur les jardins du Moyen Âge est proposée dans l'Essonne ?",
-    "ground_truth": "« Un jardin au Moyen-Âge » au Conservatoire National des Plantes à Milly-la-Forêt (91490), le 5 juillet 2025 : découverte du jardin des simples et repartez avec une tisane médiévale, à partir de 5 ans.",
-    "category": "topic_location",
-    "source": "curated"
-  },
-  {
-    "question": "Où est joué le spectacle des Fables de Marie de France ?",
-    "ground_truth": "Le spectacle musical « Fables, de Marie de France » est donné à l'Auditorium de Coulanges, à Gonesse (95500), les 24 et 25 novembre 2025.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Y a-t-il une balade à vélo organisée à Bois-Colombes ?",
-    "ground_truth": "Oui, un parcours à vélo dans les trois quartiers de Bois-Colombes est proposé les 20 et 21 septembre 2025 par l'association Mieux se déplacer à bicyclette, au départ du complexe sportif Smirlian.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Quel documentaire sur le Sénégal est projeté à Paris ?",
-    "ground_truth": "Le documentaire « Yandé Codou, la griotte de Senghor » (Angèle Diabang, 2008) est projeté gratuitement à la Fondation Lucien Paye, Paris 75014, le jeudi 26 mars à 19h00.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Quand a lieu le Forum Apprentissage du CFA de l'Université Paris-Saclay ?",
-    "ground_truth": "Le Forum Apprentissage du CFA de l'Université Paris-Saclay se tient les 10 et 11 juin 2025, en ligne (Faculté des sciences d'Orsay).",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Comment découvrir l'offre de formation de l'UPEC ?",
-    "ground_truth": "L'UPEC organise une journée portes ouvertes à Créteil (94010) le samedi 14 février à partir de 10h, ouverte à tous, pour découvrir son offre de formation et échanger avec les enseignants.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Quel atelier d'écriture autour de la rivière Bièvre est proposé à Fresnes ?",
-    "ground_truth": "L'atelier « Écrire la Bièvre » est proposé à l'Écomusée de Fresnes (94260) le samedi 20 septembre 2025 à 15h00, autour de la rivière de la source à l'embouchure.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Y a-t-il une soirée de projection de films à Mains d'Œuvres à Saint-Ouen ?",
-    "ground_truth": "Oui, « Down the Rabbit Hole », une soirée de projection de courts et moyens métrages du collectif Faux Plafond, a lieu à Mains d'Œuvres à Saint-Ouen-sur-Seine le vendredi 17 avril à 19h00.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Quels événements sont proposés dans les Yvelines ?",
-    "ground_truth": "Dans les Yvelines (78) figurent notamment le concert d'Ayom à La CLEF (Saint-Germain-en-Laye) le 14 mars, et un webinaire gratuit sur l'IA pour les artisans du BTP à Fontenay-le-Fleury le 25 juin 2025.",
+    "question": "Que peut-on faire à Issy-les-Moulineaux ?",
+    "ground_truth": "À Issy-les-Moulineaux, plusieurs événements sont proposés, par exemple la pièce « L'art de perdre » à l'Auditorium Niermayer, la projection « La Vénus électrique » au Ciné d'Issy, et un atelier « Habilitation Gravure laser » au Temps des Cerises.",
     "category": "location_multi",
     "source": "curated"
   },
   {
-    "question": "Existe-t-il une formation pour devenir second de cuisine ?",
-    "ground_truth": "Oui, SODEXO propose une formation (POEI) débouchant sur un CDI pour devenir Second de cuisine en restauration collective, présentée le mardi 14 avril à 10h00 (agence de Villeneuve-la-Garenne / Guyancourt).",
-    "category": "topic",
-    "source": "curated"
-  },
-  {
-    "question": "Quelles activités gratuites de dégustation sont proposées ?",
-    "ground_truth": "Une dégustation gratuite de miels est proposée au Carrefour d'Ermont (95) les 3 et 4 octobre 2025 dans le cadre de l'Api'Week.",
-    "category": "topic",
-    "source": "curated"
-  },
-  {
-    "question": "Quels concerts de musique du monde sont programmés ?",
-    "ground_truth": "Le groupe Ayom, ensemble afro-latin et brésilien mené par Jabu Morales, est en concert à La CLEF à Saint-Germain-en-Laye le 14 mars à 20h30.",
-    "category": "topic",
-    "source": "curated"
-  },
-  {
-    "question": "Quels événements ont lieu au Château de Fontainebleau ?",
-    "ground_truth": "La conférence « L'IA ou l'analphabétisme des images » se tient au Château de Fontainebleau (quartier Henri IV) le samedi 7 juin 2025 à 12h00.",
-    "category": "factual_lookup",
-    "source": "curated"
-  },
-  {
-    "question": "Y a-t-il des webinaires en ligne proposés ?",
-    "ground_truth": "Oui, un webinaire gratuit « L'IA au service du BTP » (ChatGPT et outils IA pour les artisans) a lieu en ligne le 25 juin 2025, et le Forum Apprentissage du CFA Paris-Saclay se tient en ligne les 10 et 11 juin 2025.",
-    "category": "topic",
-    "source": "curated"
-  },
-  {
-    "question": "Quelle activité famille autour des plantes est proposée en Essonne ?",
-    "ground_truth": "« Un jardin au Moyen-Âge » à Milly-la-Forêt (91490) le 5 juillet 2025 : découverte du jardin des simples et d'une tisane médiévale, en famille à partir de 5 ans.",
-    "category": "topic_location",
-    "source": "curated"
-  },
-  {
-    "question": "Y a-t-il un concert de Taylor Swift au Stade de France en décembre 2030 ?",
-    "ground_truth": "Non, aucun événement de ce type n'est mentionné dans les données disponibles.",
+    "question": "Y a-t-il des compétitions de ski alpin dans les Hauts-de-Seine ?",
+    "ground_truth": "Non, je n'ai pas trouvé d'événement correspondant à des compétitions de ski alpin dans les données.",
     "category": "edge_unknown",
     "source": "curated"
   },
   {
-    "question": "Quels festivals sont organisés à Marseille ?",
-    "ground_truth": "Aucun événement à Marseille n'est disponible : les données ne couvrent que l'Île-de-France.",
+    "question": "Quels événements sont prévus à Marseille ?",
+    "ground_truth": "Aucun événement à Marseille n'est disponible : les données ne couvrent que le département des Hauts-de-Seine (92).",
+    "category": "edge_unknown",
+    "source": "curated"
+  },
+  {
+    "question": "Où puis-je assister à un Grand Prix de Formule 1 dans les Hauts-de-Seine ?",
+    "ground_truth": "Aucun Grand Prix de Formule 1 n'est proposé : il n'y a pas d'événement de ce type dans les Hauts-de-Seine dans les données.",
     "category": "edge_outofscope",
     "source": "curated"
   },
   {
-    "question": "Où puis-je assister à un Grand Prix de Formule 1 en Île-de-France ?",
-    "ground_truth": "Aucun événement de Formule 1 n'est mentionné dans les données disponibles.",
-    "category": "edge_unknown",
-    "source": "curated"
+    "question": "Où et quand a lieu « Ateliers d'initiation aux techniques de la police scientifique » ?",
+    "ground_truth": "« Ateliers d'initiation aux techniques de la police scientifique » a lieu à Médiathèque La Buanderie à Clamart, Samedi 4 octobre 2025, 10h00.",
+    "category": "factual_lookup",
+    "source": "generated"
   },
   {
-    "question": "Quel spectacle s'inspire du matrimoine et du Moyen Âge dans le Val-d'Oise ?",
-    "ground_truth": "« Fables, de Marie de France », spectacle musical jeune public inspiré de la poétesse médiévale Marie de France, est donné à l'Auditorium de Coulanges à Gonesse (95500) les 24 et 25 novembre 2025.",
-    "category": "topic_location",
-    "source": "curated"
+    "question": "Dans quelle ville se déroule « Entrée des artistes » ?",
+    "ground_truth": "« Entrée des artistes » se déroule à Clichy (au lieu : Conservatoire Léo Delibes).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Visite libre du Pavillon des Indes » ?",
+    "ground_truth": "« Visite libre du Pavillon des Indes » a lieu : 20 et 21 septembre 2025 (à Le pavillon des Indes, Courbevoie).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Broderie royale » à Saint-Cloud ?",
+    "ground_truth": "« Broderie royale » se tient à Musée des Avelines, à Saint-Cloud, Samedi 20 septembre 2025, 15h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Voyage dans le temps à l’Hôtel de Ville de Boulogne-Billancourt » ?",
+    "ground_truth": "« Voyage dans le temps à l’Hôtel de Ville de Boulogne-Billancourt » a lieu à Hôtel de ville Boulogne-Billancourt à Boulogne-Billancourt, Dimanche 19 octobre 2025, 14h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Atelier calligrammes autour des animaux » ?",
+    "ground_truth": "« Atelier calligrammes autour des animaux » se déroule à Villeneuve-la-Garenne (au lieu : Bibliothèque Municipale Aimé-Césaire).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Nanterre fête la musique - Programme » ?",
+    "ground_truth": "« Nanterre fête la musique - Programme » a lieu : Dimanche 21 juin, 14h00 (à marché Pablo Picasso, Nanterre).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « MANAGER DE TRANSITION / Nouvelle vie pro ? gagnez en efficacité ! » à Courbevoie ?",
+    "ground_truth": "« MANAGER DE TRANSITION / Nouvelle vie pro ? gagnez en efficacité ! » se tient à Agence Courbevoie, à Courbevoie, Mercredi 8 avril, 10h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Visite de la Maison Marie Walewska » ?",
+    "ground_truth": "« Visite de la Maison Marie Walewska » a lieu à Maison Marie Walewska à Boulogne-Billancourt, Dimanche 19 octobre 2025, 16h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Célébrons les Producteurs de chez Nous au U EXPRESS RUEIL MALMAISON » ?",
+    "ground_truth": "« Célébrons les Producteurs de chez Nous au U EXPRESS RUEIL MALMAISON » se déroule à Rueil-Malmaison (au lieu : U Express RUEIL MALMAISON).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Visite guidée de l'église Saint-Hermeland » ?",
+    "ground_truth": "« Visite guidée de l'église Saint-Hermeland » a lieu : Samedi 20 septembre 2025, 18h30 (à Église Saint-Hermeland, Bagneux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « ASSEMBLEE » à Nanterre ?",
+    "ground_truth": "« ASSEMBLEE » se tient à Place de la cathédrale, Nanterre, à Nanterre, 7 juin - 6 juillet 2025.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Webinaire : 10 questions à se poser pour les futurs créateurs » ?",
+    "ground_truth": "« Webinaire : 10 questions à se poser pour les futurs créateurs » a lieu à Agence Courbevoie à Courbevoie, Mardi 2 juin, 14h30.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Café Flora avec l'autrice Isabelle Pandazopoulos » ?",
+    "ground_truth": "« Café Flora avec l'autrice Isabelle Pandazopoulos » se déroule à Nanterre (au lieu : Médiathèque Flora-Tristan).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Portes ouvertes au jardin pédagogique Jeanne Barret » ?",
+    "ground_truth": "« Portes ouvertes au jardin pédagogique Jeanne Barret » a lieu : Dimanche 7 juin, 10h00, 13h00 (à Jardin pédagogique Jeanne Barret, Châtillon).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Brumes - Version hors les murs » à Antony ?",
+    "ground_truth": "« Brumes - Version hors les murs » se tient à Lycée Descartes (Théâtre de Rungis - Tournée dans les lycées), à Antony, 4 et 5 décembre 2025.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Eglise de Meudon-la-Forêt » ?",
+    "ground_truth": "« Eglise de Meudon-la-Forêt » a lieu à Église du Saint-Esprit à Meudon, 19 et 20 septembre.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Visite temple Bouddhiste Tibétain » ?",
+    "ground_truth": "« Visite temple Bouddhiste Tibétain » se déroule à Levallois-Perret (au lieu : Centre Rigpa).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Exposition - Dessins manga par Cojeval » ?",
+    "ground_truth": "« Exposition - Dessins manga par Cojeval » a lieu : 11 avril - 3 mai (à Le Temps des Cerises, Issy-les-Moulineaux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Exposition : Shibori, l'indigo révélé » à Issy-les-Moulineaux ?",
+    "ground_truth": "« Exposition : Shibori, l'indigo révélé » se tient à Le Temps des Cerises, à Issy-les-Moulineaux, 5 décembre 2025 - 25 janvier 2026.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Visite éclair \"Dans l'intimité de la création\" » ?",
+    "ground_truth": "« Visite éclair \"Dans l'intimité de la création\" » a lieu à Musée Rodin - Meudon à Meudon, 20 et 21 septembre 2025.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Concert de la violoncelliste Thuy-Nhi Au-Quang » ?",
+    "ground_truth": "« Concert de la violoncelliste Thuy-Nhi Au-Quang » se déroule à Garches (au lieu : Fonds culturel de l’Ermitage).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Bourse aux vélos » ?",
+    "ground_truth": "« Bourse aux vélos » a lieu : Samedi 30 mai, 10h00 (à Grand' Place Boulogne Billancourt, Boulogne-Billancourt).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Les Soeurs Hilton » à Châtenay-Malabry ?",
+    "ground_truth": "« Les Soeurs Hilton » se tient à Theatre Firmin Gémier / La Piscine, à Châtenay-Malabry, 7 et 8 octobre 2025.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Visite du CFA BTP DE RUEIL-MALMAISON » ?",
+    "ground_truth": "« Visite du CFA BTP DE RUEIL-MALMAISON » a lieu à CFA BTP DE RUEIL-MALMAISON à Rueil-Malmaison, Jeudi 20 novembre 2025, 10h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Atelier réparation et entretien de vélo » ?",
+    "ground_truth": "« Atelier réparation et entretien de vélo » se déroule à Fontenay-aux-Roses (au lieu : Ecole municipale du vélo).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Atelier plantes méllifères » ?",
+    "ground_truth": "« Atelier plantes méllifères » a lieu : Samedi 8 août, 15h00 (à Agrocité de Genevilliers, Gennevilliers).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "L'entrée à « Navettes gratuites entre \"La Ferme\" et le \"Dépôt-Atelier\" » est-elle gratuite ?",
+    "ground_truth": "Oui, l'entrée à « Navettes gratuites entre \"La Ferme\" et le \"Dépôt-Atelier\" » (Chemin de Fer des Chanteraines, Villeneuve-la-Garenne) est gratuite.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « « La classe, l’œuvre ! » - Les coups de cœur des lycéens » ?",
+    "ground_truth": "« « La classe, l’œuvre ! » - Les coups de cœur des lycéens » a lieu à Musée des Avelines à Saint-Cloud, Samedi 23 mai, 19h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Un Emploi Pour Tous » ?",
+    "ground_truth": "« Un Emploi Pour Tous » se déroule à Nanterre (au lieu : Chambre de métiers et de l'artisanat IDF-92).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « \"The grand Budapest hotel\" Wes Anderson. 2014 » ?",
+    "ground_truth": "« \"The grand Budapest hotel\" Wes Anderson. 2014 » a lieu : Samedi 18 octobre 2025, 11h00 (à Cinéma Landowski - Salle Henri-Alekan, Boulogne-Billancourt).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Visite des réserves et quiz du patrimoine » à Sceaux ?",
+    "ground_truth": "« Visite des réserves et quiz du patrimoine » se tient à Bibliothèque municipale, à Sceaux, Samedi 20 septembre 2025, 11h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Atelier bouturage » ?",
+    "ground_truth": "« Atelier bouturage » a lieu à Jardin partagé Hoffmann à Bourg-la-Reine, Dimanche 30 août, 15h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Visites des installations pour les vélotaffeurs » ?",
+    "ground_truth": "« Visites des installations pour les vélotaffeurs » se déroule à Puteaux (au lieu : Tour Séquoia).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Open Zik - La scène ouverte de l'ECLA » ?",
+    "ground_truth": "« Open Zik - La scène ouverte de l'ECLA » a lieu : Vendredi 6 février, 20h00 (à Le Carré, Saint-Cloud).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Regards sur les arbres du parc du Vieux cimetière » à Courbevoie ?",
+    "ground_truth": "« Regards sur les arbres du parc du Vieux cimetière » se tient à Parc du Vieux cimetière, à Courbevoie, Samedi 6 juin, 10h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Bourse Fondation Siemens France - STEM'Pulse » ?",
+    "ground_truth": "« Bourse Fondation Siemens France - STEM'Pulse » a lieu à Siemens à Courbevoie, Vendredi 7 novembre 2025, 00h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Diaporama sur l'architecture du prieuré Sainte-Bathilde » ?",
+    "ground_truth": "« Diaporama sur l'architecture du prieuré Sainte-Bathilde » se déroule à Vanves (au lieu : Prieuré Sainte-Bathilde).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « MARNES-LA-COQUETTE : Faites le tri dans votre vie ! » ?",
+    "ground_truth": "« MARNES-LA-COQUETTE : Faites le tri dans votre vie ! » a lieu : Dimanche 14 septembre 2025, 10h00 (à Square Pasteur, Marnes-la-Coquette).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Les ateliers qui dépoussièrent les archives ! » à Nanterre ?",
+    "ground_truth": "« Les ateliers qui dépoussièrent les archives ! » se tient à 137 avenue Joliot Curie, 92000 NANTERRE, à Nanterre, Mercredi 10 juin, 10h00, 14h30.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon » ?",
+    "ground_truth": "« Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon » a lieu à Musée d'art et d'histoire à Meudon, Dimanche 7 juin, 15h00, 16h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Journée Portes Ouvertes » ?",
+    "ground_truth": "« Journée Portes Ouvertes » se déroule à Meudon (au lieu : Campus educatif et écologique saint philippe).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Concert intime avec Célestin chez Rémi à Courbevoie – 7 février 2026 » ?",
+    "ground_truth": "« Concert intime avec Célestin chez Rémi à Courbevoie – 7 février 2026 » a lieu : Samedi 7 février, 20h00 (à Apparemment C, Courbevoie).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « La forêt s'éveille sur les coteaux Meudon ! » à Meudon ?",
+    "ground_truth": "« La forêt s'éveille sur les coteaux Meudon ! » se tient à Place Henri Brousse, à Meudon, 22 mars 2024 - 28 mars 2026.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Jeu de briques, jeu de façade - Activité créative jeune public » ?",
+    "ground_truth": "« Jeu de briques, jeu de façade - Activité créative jeune public » a lieu à Le JAD Jardin des métiers d'Art et du Design à Sèvres, 20 et 21 septembre 2025.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Atelier Découverte des Métiers de l'Industrie » ?",
+    "ground_truth": "« Atelier Découverte des Métiers de l'Industrie » se déroule à Colombes (au lieu : Agence Colombes).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Habilitation Impression 3D » ?",
+    "ground_truth": "« Habilitation Impression 3D » a lieu : Samedi 20 septembre 2025, 14h30 (à Le Temps des Cerises, Issy-les-Moulineaux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Surnatural Orchestra / Clameurs » à Malakoff ?",
+    "ground_truth": "« Surnatural Orchestra / Clameurs » se tient à Theatre 71 Malakoff, à Malakoff, Jeudi 11 juin, 20h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Assadia recrute des alternants garde d'enfant à domicile (h/f) » ?",
+    "ground_truth": "« Assadia recrute des alternants garde d'enfant à domicile (h/f) » a lieu à Rueil-Malmaison - Agence Levallois-Perret à Rueil-Malmaison, Mardi 23 juin, 09h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « \"Corps et bâti\" : Atelier Construction » ?",
+    "ground_truth": "« \"Corps et bâti\" : Atelier Construction » se déroule à Bourg-la-Reine (au lieu : Villa Saint-Cyr).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Fontenay-aux-Roses au-delà des clichés » ?",
+    "ground_truth": "« Fontenay-aux-Roses au-delà des clichés » a lieu : 5 - 27 septembre (à Médiathèque de Fontenay-aux-Roses, Fontenay-aux-Roses).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "L'entrée à « À la découverte du jardin pédagogique de l'île de la Jatte » est-elle gratuite ?",
+    "ground_truth": "Oui, l'entrée à « À la découverte du jardin pédagogique de l'île de la Jatte » (Parc de la Jatte, Levallois-Perret) est gratuite.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Action collective » ?",
+    "ground_truth": "« Action collective » a lieu à Musée Albert-Kahn à Boulogne-Billancourt, Mercredi 24 juin, 14h30.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Les Échappées Cirque - Boule Champs Pierreux » ?",
+    "ground_truth": "« Les Échappées Cirque - Boule Champs Pierreux » se déroule à Nanterre (au lieu : Boule Champs Pierreux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Paul Landowski dans le roman « Les Sept sœurs » de Lucinda Riley » ?",
+    "ground_truth": "« Paul Landowski dans le roman « Les Sept sœurs » de Lucinda Riley » a lieu : Samedi 23 mai, 21h00 (à Musée des années trente, médiathèque et cinéma Paul Landowski, Boulogne-Billancourt).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Voyage au Château de Versailles à la cour du Roi-Soleil » à Issy-les-Moulineaux ?",
+    "ground_truth": "« Voyage au Château de Versailles à la cour du Roi-Soleil » se tient à Le Temps des Cerises, à Issy-les-Moulineaux, Samedi 20 septembre 2025, 15h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Ciné Bout'Chou : La grande rêvasion » ?",
+    "ground_truth": "« Ciné Bout'Chou : La grande rêvasion » a lieu à Ciné d'Issy à Issy-les-Moulineaux, Dimanche 28 juin, 11h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Atelier jeux autour des animaux » ?",
+    "ground_truth": "« Atelier jeux autour des animaux » se déroule à Villeneuve-la-Garenne (au lieu : Bibliothèque Municipale Aimé-Césaire).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Les Petites Bêtes et la Nature, Contes avec Creativ'Envol » ?",
+    "ground_truth": "« Les Petites Bêtes et la Nature, Contes avec Creativ'Envol » a lieu : 27 juin et 29 août (à Le Jardin des voisins, Sceaux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Lire les yeux fermés » à Boulogne-Billancourt ?",
+    "ground_truth": "« Lire les yeux fermés » se tient à Musée Paul Belmondo, à Boulogne-Billancourt, Dimanche 7 juin, 16h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Permanence IAE ESSOR » ?",
+    "ground_truth": "« Permanence IAE ESSOR » a lieu à Agence Courbevoie à Courbevoie, Vendredi 26 juin, 11h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Semaine RSA - Seine Ouest accompagne les Créateurs d'entreprise » ?",
+    "ground_truth": "« Semaine RSA - Seine Ouest accompagne les Créateurs d'entreprise » se déroule à Boulogne-Billancourt (au lieu : Boulogne-Billancourt - Agence Issy-les-Moulineaux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Création laser 8-11 ans » ?",
+    "ground_truth": "« Création laser 8-11 ans » a lieu : Samedi 18 octobre 2025, 14h30 (à Le Temps des Cerises, Issy-les-Moulineaux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "L'entrée à « Diaporama et sortie » est-elle gratuite ?",
+    "ground_truth": "Oui, l'entrée à « Diaporama et sortie » (La Coulée Verte de Colombes, Colombes) est gratuite.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Micro-visite : présentation de la maquette du pavillon Turc » ?",
+    "ground_truth": "« Micro-visite : présentation de la maquette du pavillon Turc » a lieu à Musée historique - Domaine national de Saint-Cloud à Saint-Cloud, Samedi 20 septembre 2025, 14h30.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « REUNION DE PRESENTATION OFFRE DE SERVICE APEC » ?",
+    "ground_truth": "« REUNION DE PRESENTATION OFFRE DE SERVICE APEC » se déroule à Puteaux (au lieu : Puteaux - Agence Les Mureaux).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Visite de la faculté de Malakoff » ?",
+    "ground_truth": "« Visite de la faculté de Malakoff » a lieu : Samedi 19 septembre, 14h00, 15h00, 16h00, 17h00 (à Faculté de Malakoff, Malakoff).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "L'entrée à « Fête du Poussin Masqué » est-elle gratuite ?",
+    "ground_truth": "Oui, l'entrée à « Fête du Poussin Masqué » (La Petite Bibliothèque Ronde, Clamart) est gratuite.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Circuit \"Les Moulineaux\" » ?",
+    "ground_truth": "« Circuit \"Les Moulineaux\" » a lieu à Chemin des Vignes à Issy-les-Moulineaux, Samedi 20 septembre 2025, 11h30.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Concert pop avec Pier di Gia chez Rémi à Courbevoie – 20 juin 2026 » ?",
+    "ground_truth": "« Concert pop avec Pier di Gia chez Rémi à Courbevoie – 20 juin 2026 » se déroule à Courbevoie (au lieu : Apparemment C).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « La Gendarmerie recrute » ?",
+    "ground_truth": "« La Gendarmerie recrute » a lieu : Lundi 15 décembre 2025, 14h00 (à Agence Colombes, Colombes).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Radio Daisy » à Nanterre ?",
+    "ground_truth": "« Radio Daisy » se tient à Maison de la Musique de Nanterre, à Nanterre, Samedi 20 septembre 2025, 14h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Jeunesses méditerranéennes et mobilités » ?",
+    "ground_truth": "« Jeunesses méditerranéennes et mobilités » a lieu à La Contemporaine. Bibliothèque, archives, musée des mondes contemporains à Nanterre, 12 et 13 octobre.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Visite libre de la maison des Jardies » ?",
+    "ground_truth": "« Visite libre de la maison des Jardies » se déroule à Sèvres (au lieu : Maison des Jardies).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Visite jeu de piste » ?",
+    "ground_truth": "« Visite jeu de piste » a lieu : Samedi 19 septembre, 10h00 (à Théâtre de Suresnes Jean Vilar, Suresnes).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « JE ME SOUVIENS DE LA TERRE » à Châtenay-Malabry ?",
+    "ground_truth": "« JE ME SOUVIENS DE LA TERRE » se tient à Theatre Firmin Gémier / La Piscine, à Châtenay-Malabry, 10 et 11 mars.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Sortie à l'Arboretum de Châtenay-Malabry » ?",
+    "ground_truth": "« Sortie à l'Arboretum de Châtenay-Malabry » a lieu à La Petite Bibliothèque Ronde à Clamart, Vendredi 25 juillet 2025, 15h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Visite de l'entreprise Sprint » ?",
+    "ground_truth": "« Visite de l'entreprise Sprint » se déroule à Gennevilliers (au lieu : Imprimerie Sprint).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Job Dating : Gestionnaires successions assurances » ?",
+    "ground_truth": "« Job Dating : Gestionnaires successions assurances » a lieu : Jeudi 25 juin, 09h00 (à Agence Courbevoie, Courbevoie).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Journée Porte Ouverte » à Boulogne-Billancourt ?",
+    "ground_truth": "« Journée Porte Ouverte » se tient à Association des Jardins Familiaux du Pont de Sèvres, à Boulogne-Billancourt, Dimanche 28 juin, 10h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Festival photographique \"Mondes en commun\" » ?",
+    "ground_truth": "« Festival photographique \"Mondes en commun\" » a lieu à Musée départemental Albert-Kahn à Boulogne-Billancourt, Samedi 23 mai, 15h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Atelier créatif : \"Voyage Graphique\" » ?",
+    "ground_truth": "« Atelier créatif : \"Voyage Graphique\" » se déroule à Boulogne-Billancourt (au lieu : Pavillon des projets).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Maison d'église Saint-François-de-Sales / Maison des familles du 92 » ?",
+    "ground_truth": "« Maison d'église Saint-François-de-Sales / Maison des familles du 92 » a lieu : Samedi 20 septembre 2025, 11h00, 15h00 (à Maison d'église Saint-François-de-Sales, Boulogne-Billancourt).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Visite libre du Séminaire de Saint-Sulpice » à Issy-les-Moulineaux ?",
+    "ground_truth": "« Visite libre du Séminaire de Saint-Sulpice » se tient à Séminaire de Saint-Sulpice, à Issy-les-Moulineaux, Samedi 20 septembre 2025, 10h00, 14h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Contes kamishibaï au jardin japonais » ?",
+    "ground_truth": "« Contes kamishibaï au jardin japonais » a lieu à Le Temps des Cerises à Issy-les-Moulineaux, Dimanche 29 juin 2025, 11h15.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Concert Trio Tasis « …Porque sí » » ?",
+    "ground_truth": "« Concert Trio Tasis « …Porque sí » » se déroule à Clamart (au lieu : Conservatoire de Châtillon).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Forum Industrie verte Groupe BALAS » ?",
+    "ground_truth": "« Forum Industrie verte Groupe BALAS » a lieu : Jeudi 27 novembre 2025, 14h00 (à GROUPE BALAS, Gennevilliers).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quel lieu se tient « Pause thé au musée ! » à Colombes ?",
+    "ground_truth": "« Pause thé au musée ! » se tient à Musée d'art et d'histoire de Colombes, à Colombes, Samedi 20 septembre 2025, 14h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Où et quand a lieu « Ciné-Rebelle Masterclass » ?",
+    "ground_truth": "« Ciné-Rebelle Masterclass » a lieu à Les Lumières à Nanterre, Jeudi 26 mars, 18h00.",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Dans quelle ville se déroule « Découvrir la Méthode de Recrutement par Simulation (sans CV) » ?",
+    "ground_truth": "« Découvrir la Méthode de Recrutement par Simulation (sans CV) » se déroule à Courbevoie (au lieu : Agence Courbevoie).",
+    "category": "factual_lookup",
+    "source": "generated"
+  },
+  {
+    "question": "Quand a lieu « Réalité Virtuelle » ?",
+    "ground_truth": "« Réalité Virtuelle » a lieu : Dimanche 19 avril, 14h30, 15h30, 16h30, 17h30 (à Le Temps des Cerises, Issy-les-Moulineaux).",
+    "category": "factual_lookup",
+    "source": "generated"
   }
 ]

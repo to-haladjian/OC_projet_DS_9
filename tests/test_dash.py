@@ -51,25 +51,25 @@ def test_ask_api_returns_error_on_network_failure(monkeypatch):
 # --- render_message ---
 
 def test_render_user_message_shows_question():
-    comp = render_message({"role": "user", "content": "Concerts à Paris ?"})
-    assert "Concerts à Paris ?" in _texts(comp)
+    comp = render_message({"role": "user", "content": "Concerts à Nanterre ?"})
+    assert "Concerts à Nanterre ?" in _texts(comp)
 
 
 def test_render_assistant_message_shows_answer_filters_and_sources():
     entry = {
         "role": "assistant",
-        "content": "Un concert a lieu à Paris.",
-        "filters": {"city": "Paris"},
+        "content": "Un concert a lieu à Nanterre.",
+        "filters": {"city": "Nanterre"},
         "sources": [
-            {"title": "Concert Fishers", "venue": "Le Gymnase", "city": "Paris",
+            {"title": "Concert Fishers", "venue": "Le Gymnase", "city": "Nanterre",
              "daterange": "21 juin", "url": "https://example.com/e/1"}
         ],
     }
     text = _texts(render_message(entry))
-    assert "Un concert a lieu à Paris." in text
+    assert "Un concert a lieu à Nanterre." in text
     assert "Concert Fishers" in text
     assert "https://example.com/e/1" in text
-    assert "city = Paris" in text
+    assert "city = Nanterre" in text
 
 
 def test_render_error_message():

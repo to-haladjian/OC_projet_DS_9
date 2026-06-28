@@ -1,12 +1,12 @@
-"""CLI: answer a question about Île-de-France events using the RAG chain.
+"""CLI: answer a question about Hauts-de-Seine (92) events using the RAG chain.
 
 Thin wrapper around :class:`src.rag.chain.RAGChain` — the two-call pipeline (filter
 extraction -> metadata-filtered FAISS retrieval -> grounded generation). Requires the
 FAISS index built by ``scripts/build_vector_store.py``.
 
 Usage:
-    python scripts/rag_query.py "Quels concerts de jazz à Paris ce week-end ?"
-    python scripts/rag_query.py --k 8 "Des expositions en Seine-Saint-Denis ?"
+    python scripts/rag_query.py "Quels concerts de jazz à Nanterre ce week-end ?"
+    python scripts/rag_query.py --k 8 "Des expositions à Boulogne-Billancourt ?"
 """
 
 from __future__ import annotations

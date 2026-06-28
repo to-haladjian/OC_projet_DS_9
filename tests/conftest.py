@@ -1,9 +1,9 @@
 """Shared fixtures for the data-pipeline tests.
 
 ``raw_events`` is a tiny in-memory stand-in for the OpenAgenda export, crafted to exercise
-every cleaning edge case: HTML descriptions, a duplicate id, a missing-date event, a
-non-IDF event, a text-less event, and an event whose IDF department must be recovered from
-its free-text name (no postal code).
+every cleaning edge case: HTML descriptions, a duplicate id, a missing-date event, an
+out-of-scope (non-92) event, a text-less event, and an event whose Hauts-de-Seine
+department must be recovered from its free-text name (no postal code).
 """
 
 from __future__ import annotations
@@ -29,9 +29,9 @@ _RAW_COLUMNS = {
     "lastdate_end": "2026-02-15T15:00:00+00:00",
     "location_name": "Salle",
     "location_address": "1 rue X",
-    "location_postalcode": 75014.0,
-    "location_city": "Paris",
-    "location_department": "Paris",
+    "location_postalcode": 92000.0,
+    "location_city": "Nanterre",
+    "location_department": "Hauts-de-Seine",
     "location_region": "Île-de-France",
     "location_coordinates": "{'lon': 2.3, 'lat': 48.8}",
     "age_min": None,
@@ -50,32 +50,33 @@ def _row(**overrides) -> dict:
 def raw_events() -> pd.DataFrame:
     return pd.DataFrame(
         [
-            # 1. Normal Paris event, HTML body + entity, oldest update of id "1".
+            # 1. Normal Hauts-de-Seine event, HTML body + entity, oldest update of id "1".
             _row(
                 uid="1",
                 title_fr="Concert &amp; Jazz",
-                longdescription_fr="<p>Un <b>super</b> concert &agrave; Paris</p>",
-                location_postalcode=75014.0,
-                location_department="Paris",
+                longdescription_fr="<p>Un <b>super</b> concert &agrave; Nanterre</p>",
+                location_postalcode=92000.0,
+                location_department="Hauts-de-Seine",
                 updatedat="2026-01-01T00:00:00+00:00",
             ),
             # 2. Duplicate id "1" but newer -> dedup keeps this row (title + body).
             _row(
                 uid="1",
                 title_fr="Concert (mis à jour)",
-                longdescription_fr="<p>Un <b>super</b> concert &agrave; Paris</p>",
-                location_postalcode=75014.0,
+                longdescription_fr="<p>Un <b>super</b> concert &agrave; Nanterre</p>",
+                location_postalcode=92000.0,
                 updatedat="2026-03-01T00:00:00+00:00",
             ),
-            # 3. Missing start date, valid Seine-Saint-Denis event -> kept, date_start NaT.
+            # 3. Missing start date, valid Hauts-de-Seine event -> kept, date_start NaT.
             _row(
                 uid="3",
                 title_fr="Expo",
                 firstdate_begin=None,
-                location_postalcode=93100.0,
-                location_department="Seine-Saint-Denis",
+                location_postalcode=92100.0,
+                location_city="Boulogne-Billancourt",
+                location_department="Hauts-de-Seine",
             ),
-            # 4. Non-IDF (Lyon) -> dropped.
+            # 4. Out-of-scope (Lyon, non-92) -> dropped.
             _row(
                 uid="4",
                 title_fr="Évènement Lyon",
@@ -89,14 +90,15 @@ def raw_events() -> pd.DataFrame:
                 title_fr=None,
                 description_fr=None,
                 longdescription_fr=None,
-                location_postalcode=75001.0,
+                location_postalcode=92001.0,
             ),
-            # 6. No postal code, IDF department recovered from name variant -> kept as 95.
+            # 6. No postal code, department recovered from name variant -> kept as 92.
             _row(
                 uid="6",
                 title_fr="Festival",
                 location_postalcode=None,
-                location_department="Val-D'Oise",
+                location_city="Antony",
+                location_department="Hauts-de-Seine",
             ),
         ]
     )

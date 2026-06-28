@@ -13,7 +13,7 @@ help: ## Affiche les cibles disponibles
 install: ## Installe les dépendances (Poetry)
 	poetry install
 
-collect: ## Étape 1 — collecte des événements OpenAgenda -> data/openagenda_idf_events.csv
+collect: ## Étape 1 — collecte des événements OpenAgenda -> data/openagenda_92_events.csv
 	poetry run python scripts/collect_events.py
 
 clean: ## Étape 2 — nettoyage -> data/events_clean.csv
@@ -30,7 +30,7 @@ api: ## Lance l'API REST FastAPI (Swagger sur /docs) -> http://localhost:8000
 ui: ## Lance l'interface de chat Dash -> http://localhost:8050
 	poetry run python interface/dash_app.py
 
-query: ## Interroge le RAG en CLI : make query q="Quels concerts à Paris ?"
+query: ## Interroge le RAG en CLI : make query q="Quels concerts à Nanterre ?"
 	poetry run python scripts/rag_query.py "$(q)"
 
 test: ## Lance les tests unitaires (hors ligne, sans clé API)

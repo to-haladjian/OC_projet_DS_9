@@ -1,8 +1,9 @@
 """Call 1 of the RAG chain: extract structured filters and turn them into a predicate.
 
 The LLM is asked (via :data:`FILTER_EXTRACTION_PROMPT`) for a small JSON object describing
-the city / department / date window mentioned in the question. ``extract_filters`` parses
-that defensively, and ``build_metadata_filter`` compiles it into a callable used by
+the city / date window mentioned in the question (the whole corpus is one department, so
+there is no department filter). ``extract_filters`` parses that defensively, and
+``build_metadata_filter`` compiles it into a callable used by
 ``FAISS.similarity_search(filter=...)`` to pre-filter retrieval on Document metadata.
 """
 
@@ -16,7 +17,7 @@ from typing import Callable
 from src.rag.prompts import FILTER_EXTRACTION_PROMPT
 
 # Keys we accept from the model; anything else is ignored.
-_FILTER_KEYS = ("city", "department", "date_from", "date_to")
+_FILTER_KEYS = ("city", "date_from", "date_to")
 
 _FENCE_OPEN = re.compile(r"^```(?:json)?\s*", re.IGNORECASE)
 _FENCE_CLOSE = re.compile(r"\s*```$")
@@ -100,13 +101,10 @@ def build_metadata_filter(filters: dict) -> Callable[[dict], bool] | None:
         return None
 
     city = filters.get("city")
-    department = filters.get("department")
     date_from = _parse_date(filters.get("date_from"))
     date_to = _parse_date(filters.get("date_to"))
 
     def predicate(metadata: dict) -> bool:
-        if department and str(metadata.get("department", "")) != department:
-            return False
         if city and str(metadata.get("city", "")).casefold() != city.casefold():
             return False
         if date_from or date_to:

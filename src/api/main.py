@@ -39,8 +39,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="RAG Événements Culturels Île-de-France",
-    description="API de questions-réponses sur les événements culturels d'Île-de-France.",
+    title="RAG Événements Culturels Hauts-de-Seine",
+    description="API de questions-réponses sur les événements culturels des Hauts-de-Seine (92).",
     version="1.0.0",
     lifespan=lifespan,
 )

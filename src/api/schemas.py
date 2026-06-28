@@ -8,12 +8,12 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class AskRequest(BaseModel):
-    """A natural-language question about Île-de-France events."""
+    """A natural-language question about Hauts-de-Seine (92) events."""
 
     question: str = Field(
         ...,
         min_length=1,
-        examples=["Quels concerts de jazz à Paris ce week-end ?"],
+        examples=["Quels concerts de jazz à Nanterre ce week-end ?"],
     )
 
     @field_validator("question")
@@ -44,7 +44,7 @@ class MetadataResponse(BaseModel):
     events: int = Field(..., description="Distinct events indexed (deduplicated by id).")
     cities: int = Field(..., description="Number of distinct cities.")
     departments: dict[str, int] = Field(
-        ..., description="Event count per Île-de-France department code."
+        ..., description="Event count per department code (Hauts-de-Seine = 92)."
     )
     date_range: dict[str, str | None] = Field(
         ...,

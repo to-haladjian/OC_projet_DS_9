@@ -52,11 +52,11 @@ def _chain(store=None, gen_llm=None, k=6) -> RAGChain:
 # --- format_docs ---
 
 def test_format_docs_serializes_source_and_content():
-    docs = [Document(page_content="Concert", metadata={"id": "1", "city": "Paris"})]
+    docs = [Document(page_content="Concert", metadata={"id": "1", "city": "Nanterre"})]
     block = format_docs(docs)
     assert "Source:" in block
     assert "Contenu: Concert" in block
-    assert "Paris" in block
+    assert "Nanterre" in block
 
 
 # --- _retrieve ---
@@ -66,7 +66,7 @@ def test_retrieve_returns_filtered_hits_when_predicate_matches():
     store = _FakeStore(filtered=filtered, unfiltered=[Document(page_content="B", metadata={"id": "b"})])
     chain = _chain(store=store)
 
-    docs = chain._retrieve("question", {"department": "75"})
+    docs = chain._retrieve("question", {"city": "Nanterre"})
     assert [d.metadata["id"] for d in docs] == ["a"]
     assert len(store.calls) == 1
     assert store.calls[0]["filter"] is not None  # pre-filter applied
@@ -77,7 +77,7 @@ def test_retrieve_falls_back_to_full_corpus_on_zero_filtered_hits():
     store = _FakeStore(filtered=[], unfiltered=fallback)
     chain = _chain(store=store)
 
-    docs = chain._retrieve("question", {"department": "75"})
+    docs = chain._retrieve("question", {"city": "Nanterre"})
     assert [d.metadata["id"] for d in docs] == ["b"]
     # Two calls: pre-filtered (empty) then full-corpus fallback (filter=None).
     assert len(store.calls) == 2
@@ -109,14 +109,14 @@ def test_generate_invokes_llm_and_returns_content():
 # --- answer ---
 
 def test_answer_returns_answer_filters_and_sources(monkeypatch):
-    monkeypatch.setattr(chain_mod, "extract_filters", lambda q, llm, today: {"city": "Paris"})
+    monkeypatch.setattr(chain_mod, "extract_filters", lambda q, llm, today: {"city": "Nanterre"})
     docs = [Document(page_content="Concert", metadata={"id": "1", "title": "Jazz"})]
     store = _FakeStore(filtered=docs, unfiltered=docs)
     chain = _chain(store=store, gen_llm=_FakeLLM("Réponse ancrée."))
 
-    result = chain.answer("Concerts à Paris ?")
+    result = chain.answer("Concerts à Nanterre ?")
     assert result["answer"] == "Réponse ancrée."
-    assert result["filters"] == {"city": "Paris"}
+    assert result["filters"] == {"city": "Nanterre"}
     assert result["sources"] == [{"id": "1", "title": "Jazz"}]
     assert "contexts" not in result
 

@@ -56,13 +56,13 @@ def test_embed_and_index_indexes_every_document_across_batches():
 def test_load_events_keeps_location_codes_as_strings(tmp_path):
     csv_path = tmp_path / "events_clean.csv"
     pd.DataFrame(
-        [{"id": "1", "postalcode": "75014", "department": "75", "description": "x"}]
+        [{"id": "1", "postalcode": "92000", "department": "92", "description": "x"}]
     ).to_csv(csv_path, index=False)
 
     df = bi.load_events(csv_path)
     assert df["postalcode"].dtype == "string"
     assert df["department"].dtype == "string"
-    assert df.loc[0, "postalcode"] == "75014"
+    assert df.loc[0, "postalcode"] == "92000"
 
 
 def test_build_index_round_trips_through_disk(tmp_path, monkeypatch):
@@ -70,7 +70,7 @@ def test_build_index_round_trips_through_disk(tmp_path, monkeypatch):
     csv_path = tmp_path / "events_clean.csv"
     pd.DataFrame(
         [
-            {"id": "1", "title": "Concert", "description": "Un concert de jazz à Paris."},
+            {"id": "1", "title": "Concert", "description": "Un concert de jazz à Nanterre."},
             {"id": "2", "title": "Expo", "description": "Une exposition d'art moderne."},
         ]
     ).to_csv(csv_path, index=False)

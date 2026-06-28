@@ -14,17 +14,17 @@ def event_row() -> dict:
     return {
         "id": "1",
         "title": "Concert de Jazz",
-        "description": "Un super concert au coeur de Paris.",
+        "description": "Un super concert au coeur de Nanterre.",
         "summary": "Concert",
         "date_start": "2026-02-15T14:00:00+00:00",
         "date_end": "2026-02-15T15:00:00+00:00",
         "daterange": "Dimanche 15 février, 15h00",
-        "venue": "Salle Pleyel",
-        "address": "252 rue du Faubourg",
-        "city": "Paris",
-        "postalcode": "75008",
-        "department": "75",
-        "coordinates": "{'lon': 2.3, 'lat': 48.8}",
+        "venue": "La Seine Musicale",
+        "address": "1 île Seguin",
+        "city": "Boulogne-Billancourt",
+        "postalcode": "92100",
+        "department": "92",
+        "coordinates": "{'lon': 2.2, 'lat': 48.8}",
         "keywords": "Jazz",
         "conditions": "Tarif unique : 10€",
         "url": "https://openagenda.com/e/1",
@@ -37,16 +37,16 @@ def test_header_prepends_title_date_and_venue(event_row):
     header = doc.page_content.split("\n\n", 1)[0]
     assert "Titre: Concert de Jazz" in header
     assert "Date: Dimanche 15 février, 15h00" in header
-    assert "Lieu: Salle Pleyel, Paris (75008)" in header
+    assert "Lieu: La Seine Musicale, Boulogne-Billancourt (92100)" in header
     # The body follows the header.
-    assert doc.page_content.endswith("Un super concert au coeur de Paris.")
+    assert doc.page_content.endswith("Un super concert au coeur de Nanterre.")
 
 
 def test_metadata_limited_to_configured_fields(event_row):
     doc = build_event_document(event_row)
     assert set(doc.metadata).issubset(set(config.METADATA_FIELDS))
-    assert doc.metadata["department"] == "75"
-    assert doc.metadata["city"] == "Paris"
+    assert doc.metadata["department"] == "92"
+    assert doc.metadata["city"] == "Boulogne-Billancourt"
     # Non-metadata columns (e.g. conditions, coordinates) are not leaked into metadata.
     assert "conditions" not in doc.metadata
 
@@ -58,7 +58,7 @@ def test_missing_header_fields_are_skipped(event_row):
     doc = build_event_document(event_row)
     header = doc.page_content.split("\n\n", 1)[0]
     assert "Date:" not in header
-    assert "Lieu: Paris" in header  # city alone still renders
+    assert "Lieu: Boulogne-Billancourt" in header  # city alone still renders
 
 
 def test_build_documents_drops_events_without_description(event_row):

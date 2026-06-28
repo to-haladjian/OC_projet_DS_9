@@ -31,8 +31,8 @@ class _FakeChain:
     def answer(self, question: str) -> dict:
         return {
             "answer": f"Réponse à : {question}",
-            "filters": {"city": "Paris"},
-            "sources": [{"title": "Concert", "city": "Paris"}],
+            "filters": {"city": "Nanterre"},
+            "sources": [{"title": "Concert", "city": "Nanterre"}],
         }
 
     def reload(self) -> None:
@@ -71,15 +71,15 @@ def test_metadata_aggregates_corpus_stats(client):
     # Two chunks of event "1" (must be deduplicated) plus event "2".
     docs = {
         "k1": Document(page_content="...", metadata={
-            "id": "1", "city": "Paris", "department": "75",
+            "id": "1", "city": "Nanterre", "department": "92",
             "date_start": "2026-06-01T20:00:00+00:00",
             "date_end": "2026-06-01T23:00:00+00:00"}),
         "k2": Document(page_content="...", metadata={
-            "id": "1", "city": "Paris", "department": "75",
+            "id": "1", "city": "Nanterre", "department": "92",
             "date_start": "2026-06-01T20:00:00+00:00",
             "date_end": "2026-06-01T23:00:00+00:00"}),
         "k3": Document(page_content="...", metadata={
-            "id": "2", "city": "Montreuil", "department": "93",
+            "id": "2", "city": "Boulogne-Billancourt", "department": "92",
             "date_start": "2026-07-15T10:00:00+00:00",
             "date_end": "2026-07-16T18:00:00+00:00"}),
     }
@@ -92,19 +92,19 @@ def test_metadata_aggregates_corpus_stats(client):
     body = resp.json()
     assert body["events"] == 2  # deduplicated by id
     assert body["cities"] == 2
-    assert body["departments"] == {"75": 1, "93": 1}
+    assert body["departments"] == {"92": 2}
     assert body["date_range"] == {"from": "2026-06-01", "to": "2026-07-16"}
 
 
 # --- /ask ---
 
 def test_ask_returns_answer_filters_and_sources(client):
-    resp = client.post("/ask", json={"question": "Concerts à Paris ?"})
+    resp = client.post("/ask", json={"question": "Concerts à Nanterre ?"})
     assert resp.status_code == 200
     body = resp.json()
-    assert body["answer"] == "Réponse à : Concerts à Paris ?"
-    assert body["filters"] == {"city": "Paris"}
-    assert body["sources"] == [{"title": "Concert", "city": "Paris"}]
+    assert body["answer"] == "Réponse à : Concerts à Nanterre ?"
+    assert body["filters"] == {"city": "Nanterre"}
+    assert body["sources"] == [{"title": "Concert", "city": "Nanterre"}]
 
 
 def test_ask_rejects_blank_question(client):

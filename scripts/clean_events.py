@@ -6,7 +6,7 @@ indexing). Prints a before/after row count and a per-column missing-values repor
 
 Usage:
     python scripts/clean_events.py
-    python scripts/clean_events.py --csv data/openagenda_idf_events.csv --out data/events_clean.csv
+    python scripts/clean_events.py --csv data/openagenda_92_events.csv --out data/events_clean.csv
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ def main() -> None:
         "--csv",
         type=Path,
         default=config.RAW_CSV,
-        help="Path to the raw events CSV (default: <project>/data/openagenda_idf_events.csv).",
+        help="Path to the raw events CSV (default: <project>/data/openagenda_92_events.csv).",
     )
     parser.add_argument(
         "--out",
