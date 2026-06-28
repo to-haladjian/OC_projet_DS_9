@@ -30,7 +30,7 @@ poetry run python interface/dash_app.py          # http://localhost:8050
 
 # 5. Tests et évaluation
 poetry run pytest                                # tests unitaires (hors ligne)
-poetry run python evaluate_rag.py                # évaluation Ragas
+poetry run python scripts/evaluate_rag.py        # évaluation Ragas
 ```
 
 **Raccourci `Makefile`** : un `Makefile` regroupe ces commandes. `make help` liste les
@@ -184,7 +184,7 @@ flowchart TB
 
 La logique métier (`src/rag/`) est **découplée** de toute interface : elle est
 importée à l'identique par la CLI (`scripts/rag_query.py`), l'API (`src/api/`) et le
-harnais d'évaluation (`evaluate_rag.py`).
+harnais d'évaluation (`scripts/evaluate_rag.py`).
 
 ### Données entrantes (API Open Agenda)
 
@@ -528,7 +528,7 @@ curl -s http://localhost:8000/metadata | jq
 curl -s -X POST http://localhost:8000/rebuild -H "X-API-Key: $REBUILD_TOKEN"
 ```
 
-Un script de **smoke test fonctionnel** (`api_test.py`, appels Mistral réels) appelle
+Un script de **smoke test fonctionnel** (`scripts/api_test.py`, appels Mistral réels) appelle
 `/health` puis `/ask` et affiche réponse, filtres et sources.
 
 ### Tests effectués et documentés
@@ -562,7 +562,7 @@ mockés). Ils sont **relancés automatiquement en CI** à chaque push / pull req
 
 ## 7. Évaluation du système
 
-L'évaluation s'appuie sur **Ragas** (`evaluate_rag.py`). Pour chaque question, la
+L'évaluation s'appuie sur **Ragas** (`scripts/evaluate_rag.py`). Pour chaque question, la
 chaîne RAG est exécutée pour collecter la réponse **et les contextes récupérés** ;
 Ragas score le tout contre une réponse de référence à l'aide d'un **LLM juge**
 (`mistral-small-latest`) et de `mistral-embed`. Par défaut, l'évaluation construit un
@@ -627,7 +627,7 @@ un exemple de run figure ci-dessous :
 | context_recall | 1.00 | 0.50 | ✅ |
 
 > Les valeurs varient légèrement d'un run à l'autre (juge LLM non déterministe et
-> taille d'échantillon) ; la **porte CI** (`evaluate_rag.py --fail-under`) échoue si
+> taille d'échantillon) ; la **porte CI** (`scripts/evaluate_rag.py --fail-under`) échoue si
 > la moyenne d'une métrique passe sous son seuil.
 
 ### Analyse quantitative
@@ -709,11 +709,13 @@ un exemple de run figure ci-dessous :
 │   ├── indexing/             # Chunking (chunking.py) + index FAISS (build_index.py)
 │   ├── rag/                  # Chaîne RAG : chain.py, filters.py, prompts.py
 │   └── api/                  # FastAPI : main.py (routes) + schemas.py (Pydantic)
-├── scripts/                  # Points d'entrée CLI du pipeline
+├── scripts/                  # Points d'entrée CLI (pipeline + évaluation + smoke test)
 │   ├── collect_events.py     #   collecte OpenAgenda
 │   ├── clean_events.py       #   nettoyage
 │   ├── build_vector_store.py #   construction de l'index FAISS
-│   └── rag_query.py          #   interroger la chaîne en ligne de commande
+│   ├── rag_query.py          #   interroger la chaîne en ligne de commande
+│   ├── evaluate_rag.py       #   harnais d'évaluation Ragas (+ porte CI --fail-under)
+│   └── api_test.py           #   smoke test fonctionnel de l'API (appels réels)
 ├── interface/                # Interface de chat Dash (bonus) -> dash_app.py + assets/
 ├── evaluation/               # Évaluation Ragas : corpus.csv, testset.json,
 │                             #   generate_testset.py, _compat.py, results/ (gitignoré)
@@ -721,8 +723,6 @@ un exemple de run figure ci-dessous :
 ├── data/                     # Données collectées/nettoyées (gitignoré)
 ├── faiss_index/              # Index vectoriel persisté (gitignoré, régénérable)
 ├── .github/workflows/        # CI : tests pytest (push/PR) + évaluation Ragas (workflow_dispatch)
-├── evaluate_rag.py           # Harnais d'évaluation Ragas (+ porte CI --fail-under)
-├── api_test.py               # Smoke test fonctionnel de l'API (appels réels)
 ├── Dockerfile                # Image multi-stage (venv Poetry + code), partagée API/UI
 ├── docker-compose.yml        # Stack conteneurisée : services api (8000) + ui (8050)
 ├── docker-entrypoint.sh      # Build de l'index au 1er démarrage, puis lance le service
@@ -737,7 +737,7 @@ un exemple de run figure ci-dessous :
 | Répertoire | Rôle |
 |---|---|
 | `src/` | Cœur de l'application : la logique (données, indexation, RAG) est isolée des interfaces et réutilisée par la CLI, l'API et l'évaluation. |
-| `scripts/` | Points d'entrée en ligne de commande des étapes du pipeline (collecte → nettoyage → indexation → requête). |
+| `scripts/` | Points d'entrée en ligne de commande : étapes du pipeline (collecte → nettoyage → indexation → requête), évaluation Ragas (`evaluate_rag.py`) et smoke test de l'API (`api_test.py`). |
 | `interface/` | Client de chat Dash (démonstration) consommant l'API `/ask`. |
 | `evaluation/` | Corpus, jeu de test annoté, génération de candidats et résultats Ragas. |
 | `tests/` | Tests unitaires (sans réseau) couvrant nettoyage, filtres, API, interface, chunking, collecte. |
@@ -797,7 +797,7 @@ indexed 128/20177
 ...
 indexed 20177/20177  ->  faiss_index/
 
-$ poetry run python evaluate_rag.py --sample 3
+$ poetry run python scripts/evaluate_rag.py --sample 3
 Building eval index from evaluation/corpus.csv ...
 Running the RAG chain on the test set ...
   [1/3] Où et quand se produit le groupe Ayom ?

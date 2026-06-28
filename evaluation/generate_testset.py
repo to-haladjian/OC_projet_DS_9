@@ -2,7 +2,7 @@
 
 This produces the *generated* half of the hybrid test set. Run it occasionally, review the
 output, and merge the good pairs into ``evaluation/testset.json`` (with
-``"source": "generated"``). It is deliberately NOT wired into evaluate_rag.py or CI — the
+``"source": "generated"``). It is deliberately NOT wired into scripts/evaluate_rag.py or CI — the
 committed ``testset.json`` is the source of truth.
 
 Building the knowledge graph runs an LLM extractor per source document over the *whole*
@@ -72,7 +72,7 @@ def main() -> None:
         ),
         embedding_model=LangchainEmbeddingsWrapper(make_embeddings()),
     )
-    # Throttle concurrency + retry like evaluate_rag.py: the default 16 workers overruns
+    # Throttle concurrency + retry like scripts/evaluate_rag.py: the default 16 workers overruns
     # Mistral's rate limit (HTTP 429) during the extractor passes.
     run_config = RunConfig(max_workers=3, timeout=300, max_retries=15, max_wait=90)
     dataset = generator.generate_with_langchain_docs(

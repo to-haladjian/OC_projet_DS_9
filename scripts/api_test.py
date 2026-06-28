@@ -3,8 +3,8 @@
 Start the server first, then run this script:
 
     poetry run uvicorn src.api.main:app
-    poetry run python api_test.py
-    poetry run python api_test.py --url http://localhost:8000 "Des expositions à Paris ?"
+    poetry run python scripts/api_test.py
+    poetry run python scripts/api_test.py --url http://localhost:8000 "Des expositions à Paris ?"
 """
 
 from __future__ import annotations

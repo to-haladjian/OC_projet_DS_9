@@ -86,11 +86,11 @@ EVAL_CORPUS = EVAL_DIR / "corpus.csv"  # committed event subset the test set tar
 EVAL_TESTSET = EVAL_DIR / "testset.json"  # curated + reviewed-generated Q/R pairs
 EVAL_RESULTS_DIR = EVAL_DIR / "results"  # per-run scores (gitignored)
 # Judge model for the Ragas metrics. mistral-small is fast enough to evaluate the whole
-# test set within a CI window; throttled concurrency (see evaluate_rag.py) keeps its
+# test set within a CI window; throttled concurrency (see scripts/evaluate_rag.py) keeps its
 # structured-output calls under the rate limit. Switch to mistral-large-latest for a
 # higher-fidelity (but much slower) judge.
 EVAL_JUDGE_MODEL = "mistral-small-latest"
-# Minimum acceptable mean score per metric (used by evaluate_rag.py --fail-under / CI).
+# Minimum acceptable mean score per metric (used by scripts/evaluate_rag.py --fail-under / CI).
 EVAL_THRESHOLDS = {
     "faithfulness": 0.70,
     "answer_relevancy": 0.70,

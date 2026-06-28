@@ -37,7 +37,7 @@ test: ## Lance les tests unitaires (hors ligne, sans clé API)
 	poetry run pytest
 
 eval: ## Lance l'évaluation Ragas (nécessite MISTRAL_API_KEY)
-	poetry run python evaluate_rag.py
+	poetry run python scripts/evaluate_rag.py
 
 docker-build: ## Construit l'image Docker (API + UI)
 	docker compose build

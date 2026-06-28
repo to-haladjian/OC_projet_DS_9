@@ -6,10 +6,10 @@ Mistral judge LLM + ``mistral-embed``. By default the chain runs over a small in
 from the committed ``evaluation/corpus.csv`` (fast, deterministic, CI-friendly); pass
 ``--index faiss_index`` to evaluate against the full local store instead.
 
-    poetry run python evaluate_rag.py                 # full test set, eval corpus
-    poetry run python evaluate_rag.py --sample 3      # quick/cheap subset
-    poetry run python evaluate_rag.py --index faiss_index   # full corpus
-    poetry run python evaluate_rag.py --fail-under    # CI gate (exit 1 if below thresholds)
+    poetry run python scripts/evaluate_rag.py                 # full test set, eval corpus
+    poetry run python scripts/evaluate_rag.py --sample 3      # quick/cheap subset
+    poetry run python scripts/evaluate_rag.py --index faiss_index   # full corpus
+    poetry run python scripts/evaluate_rag.py --fail-under    # CI gate (exit 1 if below thresholds)
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ from pathlib import Path
 
 # Make ``src`` importable and register the ragas/langchain compatibility shim BEFORE any
 # ragas import happens.
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import evaluation._compat  # noqa: E402,F401
 
 import pandas as pd  # noqa: E402
