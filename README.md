@@ -605,9 +605,9 @@ Approche **hybride**, reproductible via `evaluation/build_testset.py` (graine fi
   **ancrée par construction** — sans LLM ni risque d'hallucination, et reproductible.
 - **Curated** (9 cas *thématiques*, *multi-lieux* et *limites*) : questions et réponses
   rédigées à la main, difficiles à templater (refus attendu, hors périmètre).
-- `evaluation/generate_testset.py` reste disponible pour produire des candidats via le
-  `TestsetGenerator` de Ragas (étape manuelle, hors CI) ; le `testset.json` commité reste
-  la source de vérité.
+
+Régénérer le jeu de test : `poetry run python evaluation/build_testset.py` (le
+`testset.json` commité reste la source de vérité).
 
 ### Métriques d’évaluation
 
@@ -629,10 +629,10 @@ un exemple de run figure ci-dessous :
 
 | Métrique | Score | Seuil | Statut |
 |---|---|---|---|
-| faithfulness | 0.89 | 0.70 | ✅ |
-| answer_relevancy | 0.74 | 0.70 | ✅ |
-| context_precision | 0.75 | 0.50 | ✅ |
-| context_recall | 0.86 | 0.50 | ✅ |
+| faithfulness | 0.82 | 0.70 | ✅ |
+| answer_relevancy | 0.82 | 0.70 | ✅ |
+| context_precision | 0.93 | 0.50 | ✅ |
+| context_recall | 0.93 | 0.50 | ✅ |
 
 > Les valeurs varient légèrement d'un run à l'autre (juge LLM non déterministe et
 > taille d'échantillon) ; la **porte CI** (`scripts/evaluate_rag.py --fail-under`) échoue si
@@ -640,16 +640,16 @@ un exemple de run figure ci-dessous :
 
 ### Analyse quantitative
 
-- **Retrieval solide** sur ce corpus : `context_recall` ≈ 0.86 et
-  `context_precision` ≈ 0.75 — le pré-filtrage ville + la recherche sémantique
-  ramènent les bons événements avec peu de bruit, sur un corpus de taille modeste.
-- **Génération très fidèle** : `faithfulness` ≈ 0.89, bien au-dessus du seuil — la
-  réponse colle au contexte, conséquence directe du prompt fortement contraint.
-- **Pertinence correcte** : `answer_relevancy` ≈ 0.74 — les réponses traitent bien la
-  question posée, le score étant tiré vers le bas par les refus légitimes (cas
-  `edge_unknown` / `edge_outofscope`).
-- Le point le plus **sensible** reste la `context_precision`, plafonnée sur les
-  questions thématiques larges où plusieurs événements proches sont ramenés.
+- **Retrieval excellent** sur ce corpus : `context_recall` ≈ 0.93 et
+  `context_precision` ≈ 0.93 — le pré-filtrage ville + la recherche sémantique
+  ramènent les bons événements avec peu de bruit, sur les 100 questions du jeu.
+- **Génération fidèle** : `faithfulness` ≈ 0.82, au-dessus du seuil — la réponse
+  colle au contexte, conséquence directe du prompt fortement contraint.
+- **Pertinence correcte** : `answer_relevancy` ≈ 0.82 — les réponses traitent bien la
+  question posée.
+- Le point le plus **sensible** reste la `faithfulness` : sur les questions factuelles
+  templatées, le modèle reformule parfois au-delà du strict contexte, ce qui pénalise
+  légèrement la métrique sans introduire d'information fausse.
 
 ### Analyse qualitative
 
@@ -728,7 +728,7 @@ un exemple de run figure ci-dessous :
 │   └── api_test.py           #   smoke test fonctionnel de l'API (appels réels)
 ├── interface/                # Interface de chat Dash (bonus) -> dash_app.py + assets/
 ├── evaluation/               # Évaluation Ragas : corpus.csv, build_corpus.py, testset.json,
-│                             #   build_testset.py, generate_testset.py, _compat.py, results/ (gitignoré)
+│                             #   build_testset.py, _compat.py, results/ (gitignoré)
 ├── tests/                    # 61 tests unitaires (pytest)
 ├── data/                     # Données collectées/nettoyées (gitignoré)
 ├── faiss_index/              # Index vectoriel persisté (gitignoré, régénérable)
@@ -749,7 +749,7 @@ un exemple de run figure ci-dessous :
 | `src/` | Cœur de l'application : la logique (données, indexation, RAG) est isolée des interfaces et réutilisée par la CLI, l'API et l'évaluation. |
 | `scripts/` | Points d'entrée en ligne de commande : étapes du pipeline (collecte → nettoyage → indexation → requête), évaluation Ragas (`evaluate_rag.py`) et smoke test de l'API (`api_test.py`). |
 | `interface/` | Client de chat Dash (démonstration) consommant l'API `/ask`. |
-| `evaluation/` | Corpus, jeu de test annoté, génération de candidats et résultats Ragas. |
+| `evaluation/` | Corpus et jeu de test annoté, leurs générateurs reproductibles (`build_corpus.py`, `build_testset.py`) et les résultats Ragas. |
 | `tests/` | Tests unitaires (sans réseau) couvrant nettoyage, filtres, API, interface, chunking, collecte. |
 | `data/`, `faiss_index/` | Artefacts régénérables, **non versionnés** (gitignorés). |
 | `.github/workflows/` | Pipeline d'intégration continue (évaluation Ragas, déclenchement manuel). |
@@ -815,10 +815,10 @@ Running the RAG chain on the test set ...
   ...
 Scoring with Ragas (judge: mistral-small-latest) ...
 === Ragas scores (mean over the test set) ===
-  faithfulness          0.888  OK
-  answer_relevancy      0.736  OK
-  context_precision     0.746  OK
-  context_recall        0.855  OK
+  faithfulness          0.817  OK
+  answer_relevancy      0.819  OK
+  context_precision     0.927  OK
+  context_recall        0.932  OK
 PASS: all metrics meet their thresholds.
 ```
 

@@ -22,6 +22,6 @@ venv/
 # Built vector store (regenerable from data/ via build_vector_store.py)
 faiss_index/
 
-# Evaluation run outputs (scores are regenerable via evaluate_rag.py)
+# Evaluation run outputs (scores are regenerable via scripts/evaluate_rag.py)
 evaluation/results/
 evaluation/generated_candidates.json

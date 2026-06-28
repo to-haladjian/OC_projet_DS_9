@@ -1,7 +1,7 @@
 """Build the committed evaluation corpus from the cleaned dataset (reproducible).
 
 The eval corpus is a small, fixed subset of the events the RAG indexes — committed so the
-Ragas evaluation (``evaluate_rag.py``) builds the same tiny FAISS index every run (fast,
+Ragas evaluation (``scripts/evaluate_rag.py``) builds the same tiny FAISS index every run (fast,
 deterministic, CI-friendly). With the POC scoped to Hauts-de-Seine (92) the whole cleaned
 dataset is one department, so we just take a fixed-seed sample of it.
 
@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src import config  # noqa: E402
 
-# Fixed seed so the committed corpus is reproducible (mirrors generate_testset.py).
+# Fixed seed so the committed corpus is reproducible (mirrors build_testset.py).
 _SEED = 42
 
 
