@@ -1,0 +1,28 @@
+name: Unit tests (pytest)
+
+# The suite is fully offline (LLM + network mocked), so it runs on every push and PR
+# without any MISTRAL_API_KEY. The Ragas evaluation (eval.yml) stays manual.
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run unit tests
+        run: poetry run pytest -q
