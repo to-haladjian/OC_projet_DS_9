@@ -18,9 +18,16 @@ from contextlib import asynccontextmanager
 
 from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Request
 
-from src.api.schemas import AskRequest, AskResponse, HealthResponse, RebuildResponse
+from src.api.schemas import (
+    AskRequest,
+    AskResponse,
+    HealthResponse,
+    MetadataResponse,
+    RebuildResponse,
+)
 from src.pipeline import full_refresh
 from src.rag.chain import RAGChain
+from src.rag.filters import _parse_date
 
 
 @asynccontextmanager
@@ -60,6 +67,53 @@ def health(chain: RAGChain = Depends(get_rag_chain)) -> HealthResponse:
     """Report that the service is up and how many documents are indexed."""
     documents = len(chain.vector_store.docstore._dict)
     return HealthResponse(status="ok", documents=documents)
+
+
+@app.get("/metadata", response_model=MetadataResponse, summary="Corpus statistics")
+def metadata(chain: RAGChain = Depends(get_rag_chain)) -> MetadataResponse:
+    """Describe the indexed corpus: distinct events, cities, per-department counts, dates.
+
+    Aggregated from the in-memory FAISS docstore (no LLM calls). Events are deduplicated
+    by their ``id`` so chunked events are not double-counted.
+    """
+    seen: set[str] = set()
+    cities: set[str] = set()
+    departments: dict[str, int] = {}
+    earliest: str | None = None
+    latest: str | None = None
+
+    for doc in chain.vector_store.docstore._dict.values():
+        meta = getattr(doc, "metadata", {}) or {}
+        event_id = str(meta.get("id", ""))
+        if event_id and event_id in seen:
+            continue
+        seen.add(event_id)
+
+        city = (meta.get("city") or "").strip()
+        if city:
+            cities.add(city.casefold())
+
+        department = str(meta.get("department") or "").strip()
+        if department:
+            departments[department] = departments.get(department, 0) + 1
+
+        start = _parse_date(meta.get("date_start"))
+        if start is not None:
+            iso = start.isoformat()
+            if earliest is None or iso < earliest:
+                earliest = iso
+        end = _parse_date(meta.get("date_end")) or start
+        if end is not None:
+            iso = end.isoformat()
+            if latest is None or iso > latest:
+                latest = iso
+
+    return MetadataResponse(
+        events=len(seen),
+        cities=len(cities),
+        departments=dict(sorted(departments.items())),
+        date_range={"from": earliest, "to": latest},
+    )
 
 
 @app.post("/ask", response_model=AskResponse, summary="Answer a question")

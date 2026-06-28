@@ -38,5 +38,19 @@ class HealthResponse(BaseModel):
     documents: int
 
 
+class MetadataResponse(BaseModel):
+    """Aggregate stats about the indexed corpus (no LLM calls)."""
+
+    events: int = Field(..., description="Distinct events indexed (deduplicated by id).")
+    cities: int = Field(..., description="Number of distinct cities.")
+    departments: dict[str, int] = Field(
+        ..., description="Event count per Île-de-France department code."
+    )
+    date_range: dict[str, str | None] = Field(
+        ...,
+        description="Earliest and latest event dates, as {'from': ..., 'to': ...}.",
+    )
+
+
 class RebuildResponse(BaseModel):
     status: str
