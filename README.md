@@ -66,16 +66,16 @@ jamais écrite dans l'image. Cibles associées : `make docker-build`, `make dock
 ### Contexte
 
 **Puls-Events** développe une plateforme de **recommandations culturelles
-personnalisées**. L'entreprise souhaité évaluer la faisabilité de l'intégration
+personnalisées**. L'entreprise souhaite évaluer la faisabilité de l'intégration
 d'un **chatbot intelligent** capable de répondre aux questions des utilisateurs sur
-des évênements culturels, en s'appuyant sur les données ouvertes de l'API
+des événements culturels, en s'appuyant sur les données ouvertes de l'API
 **OpenAgenda**.
 
 Ces données sont riches mais difficilement exploitables par un utilisateur
 en raison de leur nature non-structurée. La recherche par mots-clés classique
 ne peut pas capturer l'intention réelle d'une question formulée en langage naturel
 ("Quels concerts de musique classique se passent à Nanterre ce week-end ?"). Un
-système RAG permet de combler ces limites en combinant recherche sémantqiue et
+système RAG permet de combler ces limites en combinant recherche sémantique et
 génération de réponse pour offrir une expérience conversationnelle proche
 d'une recommandation personnalisée.
 
@@ -247,8 +247,8 @@ Détails en §6.
 | Données | **pandas**, **requests**, **BeautifulSoup4** | Collecte, nettoyage, structuration |
 | API | **FastAPI** + **Uvicorn** | Endpoints REST, Swagger automatique |
 | Interface | **Dash** | Chat de démonstration |
-| Tests | **pytest**, **httpx** | 61 tests unitaires |
-| Évaluation | **Ragas**, **datasets** | Métriques de qualité RAG + porte CI |
+| Tests | **pytest**, **httpx** | 74 tests unitaires |
+| Évaluation | **Ragas**, **datasets** | Métriques de qualité RAG (juge LLM) + métriques déterministes + porte CI |
 | Config / secrets | **python-dotenv** | Chargement de `MISTRAL_API_KEY` depuis `.env` |
 | Conteneurisation | **Docker**, **docker compose** | Image multi-stage, stack API + UI lancée en une commande |
 
@@ -404,7 +404,9 @@ Markdown et le texte parasite, et retombe sur `{}` (aucun filtre) en cas d'éche
   soient récupérés ; un événement absent de l'index est invisible.
 - **Extraction de filtres imparfaite** : une formulation ambiguë (ville mal
   orthographiée, plage de dates floue) peut produire un filtre trop strict — atténué
-  par le **repli plein-corpus** et un filtrage de dates **clément**.
+  par une **comparaison de ville tolérante** (insensible aux accents, à la casse et aux
+  traits d'union, avec correspondance partielle : « Boulogne » retrouve
+  « Boulogne-Billancourt »), le **repli plein-corpus** et un filtrage de dates **clément**.
 - **Pas de raisonnement temporel fin** : « ce week-end » est résolu en bornes de
   dates, mais les horaires précis dépendent de la qualité des champs source.
 - **Coût / quota** : chaque question = 2 appels LLM ; l'API Mistral impose des limites
@@ -538,20 +540,23 @@ Un script de **smoke test fonctionnel** (`scripts/api_test.py`, appels Mistral r
 
 ### Tests effectués et documentés
 
-**61 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
+**74 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
 mockés). Ils sont **relancés automatiquement en CI** à chaque push / pull request
-(workflow `tests`, sans clé API), en plus de l'évaluation Ragas (§7) :
+(workflow `tests`, sans clé API) ; ils embarquent la **porte qualité hors-ligne** de
+l'évaluation (`test_eval_metrics.py`, §7), tandis que l'évaluation Ragas complète reste
+un job manuel :
 
 | Fichier | Couvre | # |
 |---|---|---|
 | `tests/test_clean.py` | Nettoyage : HTML, dates, code postal, département, doublons, périmètre 92 | 14 |
-| `tests/test_filters.py` | Extraction JSON (fences, prose, clés inconnues) + prédicats de filtrage | 10 |
+| `tests/test_filters.py` | Extraction JSON (fences, prose, clés inconnues) + prédicats de filtrage (ville tolérante) | 12 |
+| `tests/test_eval_metrics.py` | Métriques déterministes (exact match, token-F1) + porte hors-ligne sur l'instantané | 11 |
 | `tests/test_api.py` | Endpoints `/health` `/metadata` `/ask` `/rebuild` : succès, 422, 502, 409, garde par jeton | 9 |
 | `tests/test_chain.py` | Chaîne RAG : récupération (+ repli plein-corpus), génération, format des réponses | 7 |
 | `tests/test_dash.py` | Rendu des messages / sources de l'interface | 7 |
-| `tests/test_build_index.py` | Vectorisation : batching d'embeddings, typage des codes, aller-retour index | 4 |
 | `tests/test_chunking.py` | En-tête de métadonnées + découpage des documents | 5 |
 | `tests/test_fetch.py` | Construction de la requête de collecte OpenAgenda | 5 |
+| `tests/test_build_index.py` | Vectorisation : batching d'embeddings, typage des codes, aller-retour index | 4 |
 
 ### Gestion des erreurs / limitations
 
@@ -574,6 +579,14 @@ Ragas score le tout contre une réponse de référence à l'aide d'un **LLM juge
 **petit index dédié** à partir de `evaluation/corpus.csv` (rapide, déterministe,
 adapté à la CI) ; `--index faiss_index` évalue contre le corpus complet.
 
+En complément des métriques du juge LLM, le même script calcule des **métriques
+déterministes sans appel d'API** (correspondance exacte + F1 lexical, cf. *Métriques*),
+qui servent aussi de **porte qualité hors-ligne en intégration continue** : à chaque
+exécution, `evaluate_rag.py` écrit un instantané des réponses
+(`evaluation/answers_latest.json`) que la suite de tests (`pytest`) recharge à chaque
+push / PR pour recalculer ces métriques et **échouer en cas de régression**, sans aucune
+clé Mistral. Le job Ragas, lui, reste **manuel** (`workflow_dispatch`) car coûteux.
+
 ### Jeu de test annoté
 
 `evaluation/testset.json` : paires **question / réponse de référence** annotées,
@@ -584,35 +597,39 @@ et versionnés pour la reproductibilité). Chaque entrée porte une `category` e
 
 ### Nombre d’exemples
 
-**100** paires Q/R, réparties par catégorie :
+**99** paires Q/R, réparties par catégorie pour couvrir aussi bien la recherche factuelle
+que le *retrieval* sur sujet large et les *refus* :
 
 | Catégorie | Description | # |
 |---|---|---|
-| `factual_lookup` | Fait précis sur un événement (où / quand / lieu / gratuité) | 91 |
-| `topic_location` | Sujet + lieu | 3 |
-| `topic` | Sujet transverse (« cinéma », « jardinage ») | 2 |
-| `location_multi` | Plusieurs événements dans une ville | 1 |
-| `edge_unknown` | Réponse absente du corpus (doit l'admettre) | 2 |
-| `edge_outofscope` | Hors périmètre | 1 |
+| `factual_lookup` | Fait précis sur un événement (où / quand / lieu / gratuité) | 60 |
+| `topic_location` | Sujet + lieu (le retrieval doit classer, pas seulement retrouver) | 12 |
+| `topic` | Sujet transverse (« cinéma », « danse », « emploi ») | 8 |
+| `location_multi` | Plusieurs événements dans une ville | 7 |
+| `edge_unknown` | Réponse absente du corpus (doit l'admettre) | 8 |
+| `edge_outofscope` | Hors périmètre (autre ville / département, hors sujet) | 4 |
 
 ### Méthode d’annotation
 
 Approche **hybride**, reproductible via `evaluation/build_testset.py` (graine fixe) :
 
-- **Generated** (91 paires `factual_lookup`) : générées **déterministiquement** à partir
+- **Generated** (60 paires `factual_lookup`) : générées **déterministiquement** à partir
   d'événements réels de `corpus.csv` ; la réponse de référence est construite à partir des
   champs propres de l'événement (titre / lieu / ville / dates / conditions), donc
   **ancrée par construction** — sans LLM ni risque d'hallucination, et reproductible.
-- **Curated** (9 cas *thématiques*, *multi-lieux* et *limites*) : questions et réponses
-  rédigées à la main, difficiles à templater (refus attendu, hors périmètre).
+- **Curated** (39 cas *thématiques*, *multi-lieux* et *limites*) : questions et réponses
+  rédigées à la main et ancrées dans `corpus.csv`, difficiles à templater (refus attendu,
+  hors périmètre, sélection sur un sujet large).
 
 Régénérer le jeu de test : `poetry run python evaluation/build_testset.py` (le
 `testset.json` commité reste la source de vérité).
 
 ### Métriques d’évaluation
 
-Quatre métriques Ragas, avec des seuils plancher (`src/config.py`,
-`EVAL_THRESHOLDS`) servant de **porte CI** (`--fail-under`) :
+Deux familles de métriques sont calculées, chacune avec ses seuils plancher
+(`src/config.py`).
+
+**Métriques Ragas (juge LLM)** — `EVAL_THRESHOLDS`, vérifiées par `--fail-under` :
 
 | Métrique | Mesure | Seuil |
 |---|---|---|
@@ -621,35 +638,57 @@ Quatre métriques Ragas, avec des seuils plancher (`src/config.py`,
 | **context_precision** | Les contextes récupérés sont-ils utiles (peu de bruit) ? | ≥ 0.50 |
 | **context_recall** | Le contexte couvre-t-il la réponse de référence ? | ≥ 0.50 |
 
+**Métriques déterministes (sans juge LLM)** — `OFFLINE_EVAL_THRESHOLDS`, recalculées
+hors-ligne et servant de **porte CI par PR** (cf. plus haut). Elles répondent à la
+recommandation de la mission (score de similarité / *Exact Match*) avec un repère
+**reproductible et gratuit**, indépendant du juge :
+
+| Métrique | Mesure | Seuil |
+|---|---|---|
+| **exact_match** | La réponse normalisée est-elle identique à la référence ? | ≥ 0.00 |
+| **token_f1** | Recouvrement lexical (F1 sur les tokens) réponse ↔ référence | ≥ 0.30 |
+
+> Les seuils déterministes sont volontairement modestes : une réponse générative
+> reformule la référence (l'*exact match* est donc rare et le F1 mesure le recouvrement
+> lexical, pas la justesse). L'objectif est de **détecter une régression**, pas de fixer
+> une barre haute.
+
 ### Résultats obtenus
 
-Exécution sur l'index dédié au corpus d'évaluation (juge `mistral-small-latest`).
-Les scores sont régénérables et horodatés dans `evaluation/results/` (gitignoré) ;
-un exemple de run figure ci-dessous :
+Les scores sont **régénérés à chaque exécution** de `scripts/evaluate_rag.py` (index dédié
+au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
+`evaluation/results/` (gitignoré) et résumés dans l'instantané
+`evaluation/answers_latest.json`. Le tableau de sortie réunit les deux familles de
+métriques :
 
-| Métrique | Score | Seuil | Statut |
-|---|---|---|---|
-| faithfulness | 0.82 | 0.70 | ✅ |
-| answer_relevancy | 0.82 | 0.70 | ✅ |
-| context_precision | 0.93 | 0.50 | ✅ |
-| context_recall | 0.93 | 0.50 | ✅ |
+```text
+=== Ragas scores (mean over the test set, LLM judge) ===
+  faithfulness          0.8xx  OK
+  answer_relevancy      0.8xx  OK
+  context_precision     0.9xx  OK
+  context_recall        0.8xx  OK
+=== Deterministic scores (no judge: lexical overlap vs reference) ===
+  exact_match           0.0xx  OK
+  token_f1              0.4xx  OK
+```
 
-> Les valeurs varient légèrement d'un run à l'autre (juge LLM non déterministe et
-> taille d'échantillon) ; la **porte CI** (`scripts/evaluate_rag.py --fail-under`) échoue si
-> la moyenne d'une métrique passe sous son seuil.
+> Les valeurs Ragas varient légèrement d'un run à l'autre (juge LLM non déterministe) ;
+> les métriques déterministes, elles, sont reproductibles à l'identique. La **porte CI**
+> par PR (suite `pytest`, hors-ligne) échoue si une métrique déterministe passe sous son
+> seuil ; `scripts/evaluate_rag.py --fail-under` applique en plus les seuils Ragas lors
+> d'une exécution manuelle.
 
 ### Analyse quantitative
 
-- **Retrieval excellent** sur ce corpus : `context_recall` ≈ 0.93 et
-  `context_precision` ≈ 0.93 — le pré-filtrage ville + la recherche sémantique
-  ramènent les bons événements avec peu de bruit, sur les 100 questions du jeu.
-- **Génération fidèle** : `faithfulness` ≈ 0.82, au-dessus du seuil — la réponse
-  colle au contexte, conséquence directe du prompt fortement contraint.
-- **Pertinence correcte** : `answer_relevancy` ≈ 0.82 — les réponses traitent bien la
+- **Retrieval** : `context_recall` et `context_precision` élevés — le pré-filtrage ville
+  (tolérant) et la recherche sémantique ramènent les bons événements avec peu de bruit.
+- **Génération fidèle** : `faithfulness` au-dessus du seuil — la réponse colle au
+  contexte, conséquence directe du prompt fortement contraint.
+- **Pertinence** : `answer_relevancy` au-dessus du seuil — les réponses traitent bien la
   question posée.
-- Le point le plus **sensible** reste la `faithfulness` : sur les questions factuelles
-  templatées, le modèle reformule parfois au-delà du strict contexte, ce qui pénalise
-  légèrement la métrique sans introduire d'information fausse.
+- **Repère déterministe** : `token_f1` confirme un recouvrement lexical substantiel avec
+  la référence sans dépendre d'un juge ; `exact_match` reste bas par nature (réponses
+  reformulées), d'où un seuil plancher à 0.
 
 ### Analyse qualitative
 
@@ -665,12 +704,13 @@ un exemple de run figure ci-dessous :
 ### Ce qui fonctionne bien
 
 - **Pipeline reproductible** de bout en bout (collecte → nettoyage → index → API),
-  testé (61 tests) et reconstructible à chaud via `/rebuild`.
+  testé (74 tests) et reconstructible à chaud via `/rebuild`.
 - **Chaîne à deux appels** : le pré-filtrage par métadonnées resserre nettement la
   recherche tout en restant robuste grâce au repli plein-corpus.
 - **Réponses sourcées et honnêtes** : citations systématiques et refus explicite
   hors contexte (anti-hallucination).
-- **Évaluation automatisée** chiffrée et gardée par des seuils en CI.
+- **Évaluation automatisée** chiffrée : métriques Ragas (juge LLM) **et** métriques
+  déterministes sans API, ces dernières gardant chaque PR via une porte hors-ligne.
 
 ### Limites du POC
 
@@ -681,7 +721,7 @@ un exemple de run figure ci-dessous :
 - **2 appels LLM par question** : latence et coût proportionnels au trafic, bornés
   par les quotas Mistral.
 - Filtres limités à **ville / dates** (pas de prix, catégorie, public).
-- Jeu de test **de 100 paires** (91 factuelles générées + 9 curées) ; la fidélité du
+- Jeu de test **de 99 paires** (60 factuelles générées + 39 curées) ; la fidélité du
   juge dépend du modèle choisi.
 
 ### Améliorations possibles
@@ -703,8 +743,8 @@ un exemple de run figure ci-dessous :
   scores Ragas en continu), suivi des coûts Mistral.
 - **Sécurité** : authentification sur `/ask`, limitation de débit, rotation du
   `REBUILD_TOKEN`.
-- **CI/CD** : tests + évaluation Ragas gates sur les pull requests, déploiement
-  automatisé.
+- **CI/CD** : tests + porte qualité déterministe sur chaque pull request (hors-ligne),
+  évaluation Ragas complète en job planifié ou déclenché, puis déploiement automatisé.
 
 ## 9. Organisation du dépôt GitHub
 
@@ -727,9 +767,10 @@ un exemple de run figure ci-dessous :
 │   ├── evaluate_rag.py       #   harnais d'évaluation Ragas (+ porte CI --fail-under)
 │   └── api_test.py           #   smoke test fonctionnel de l'API (appels réels)
 ├── interface/                # Interface de chat Dash (bonus) -> dash_app.py + assets/
-├── evaluation/               # Évaluation Ragas : corpus.csv, build_corpus.py, testset.json,
-│                             #   build_testset.py, _compat.py, results/ (gitignoré)
-├── tests/                    # 61 tests unitaires (pytest)
+├── evaluation/               # Évaluation : corpus.csv, build_corpus.py, testset.json,
+│                             #   build_testset.py, metrics.py (déterministes),
+│                             #   answers_latest.json (instantané), _compat.py, results/ (gitignoré)
+├── tests/                    # 74 tests unitaires (pytest)
 ├── data/                     # Données collectées/nettoyées (gitignoré)
 ├── faiss_index/              # Index vectoriel persisté (gitignoré, régénérable)
 ├── .github/workflows/        # CI : tests pytest (push/PR) + évaluation Ragas (workflow_dispatch)
@@ -749,10 +790,10 @@ un exemple de run figure ci-dessous :
 | `src/` | Cœur de l'application : la logique (données, indexation, RAG) est isolée des interfaces et réutilisée par la CLI, l'API et l'évaluation. |
 | `scripts/` | Points d'entrée en ligne de commande : étapes du pipeline (collecte → nettoyage → indexation → requête), évaluation Ragas (`evaluate_rag.py`) et smoke test de l'API (`api_test.py`). |
 | `interface/` | Client de chat Dash (démonstration) consommant l'API `/ask`. |
-| `evaluation/` | Corpus et jeu de test annoté, leurs générateurs reproductibles (`build_corpus.py`, `build_testset.py`) et les résultats Ragas. |
-| `tests/` | Tests unitaires (sans réseau) couvrant nettoyage, filtres, API, interface, chunking, collecte. |
+| `evaluation/` | Corpus et jeu de test annoté, leurs générateurs reproductibles (`build_corpus.py`, `build_testset.py`), les métriques déterministes (`metrics.py`), l'instantané des réponses et les résultats Ragas. |
+| `tests/` | Tests unitaires (sans réseau) couvrant nettoyage, filtres, métriques d'évaluation, API, interface, chunking, collecte. |
 | `data/`, `faiss_index/` | Artefacts régénérables, **non versionnés** (gitignorés). |
-| `.github/workflows/` | Pipeline d'intégration continue (évaluation Ragas, déclenchement manuel). |
+| `.github/workflows/` | Intégration continue : tests `pytest` + porte qualité déterministe à chaque push / PR ; évaluation Ragas en déclenchement manuel. |
 
 ## 10. Annexes (exemples)
 
@@ -808,17 +849,22 @@ indexed 128/2353
 ...
 indexed 2353/2353  ->  faiss_index/
 
+# Extrait illustratif (valeurs régénérées à chaque exécution)
 $ poetry run python scripts/evaluate_rag.py --sample 3
 Building eval index from evaluation/corpus.csv ...
 Running the RAG chain on the test set ...
-  [1/100] Quelles visites guidées de médiathèques sont proposées à Clamart ?
+  [1/3] Quelles visites guidées de médiathèques sont proposées à Clamart ?
   ...
 Scoring with Ragas (judge: mistral-small-latest) ...
-=== Ragas scores (mean over the test set) ===
-  faithfulness          0.817  OK
-  answer_relevancy      0.819  OK
-  context_precision     0.927  OK
-  context_recall        0.932  OK
+=== Ragas scores (mean over the test set, LLM judge) ===
+  faithfulness          0.8xx  OK
+  answer_relevancy      0.8xx  OK
+  context_precision     0.9xx  OK
+  context_recall        0.8xx  OK
+=== Deterministic scores (no judge: lexical overlap vs reference) ===
+  exact_match           0.0xx  OK
+  token_f1              0.4xx  OK
+Refreshed answers snapshot -> evaluation/answers_latest.json
 PASS: all metrics meet their thresholds.
 ```
 
