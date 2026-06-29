@@ -2,6 +2,10 @@
 Template+de+rapport+technique.docx
 *.docx
 
+# Presentation
+presentation/
+*.pptx
+
 # Python
 __pycache__/
 *.py[cod]
