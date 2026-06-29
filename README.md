@@ -658,19 +658,16 @@ recommandation de la mission (score de similarité / *Exact Match*) avec un rep�
 Les scores sont **régénérés à chaque exécution** de `scripts/evaluate_rag.py` (index dédié
 au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 `evaluation/results/` (gitignoré) et résumés dans l'instantané
-`evaluation/answers_latest.json`. Le tableau de sortie réunit les deux familles de
-métriques :
+`evaluation/answers_latest.json`. Exécution sur les 99 paires du jeu de test :
 
-```text
-=== Ragas scores (mean over the test set, LLM judge) ===
-  faithfulness          0.8xx  OK
-  answer_relevancy      0.8xx  OK
-  context_precision     0.9xx  OK
-  context_recall        0.8xx  OK
-=== Deterministic scores (no judge: lexical overlap vs reference) ===
-  exact_match           0.0xx  OK
-  token_f1              0.4xx  OK
-```
+| Métrique | Score | Seuil | Statut |
+|---|---|---|---|
+| faithfulness (juge) | 0.79 | 0.70 | ✅ |
+| answer_relevancy (juge) | 0.74 | 0.70 | ✅ |
+| context_precision (juge) | 0.78 | 0.50 | ✅ |
+| context_recall (juge) | 0.90 | 0.50 | ✅ |
+| token_f1 (déterministe) | 0.61 | 0.30 | ✅ |
+| exact_match (déterministe) | 0.00 | 0.00 | ✅ |
 
 > Les valeurs Ragas varient légèrement d'un run à l'autre (juge LLM non déterministe) ;
 > les métriques déterministes, elles, sont reproductibles à l'identique. La **porte CI**
@@ -680,15 +677,17 @@ métriques :
 
 ### Analyse quantitative
 
-- **Retrieval** : `context_recall` et `context_precision` élevés — le pré-filtrage ville
-  (tolérant) et la recherche sémantique ramènent les bons événements avec peu de bruit.
-- **Génération fidèle** : `faithfulness` au-dessus du seuil — la réponse colle au
+- **Retrieval solide** : `context_recall` ≈ 0.90 et `context_precision` ≈ 0.78 — le
+  pré-filtrage ville (tolérant) et la recherche sémantique ramènent les bons événements,
+  y compris sur les questions thématiques larges, avec peu de bruit.
+- **Génération fidèle** : `faithfulness` ≈ 0.79, au-dessus du seuil — la réponse colle au
   contexte, conséquence directe du prompt fortement contraint.
-- **Pertinence** : `answer_relevancy` au-dessus du seuil — les réponses traitent bien la
-  question posée.
-- **Repère déterministe** : `token_f1` confirme un recouvrement lexical substantiel avec
-  la référence sans dépendre d'un juge ; `exact_match` reste bas par nature (réponses
-  reformulées), d'où un seuil plancher à 0.
+- **Pertinence** : `answer_relevancy` ≈ 0.74 — c'est la métrique la plus **sensible** (la
+  plus proche de son seuil), les questions de sujet large et les refus laissant moins de
+  prise à une réponse « pile » à la question.
+- **Repère déterministe** : `token_f1` ≈ 0.61 confirme un recouvrement lexical
+  substantiel avec la référence sans dépendre d'un juge ; `exact_match` reste à 0 par
+  nature (réponses reformulées), d'où un seuil plancher à 0.
 
 ### Analyse qualitative
 
@@ -849,21 +848,20 @@ indexed 128/2353
 ...
 indexed 2353/2353  ->  faiss_index/
 
-# Extrait illustratif (valeurs régénérées à chaque exécution)
-$ poetry run python scripts/evaluate_rag.py --sample 3
+$ poetry run python scripts/evaluate_rag.py --fail-under
 Building eval index from evaluation/corpus.csv ...
 Running the RAG chain on the test set ...
-  [1/3] Quelles visites guidées de médiathèques sont proposées à Clamart ?
+  [1/99] Quelles visites guidées de médiathèques sont proposées à Clamart ?
   ...
 Scoring with Ragas (judge: mistral-small-latest) ...
 === Ragas scores (mean over the test set, LLM judge) ===
-  faithfulness          0.8xx  OK
-  answer_relevancy      0.8xx  OK
-  context_precision     0.9xx  OK
-  context_recall        0.8xx  OK
+  faithfulness          0.792  OK
+  answer_relevancy      0.738  OK
+  context_precision     0.783  OK
+  context_recall        0.902  OK
 === Deterministic scores (no judge: lexical overlap vs reference) ===
-  exact_match           0.0xx  OK
-  token_f1              0.4xx  OK
+  exact_match           0.000  OK
+  token_f1              0.608  OK
 Refreshed answers snapshot -> evaluation/answers_latest.json
 PASS: all metrics meet their thresholds.
 ```
