@@ -40,6 +40,7 @@ from ragas.metrics import (  # noqa: E402
     faithfulness,
 )
 
+from evaluation.metrics import exact_match, score_pairs, token_f1  # noqa: E402
 from src import config  # noqa: E402
 from src.indexing.build_index import build_index  # noqa: E402
 from src.rag.chain import RAGChain  # noqa: E402
@@ -77,7 +78,7 @@ def _answer_with_retry(chain: RAGChain, question: str, max_retries: int = 6) -> 
     raise RuntimeError("unreachable")
 
 
-def run_chain(chain: RAGChain, entries: list[dict]) -> EvaluationDataset:
+def run_chain(chain: RAGChain, entries: list[dict]) -> list[dict]:
     """Run the RAG chain on each question, collecting Ragas-shaped samples."""
     samples = []
     for i, entry in enumerate(entries, 1):
@@ -92,7 +93,28 @@ def run_chain(chain: RAGChain, entries: list[dict]) -> EvaluationDataset:
                 "reference": entry["ground_truth"],
             }
         )
-    return EvaluationDataset.from_list(samples)
+    return samples
+
+
+def write_answers_snapshot(samples: list[dict]) -> None:
+    """Persist the run's answers + deterministic per-pair scores (committed golden file).
+
+    The offline CI gate (tests/test_eval_metrics.py) recomputes the deterministic metrics
+    from this snapshot on every PR, so the quality gate runs without any Mistral call.
+    """
+    snapshot = [
+        {
+            "question": s["user_input"],
+            "response": s["response"],
+            "reference": s["reference"],
+            "exact_match": exact_match(s["response"], s["reference"]),
+            "token_f1": token_f1(s["response"], s["reference"]),
+        }
+        for s in samples
+    ]
+    config.EVAL_ANSWERS_SNAPSHOT.write_text(
+        json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def main() -> None:
@@ -129,7 +151,8 @@ def main() -> None:
     chain = RAGChain(index_dir=index_dir)
 
     print("Running the RAG chain on the test set ...")
-    dataset = run_chain(chain, entries)
+    samples = run_chain(chain, entries)
+    dataset = EvaluationDataset.from_list(samples)
 
     judge = LangchainLLMWrapper(
         init_chat_model(config.EVAL_JUDGE_MODEL, model_provider="mistralai", temperature=0)
@@ -153,9 +176,17 @@ def main() -> None:
     metric_cols = [c for c in scores_df.columns if c in {m.name for m in METRICS}]
     means = {c: float(scores_df[c].mean(skipna=True)) for c in metric_cols}
 
-    print("\n=== Ragas scores (mean over the test set) ===")
+    print("\n=== Ragas scores (mean over the test set, LLM judge) ===")
     for name, value in means.items():
         threshold = config.EVAL_THRESHOLDS.get(name)
+        flag = "" if threshold is None else ("  OK" if value >= threshold else "  BELOW")
+        print(f"  {name:<20} {value:.3f}{flag}")
+
+    # Deterministic baseline: lexical overlap vs the reference, no judge LLM.
+    offline_means = score_pairs(samples)
+    print("\n=== Deterministic scores (no judge: lexical overlap vs reference) ===")
+    for name, value in offline_means.items():
+        threshold = config.OFFLINE_EVAL_THRESHOLDS.get(name)
         flag = "" if threshold is None else ("  OK" if value >= threshold else "  BELOW")
         print(f"  {name:<20} {value:.3f}{flag}")
 
@@ -164,10 +195,16 @@ def main() -> None:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     scores_df.to_csv(config.EVAL_RESULTS_DIR / f"results_{stamp}.csv", index=False)
     (config.EVAL_RESULTS_DIR / f"summary_{stamp}.json").write_text(
-        json.dumps({"means": means, "n": len(entries)}, ensure_ascii=False, indent=2),
+        json.dumps(
+            {"means": means, "offline_means": offline_means, "n": len(entries)},
+            ensure_ascii=False,
+            indent=2,
+        ),
         encoding="utf-8",
     )
+    write_answers_snapshot(samples)
     print(f"\nSaved detailed results -> {config.EVAL_RESULTS_DIR}/results_{stamp}.csv")
+    print(f"Refreshed answers snapshot -> {config.EVAL_ANSWERS_SNAPSHOT}")
 
     # --- CI gate ---
     if args.fail_under:
@@ -176,6 +213,14 @@ def main() -> None:
             for n, v in means.items()
             if config.EVAL_THRESHOLDS.get(n) is not None and v < config.EVAL_THRESHOLDS[n]
         }
+        below.update(
+            {
+                n: v
+                for n, v in offline_means.items()
+                if config.OFFLINE_EVAL_THRESHOLDS.get(n) is not None
+                and v < config.OFFLINE_EVAL_THRESHOLDS[n]
+            }
+        )
         if below:
             print(f"\nFAIL: metrics below threshold: {below}")
             sys.exit(1)

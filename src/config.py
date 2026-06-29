@@ -86,6 +86,11 @@ EVAL_DIR = PROJECT_ROOT / "evaluation"
 EVAL_CORPUS = EVAL_DIR / "corpus.csv"  # committed event subset the test set targets
 EVAL_TESTSET = EVAL_DIR / "testset.json"  # curated + reviewed-generated Q/R pairs
 EVAL_RESULTS_DIR = EVAL_DIR / "results"  # per-run scores (gitignored)
+# Committed snapshot of the latest eval run's answers (question/response/reference +
+# deterministic scores). Refreshed by scripts/evaluate_rag.py; recomputed by the offline
+# CI gate (tests/test_eval_metrics.py) so quality regressions are caught on every PR
+# without any Mistral call.
+EVAL_ANSWERS_SNAPSHOT = EVAL_DIR / "answers_latest.json"
 # Judge model for the Ragas metrics. mistral-small is fast enough to evaluate the whole
 # test set within a CI window; throttled concurrency (see scripts/evaluate_rag.py) keeps its
 # structured-output calls under the rate limit. Switch to mistral-large-latest for a
@@ -97,6 +102,15 @@ EVAL_THRESHOLDS = {
     "answer_relevancy": 0.70,
     "context_precision": 0.50,
     "context_recall": 0.50,
+}
+
+# Deterministic, LLM-free baseline metrics (evaluation/metrics.py). Thresholds are
+# deliberately modest: generative answers rephrase the reference, so exact match is rare
+# and token-F1 measures lexical overlap, not correctness. The goal is regression
+# detection in the offline CI gate (tests/test_eval_metrics.py), not a high bar.
+OFFLINE_EVAL_THRESHOLDS = {
+    "exact_match": 0.0,
+    "token_f1": 0.30,
 }
 
 
