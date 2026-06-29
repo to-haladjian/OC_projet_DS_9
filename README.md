@@ -546,8 +546,9 @@ Un script de **smoke test fonctionnel** (`scripts/api_test.py`, appels Mistral r
 **77 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
 mockés). Ils sont **relancés automatiquement en CI** à chaque push / pull request
 (workflow `tests`, sans clé API) ; ils embarquent la **porte qualité hors-ligne** de
-l'évaluation (`test_eval_metrics.py`, §7), tandis que l'évaluation Ragas complète reste
-un job manuel :
+l'évaluation (`test_eval_metrics.py`, §7), tandis que l'évaluation Ragas complète se
+lance **manuellement en local** (`scripts/evaluate_rag.py`, hors CI car lente et
+coûteuse) :
 
 | Fichier | Couvre | # |
 |---|---|---|
@@ -589,7 +590,8 @@ hors-ligne en intégration continue** : à chaque push / PR, la suite de tests (
 **recalcule** le F1 lexical depuis le texte et **lit** la similarité enregistrée, puis
 **échoue en cas de régression**, sans aucune clé Mistral. La similarité, qui nécessite le
 modèle d'embeddings, est produite à la génération de l'instantané (où l'API est déjà
-sollicitée) ; le job Ragas, lui, reste **manuel** (`workflow_dispatch`) car coûteux.
+sollicitée) ; l'évaluation Ragas, elle, se lance **manuellement en local** (hors CI) car
+lente et coûteuse.
 
 ### Jeu de test annoté
 
@@ -745,8 +747,9 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
   scores Ragas en continu), suivi des coûts Mistral.
 - **Sécurité** : authentification sur `/ask`, limitation de débit, rotation du
   `REBUILD_TOKEN`.
-- **CI/CD** : tests + porte qualité déterministe sur chaque pull request (hors-ligne),
-  évaluation Ragas complète en job planifié ou déclenché, puis déploiement automatisé.
+- **CI/CD** : tests + porte qualité déterministe sur chaque pull request (hors-ligne) ;
+  l'évaluation Ragas complète pourrait être ajoutée en job planifié dédié (hors du chemin
+  PR, car lente et coûteuse), puis déploiement automatisé.
 
 ## 9. Organisation du dépôt GitHub
 
@@ -775,7 +778,7 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 ├── tests/                    # 77 tests unitaires (pytest)
 ├── data/                     # Données collectées/nettoyées (gitignoré)
 ├── faiss_index/              # Index vectoriel persisté (gitignoré, régénérable)
-├── .github/workflows/        # CI : tests pytest (push/PR) + évaluation Ragas (workflow_dispatch)
+├── .github/workflows/        # CI : tests pytest (push/PR). Ragas se lance en local (hors CI)
 ├── Dockerfile                # Image multi-stage (venv Poetry + code), partagée API/UI
 ├── docker-compose.yml        # Stack conteneurisée : services api (8000) + ui (8050)
 ├── docker-entrypoint.sh      # Build de l'index au 1er démarrage, puis lance le service
@@ -795,7 +798,7 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 | `evaluation/` | Corpus et jeu de test annoté, leurs générateurs reproductibles (`build_corpus.py`, `build_testset.py`), les métriques déterministes (`metrics.py`), l'instantané des réponses et les résultats Ragas. |
 | `tests/` | Tests unitaires (sans réseau) couvrant nettoyage, filtres, métriques d'évaluation, API, interface, chunking, collecte. |
 | `data/`, `faiss_index/` | Artefacts régénérables, **non versionnés** (gitignorés). |
-| `.github/workflows/` | Intégration continue : tests `pytest` + porte qualité déterministe à chaque push / PR ; évaluation Ragas en déclenchement manuel. |
+| `.github/workflows/` | Intégration continue : tests `pytest` + porte qualité déterministe à chaque push / PR. L'évaluation Ragas complète se lance manuellement en local (hors CI). |
 
 ## 10. Annexes (exemples)
 

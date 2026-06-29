@@ -1,7 +1,8 @@
 name: Unit tests (pytest)
 
 # The suite is fully offline (LLM + network mocked), so it runs on every push and PR
-# without any MISTRAL_API_KEY. The Ragas evaluation (eval.yml) stays manual.
+# without any MISTRAL_API_KEY. The full Ragas evaluation is run manually/locally
+# (scripts/evaluate_rag.py) — it is intentionally not a CI workflow (slow + costs API calls).
 on:
   push:
   pull_request:
