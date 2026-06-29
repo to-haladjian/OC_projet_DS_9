@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from datetime import date, datetime
 from typing import Callable
 
@@ -75,6 +76,32 @@ def extract_filters(question: str, llm, today: date) -> dict:
     return filters
 
 
+def _normalize_city(value: object) -> str:
+    """Normalize a city name for tolerant matching.
+
+    Strips accents, casefolds, and collapses hyphens/whitespace to single spaces, so
+    ``"Boulogne-Billancourt"``, ``"boulogne billancourt"`` and ``"Boulogne Billancourt"``
+    all normalize to the same string.
+    """
+    text = unicodedata.normalize("NFKD", str(value))
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    text = re.sub(r"[\s\-]+", " ", text)
+    return text.casefold().strip()
+
+
+def _city_matches(query: str, event: str) -> bool:
+    """True if two normalized city names refer to the same place.
+
+    Matches on equality or whole-string containment, so the abbreviated ``"Boulogne"``
+    still matches ``"Boulogne-Billancourt"`` without dropping the geographic constraint
+    to the full-corpus fallback. Both arguments are expected to be already normalized
+    (:func:`_normalize_city`).
+    """
+    if not query or not event:
+        return False
+    return query == event or query in event or event in query
+
+
 def _parse_date(value: object) -> date | None:
     """Parse an ISO date/datetime string to a ``date`` (None if missing/unparseable)."""
     if value is None:
@@ -100,12 +127,12 @@ def build_metadata_filter(filters: dict) -> Callable[[dict], bool] | None:
     if not filters:
         return None
 
-    city = filters.get("city")
+    city = _normalize_city(filters.get("city")) if filters.get("city") else ""
     date_from = _parse_date(filters.get("date_from"))
     date_to = _parse_date(filters.get("date_to"))
 
     def predicate(metadata: dict) -> bool:
-        if city and str(metadata.get("city", "")).casefold() != city.casefold():
+        if city and not _city_matches(city, _normalize_city(metadata.get("city", ""))):
             return False
         if date_from or date_to:
             start = _parse_date(metadata.get("date_start"))

@@ -65,6 +65,21 @@ def test_city_predicate_is_case_insensitive():
     assert predicate({"city": "Antony"}) is False
 
 
+def test_city_predicate_matches_abbreviated_name():
+    # "Boulogne" should still match the full "Boulogne-Billancourt" rather than being
+    # silently dropped to the full-corpus fallback.
+    predicate = build_metadata_filter({"city": "Boulogne"})
+    assert predicate({"city": "Boulogne-Billancourt"}) is True
+    assert predicate({"city": "Nanterre"}) is False
+
+
+def test_city_predicate_is_accent_and_hyphen_insensitive():
+    predicate = build_metadata_filter({"city": "issy les moulineaux"})
+    assert predicate({"city": "Issy-les-Moulineaux"}) is True
+    predicate_accented = build_metadata_filter({"city": "Levallois"})
+    assert predicate_accented({"city": "Levallois-Perret"}) is True
+
+
 def test_date_window_keeps_overlapping_events():
     predicate = build_metadata_filter(
         {"date_from": "2026-06-06", "date_to": "2026-06-07"}
