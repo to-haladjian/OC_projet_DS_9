@@ -94,6 +94,13 @@ def test_metadata_aggregates_corpus_stats(client):
     assert body["cities"] == 2
     assert body["departments"] == {"92": 2}
     assert body["date_range"] == {"from": "2026-06-01", "to": "2026-07-16"}
+    # Active collection window (cutoff = today - window_days), distinct from date_range.
+    from datetime import date, timedelta
+
+    from src import config
+
+    expected_cutoff = (date.today() - timedelta(days=config.COLLECTION_DAYS)).isoformat()
+    assert body["collection"] == {"since": expected_cutoff, "window_days": config.COLLECTION_DAYS}
 
 
 # --- /ask ---

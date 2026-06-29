@@ -48,7 +48,14 @@ class MetadataResponse(BaseModel):
     )
     date_range: dict[str, str | None] = Field(
         ...,
-        description="Earliest and latest event dates, as {'from': ..., 'to': ...}.",
+        description="Raw earliest/latest event dates in the corpus, as {'from': ..., "
+        "'to': ...}. Skewed by long-running and far-future events; see 'collection' for "
+        "the active window.",
+    )
+    collection: dict[str, str | int] = Field(
+        ...,
+        description="Active collection window: {'since': cutoff date — events are kept "
+        "if they end on/after it, 'window_days': look-back length in days}.",
     )
 
 

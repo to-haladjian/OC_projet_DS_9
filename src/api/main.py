@@ -15,9 +15,11 @@ from __future__ import annotations
 import os
 import threading
 from contextlib import asynccontextmanager
+from datetime import date, timedelta
 
 from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Request
 
+from src import config
 from src.api.schemas import (
     AskRequest,
     AskResponse,
@@ -108,11 +110,13 @@ def metadata(chain: RAGChain = Depends(get_rag_chain)) -> MetadataResponse:
             if latest is None or iso > latest:
                 latest = iso
 
+    cutoff = (date.today() - timedelta(days=config.COLLECTION_DAYS)).isoformat()
     return MetadataResponse(
         events=len(seen),
         cities=len(cities),
         departments=dict(sorted(departments.items())),
         date_range={"from": earliest, "to": latest},
+        collection={"since": cutoff, "window_days": config.COLLECTION_DAYS},
     )
 
 

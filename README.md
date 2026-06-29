@@ -514,7 +514,10 @@ Modèles Pydantic (`src/api/schemas.py`), qui pilotent aussi le schéma Swagger.
   "events": 2205,
   "cities": 43,
   "departments": { "92": 2205 },
-  "date_range": { "from": "2023-10-01", "to": "2028-06-26" }
+  // dates brutes du corpus : étalées par des événements de longue durée / lointains
+  "date_range": { "from": "2023-10-01", "to": "2028-06-26" },
+  // fenêtre de collecte effective : événements conservés si leur date de fin >= cutoff
+  "collection": { "since": "2025-06-29", "window_days": 365 }
 }
 ```
 

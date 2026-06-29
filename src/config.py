@@ -21,6 +21,12 @@ RAW_CSV = DATA_DIR / "openagenda_92_events.csv"
 CLEAN_CSV = DATA_DIR / "events_clean.csv"
 FAISS_DIR = PROJECT_ROOT / "faiss_index"
 
+# Collection look-back window (days): events are kept if their end date is within the
+# last COLLECTION_DAYS or in the future. GET /metadata surfaces the resulting cutoff
+# (today − COLLECTION_DAYS) so the active window is readable, distinct from the corpus's
+# raw min/max event dates (skewed by long-running / far-future events).
+COLLECTION_DAYS = 365
+
 # POC scope: Hauts-de-Seine only (INSEE department code 92). Used to keep only
 # Hauts-de-Seine events during cleaning. A frozenset so the ``.isin`` filter and a
 # future multi-department scope both stay one-line changes.
