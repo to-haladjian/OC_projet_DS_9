@@ -3,693 +3,693 @@
     "question": "Quelles visites guidées de médiathèques sont proposées à Clamart ?",
     "response": "Voici les visites guidées de médiathèques proposées à Clamart :\n\n1. **Visite guidée de la Buanderie - Médiathèque**\n   - **Lieu** : Médiathèque La Buanderie, Clamart (92140)\n   - **Date** : Samedi 20 septembre 2025, 15h00",
     "reference": "À Clamart, une visite guidée de la Médiathèque La Buanderie est proposée le samedi 20 septembre 2025 à 15h00, sur inscription.",
-    "exact_match": 0.0,
-    "token_f1": 0.5714285714285715
+    "token_f1": 0.5714285714285715,
+    "answer_similarity": 0.9548375228244169
   },
   {
     "question": "Y a-t-il des expositions à Fontenay-aux-Roses ?",
     "response": "Oui, voici les expositions à venir à Fontenay-aux-Roses :\n\n- **Fontenay-aux-Roses au-delà des clichés**\n  Lieu : Médiathèque de Fontenay-aux-Roses, Fontenay-aux-Roses (92260)\n  Dates : 5 - 27 septembre 2026",
     "reference": "Oui : l'exposition de Pierre Olivier Kohler est présentée à la Médiathèque de Fontenay-aux-Roses, du 3 au 5 octobre 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.3333333333333333
+    "token_f1": 0.3333333333333333,
+    "answer_similarity": 0.8821056828865786
   },
   {
     "question": "Quels spectacles de cirque ont lieu à Nanterre ?",
     "response": "Voici les spectacles de cirque ayant lieu à Nanterre :\n\n1. **Les Échappées Cirque - Boule Champs Pierreux**\n   - **Lieu** : Boule Champs Pierreux, Nanterre (92000)\n   - **Date** : Mercredi 9 juillet 2025, à partir de 17h00\n\n2. **Au Sommet - Cordée Circassienne**\n   - **Lieu** : Les Arènes de Nanterre, Nanterre (92000)\n   - **Dates** :\n     - Jeudi 20 novembre 2025, à 14h00\n     - Vendredi 21 novembre 2025, à 20h00",
     "reference": "À Nanterre, des spectacles de cirque « Les Échappées Cirque » sont proposés dans plusieurs parcs de la ville durant l'été 2025 (entrée gratuite).",
-    "exact_match": 0.0,
-    "token_f1": 0.25316455696202533
+    "token_f1": 0.25316455696202533,
+    "answer_similarity": 0.9275512143450874
   },
   {
     "question": "Quelles pièces de théâtre sont jouées à Châtenay-Malabry ?",
     "response": "Voici les pièces de théâtre jouées à Châtenay-Malabry (92) mentionnées dans le contexte :\n\n1. **JE ME SOUVIENS DE LA TERRE**\n   - **Lieu** : Theatre Firmin Gémier / La Piscine, Châtenay-Malabry (92290)\n   - **Dates** : 10 et 11 mars 2026\n\n2. **Les Soeurs Hilton**\n   - **Lieu** : Theatre Firmin Gémier / La Piscine, Châtenay-Malabry (92290)\n   - **Dates** : 7 et 8 octobre 2025 *(événement passé)*",
     "reference": "Au Théâtre Firmin Gémier / La Piscine à Châtenay-Malabry, on peut voir « Les Soeurs Hilton » les 7 et 8 octobre 2025 et « JE ME SOUVIENS DE LA TERRE » les 10 et 11 mars.",
-    "exact_match": 0.0,
-    "token_f1": 0.6
+    "token_f1": 0.6,
+    "answer_similarity": 0.9219916418514693
   },
   {
     "question": "Y a-t-il des expositions à voir à Meudon ?",
     "response": "Oui, voici une exposition à voir à Meudon :\n\n**Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon**\n- **Lieu** : Musée d'art et d'histoire, Meudon (92190)\n- **Dates** : Dimanche 7 juin 2026, à 15h00 et 16h00",
     "reference": "Oui : le Musée d'art et d'histoire de Meudon propose une « Visite Flash » de son exposition le dimanche 7 juin (à 15h00 et 16h00, gratuit).",
-    "exact_match": 0.0,
-    "token_f1": 0.6461538461538461
+    "token_f1": 0.6461538461538461,
+    "answer_similarity": 0.9386695679786233
   },
   {
     "question": "Quels concerts sont prévus à Courbevoie ?",
     "response": "Voici les concerts prévus à Courbevoie (92) :\n\n1. **Concert pop avec Pier di Gia chez Rémi à Courbevoie**\n   - **Lieu** : Apparemment C, Courbevoie (92400)\n   - **Date** : Samedi 20 juin 2026, 19h00\n\n2. **Les Arts dans tous les sens** (spectacle mêlant musique, danse et théâtre)\n   - **Lieu** : Théâtre de Verdure de Bécon, Courbevoie (92400)\n   - **Date** : Samedi 4 juillet 2026, 17h00",
     "reference": "À Courbevoie, le concert pop de Pier di Gia est proposé chez Rémi (Apparemment C) le samedi 20 juin à 19h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.44155844155844154
+    "token_f1": 0.44155844155844154,
+    "answer_similarity": 0.9101674344933236
   },
   {
     "question": "Quels spectacles de théâtre a-t-on à Clichy ?",
     "response": "Voici les spectacles de théâtre à Clichy dans le contexte fourni :\n\n1. **Entrée des artistes**\n   - **Lieu** : Conservatoire Léo Delibes, Clichy (92110)\n   - **Date** : Vendredi 27 mars 2026, 20h30\n\n2. **La Chambre**\n   - **Lieu** : Conservatoire Léo Delibes, Clichy (92110)\n   - **Date** : Jeudi 2 avril 2026, 14h30 et 20h30",
     "reference": "À Clichy, « Entrée des artistes » est jouée au Conservatoire Léo Delibes le vendredi 27 mars à 20h30, et le « Contours Festival » se tient au Pavillon Vendôme les 26 et 27 septembre 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.39473684210526316
+    "token_f1": 0.39473684210526316,
+    "answer_similarity": 0.8790919851197873
   },
   {
     "question": "Quelles expositions découvrir à Issy-les-Moulineaux ?",
     "response": "Voici les expositions à découvrir à Issy-les-Moulineaux :\n\n1. **Exposition \"Matières à rêver\" : productions des classes de maternelle d'Issy-les-Moulineaux**\n   - **Lieu** : Le Temps des Cerises, Issy-les-Moulineaux (92130)\n   - **Dates** : 13 mars - 4 avril 2026\n\n2. **Exposition - Dessins manga par Cojeval**\n   - **Lieu** : Le Temps des Cerises, Issy-les-Moulineaux (92130)\n   - **Dates** : 11 avril - 3 mai 2026\n\n3. **Exposition : Shibori, l'indigo révélé**\n   - **Lieu** : Le Temps des Cerises, Issy-les-Moulineaux (92130)\n   - **Dates** : 5 décembre 2025 - 25 janvier 2026 *(terminé)*",
     "reference": "À Issy-les-Moulineaux, l'exposition « Shibori, l'indigo révélé » est présentée au Temps des Cerises du 5 décembre 2025 au 25 janvier 2026.",
-    "exact_match": 0.0,
-    "token_f1": 0.339622641509434
+    "token_f1": 0.339622641509434,
+    "answer_similarity": 0.8947241716502494
   },
   {
     "question": "Que peut-on visiter dans les musées de Saint-Cloud ?",
     "response": "Voici les événements liés aux musées de Saint-Cloud (92) mentionnés dans le contexte :\n\n1. **Micro-visite : présentation de la maquette du pavillon Turc**\n   - **Lieu** : Musée historique - Domaine national de Saint-Cloud, Saint-Cloud (92210)\n   - **Date** : Samedi 20 septembre 2025, 14h30\n\n2. **« La classe, l’œuvre ! » - Les coups de cœur des lycéens**\n   - **Lieu** : Musée des Avelines, Saint-Cloud (92210)\n   - **Date** : Samedi 23 mai 2026, 19h00\n\n3. **Broderie royale**\n   - **Lieu** : Musée des Avelines, Saint-Cloud (92210)\n   - **Date** : Samedi 20 septembre 2025, 15h00",
     "reference": "À Saint-Cloud, le Musée des Avelines propose « Broderie royale » le samedi 20 septembre 2025 à 15h00, et la scène ouverte « Open Zik » a lieu au Carré (gratuit).",
-    "exact_match": 0.0,
-    "token_f1": 0.2752293577981651
+    "token_f1": 0.2752293577981651,
+    "answer_similarity": 0.8591632362064379
   },
   {
     "question": "Y a-t-il des événements dans les musées de Boulogne-Billancourt ?",
     "response": "Je n'ai pas trouvé d'événement correspondant dans les musées de Boulogne-Billancourt.",
     "reference": "Oui : à Boulogne-Billancourt, le Musée départemental Albert-Kahn propose le festival photographique « Mondes en commun » le samedi 23 mai à 15h00, et le Musée Paul Belmondo accueille « Lire les yeux fermés » le dimanche 7 juin à 16h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.11538461538461539
+    "token_f1": 0.11538461538461539,
+    "answer_similarity": 0.8360735370630998
   },
   {
     "question": "Quelles expositions sont proposées à Sceaux ?",
     "response": "Voici les expositions proposées à Sceaux :\n\n1. **\"Trésors et coulisses du Château. Histoire d'une collection\"**\n   - **Lieu** : Château de Sceaux, musée départemental - Anciennes écuries, Sceaux (92330)\n   - **Dates** : 20 et 21 septembre 2025\n\n2. **\"Si les Blagis m'étaient contés\"**\n   - **Lieu** : Bibliothèque municipale, Sceaux (92330)\n   - **Dates** : 20 et 21 septembre 2025",
     "reference": "À Sceaux, le Château de Sceaux (musée départemental) propose la visite libre et gratuite de l'exposition « Trésors et coulisses » les 20 et 21 septembre 2025, et la Bibliothèque municipale présente « Si les Blagis m'étaient contés ».",
-    "exact_match": 0.0,
-    "token_f1": 0.5747126436781609
+    "token_f1": 0.5747126436781609,
+    "answer_similarity": 0.932368425063655
   },
   {
     "question": "Quels spectacles de danse sont proposés à Gennevilliers ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à des spectacles de danse à Gennevilliers dans le contexte fourni.",
     "reference": "À Gennevilliers, un « Parcours improvisation chorégraphique » est organisé à l'École Paul Langevin, du 30 mars au 3 avril.",
-    "exact_match": 0.0,
-    "token_f1": 0.15789473684210525
+    "token_f1": 0.15789473684210525,
+    "answer_similarity": 0.8329321390572273
   },
   {
     "question": "Quels ateliers de jardinage sont organisés ?",
     "response": "Voici les ateliers de jardinage organisés dans les Hauts-de-Seine :\n\n1. **Atelier bouturage**\n   - **Lieu** : Jardin partagé Hoffmann, Bourg-la-Reine (92340)\n   - **Date** : Dimanche 30 août 2026, 15h00\n\n2. **Atelier plantes mellifères**\n   - **Lieu** : Agrocité de Genevilliers, Gennevilliers\n   - **Date** : Samedi 8 août 2026, 15h00",
     "reference": "Un atelier bouturage est organisé au Jardin partagé Hoffmann à Bourg-la-Reine, le dimanche 30 août à 15h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.3870967741935483
+    "token_f1": 0.3870967741935483,
+    "answer_similarity": 0.8874437814267911
   },
   {
     "question": "Quels événements autour du cinéma sont proposés ?",
     "response": "Voici les événements autour du cinéma proposés dans les Hauts-de-Seine (92) :\n\n1. **Ciné Bout'Chou : La grande rêvasion**\n   - **Lieu** : Ciné d'Issy, Issy-les-Moulineaux (92130)\n   - **Date** : Dimanche 28 juin 2026, 11h00\n\n2. **Ciné-Goûter - Spécial argile ! A partir de 5 ans**\n   - **Lieu** : Le Temps des Cerises, Issy-les-Moulineaux (92130)\n   - **Date** : Mercredi 18 mars 2026, 15h30\n\n3. **Comédie Française : HAMLET**\n   - **Lieu** : Le Sélect, Antony (92160)\n   - **Date** : Dimanche 7 juin 2026, 15h00",
     "reference": "Le Ciné d'Issy à Issy-les-Moulineaux propose la projection de « La Vénus électrique », du 17 au 21 juin.",
-    "exact_match": 0.0,
-    "token_f1": 0.25531914893617025
+    "token_f1": 0.25531914893617025,
+    "answer_similarity": 0.8252974558700146
   },
   {
     "question": "Quelles pièces de théâtre peut-on voir dans les Hauts-de-Seine ?",
     "response": "Voici les pièces de théâtre à venir dans les Hauts-de-Seine :\n\n- **Les Arts dans tous les sens**\n  Lieu : Théâtre de Verdure de Bécon, Courbevoie (92400)\n  Date : Samedi 4 juillet 2026, 17h00\n\n- **Les Soeurs Hilton**\n  Lieu : Theatre Firmin Gémier / La Piscine, Châtenay-Malabry (92290)\n  Date : 7 et 8 octobre 2025",
     "reference": "Plusieurs pièces sont programmées, par exemple « Les Soeurs Hilton » au Théâtre Firmin Gémier / La Piscine à Châtenay-Malabry (7 et 8 octobre 2025) et « Entrée des artistes » au Conservatoire Léo Delibes à Clichy (27 mars).",
-    "exact_match": 0.0,
-    "token_f1": 0.4
+    "token_f1": 0.4,
+    "answer_similarity": 0.8782721213019828
   },
   {
     "question": "Y a-t-il des spectacles de danse ?",
     "response": "Oui, voici les spectacles de danse prévus dans les Hauts-de-Seine :\n\n1. **Spectacle de danse + atelier participatif - Identités passagères**\n   - **Lieu** : Square du Souvenir Français, Asnières-sur-Seine (92600)\n   - **Date** : Mercredi 9 juillet 2025, 17h00\n\n2. **Les Arts dans tous les sens**\n   - **Lieu** : Théâtre de Verdure de Bécon, Courbevoie (92400)\n   - **Date** : Samedi 4 juillet 2026, 17h00",
     "reference": "Oui : le spectacle « ASSEMBLÉE » est donné Place de la cathédrale à Nanterre (7 juin - 6 juillet 2025), et un parcours d'improvisation chorégraphique a lieu à l'École Paul Langevin à Gennevilliers.",
-    "exact_match": 0.0,
-    "token_f1": 0.13636363636363635
+    "token_f1": 0.13636363636363635,
+    "answer_similarity": 0.8473332132680909
   },
   {
     "question": "Quelles expositions sont à voir en ce moment ?",
     "response": "Voici les expositions à venir dans les Hauts-de-Seine après le 29 juin 2026 :\n\n1. **Exposition \"Matières à rêver\" : productions des classes de maternelle d'Issy-les-Moulineaux**\n   - **Lieu** : Le Temps des Cerises, Issy-les-Moulineaux (92130)\n   - **Dates** : 13 mars - 4 avril 2026\n\n2. **Exposition - Dessins manga par Cojeval**\n   - **Lieu** : Le Temps des Cerises, Issy-les-Moulineaux (92130)\n   - **Dates** : 11 avril - 3 mai 2026\n\n3. **Festival photographique \"Mondes en commun\"**\n   - **Lieu** : Musée départemental Albert-Kahn, Boulogne-Billancourt (92100)\n   - **Dates** : 23 mai - 20 septembre 2026",
     "reference": "Parmi les expositions : « Shibori, l'indigo révélé » au Temps des Cerises à Issy-les-Moulineaux (5 décembre 2025 - 25 janvier 2026) et la « Visite Flash » du Musée d'art et d'histoire de Meudon (dimanche 7 juin, gratuit).",
-    "exact_match": 0.0,
-    "token_f1": 0.22764227642276422
+    "token_f1": 0.22764227642276422,
+    "answer_similarity": 0.8416502193691956
   },
   {
     "question": "Quels concerts de musique sont programmés ?",
     "response": "Voici les concerts de musique programmés dans les Hauts-de-Seine à venir :\n\n1. **Concert de la violoncelliste Thuy-Nhi Au-Quang**\n   - **Lieu** : Fonds culturel de l’Ermitage, Garches (92380)\n   - **Date** : Dimanche 28 juin 2026, 15h00\n\n2. **Les Arts dans tous les sens**\n   - **Lieu** : Théâtre de Verdure de Bécon, Courbevoie (92400)\n   - **Date** : Samedi 4 juillet 2026, 17h00",
     "reference": "Côté musique, la scène ouverte « Open Zik » de l'ECLA se tient au Carré à Saint-Cloud (gratuit) et un concert pop de Pier di Gia est proposé chez Rémi à Courbevoie le samedi 20 juin à 19h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.23157894736842105
+    "token_f1": 0.23157894736842105,
+    "answer_similarity": 0.8058538856488019
   },
   {
     "question": "Quels ateliers autour de l'emploi et du recrutement sont proposés ?",
     "response": "Voici les ateliers autour de l'emploi et du recrutement proposés dans les Hauts-de-Seine :\n\n1. **Un Emploi Pour Tous**\n   - **Lieu** : Chambre de métiers et de l'artisanat IDF-92, Nanterre (92000)\n   - **Date** : Mardi 23 septembre 2025, 09h30\n\n2. **France Travail et Vous**\n   - **Lieu** : Agence Colombes, Colombes (92700)\n   - **Date** : Mercredi 17 décembre 2025, 09h30\n\n3. **Atelier Découverte des Métiers de l'Industrie**\n   - **Lieu** : Agence Colombes, Colombes (92700)\n   - **Date** : Lundi 22 juin 2026, 14h00 *(déjà passé)*\n\n4. **Dispositif Starter : Préparer les personnes en situation de handicap à rencontrer des entreprises qui recrutent en restauration collective**\n   - **Lieu** : Asnières-sur-Seine - Agence Colombes, Asnières-sur-Seine (92600)\n   - **Date** : Mardi 21 avril 2026, 10h00 *(déjà passé)*\n\n5. **La Place de l'Emploi Hauts-De-Seine**\n   - **Lieu** : Puteaux - Agence Courbevoie, Courbevoie (92400)\n   - **Date** : Mardi 16 juin 2026, 15h00 *(déjà passé)*\n\n6. **DECOUVREZ LE SECTEUR AEROPORTUAIRE ! Participez à l'atelier dédié à la découverte des métiers de l'aéroport !**\n   - **Lieu** : Boulogne-Billancourt - Agence Montrouge, Boulogne-Billancourt (92100)\n   - **Date** : Jeudi 11 juin 2026, 14h00 *(déjà passé)*",
     "reference": "Plusieurs ateliers emploi sont proposés par les agences France Travail, par exemple « Découvrez le secteur aéroportuaire » à Boulogne-Billancourt (jeudi 11 juin) et un atelier « Découverte des métiers de l'industrie » à l'agence de Colombes (lundi 22 juin).",
-    "exact_match": 0.0,
-    "token_f1": 0.3157894736842105
+    "token_f1": 0.3157894736842105,
+    "answer_similarity": 0.8884541975818018
   },
   {
     "question": "Quelles activités autour de la nature sont organisées ?",
     "response": "Voici les activités autour de la nature organisées dans les Hauts-de-Seine (92) :\n\n1. **Visite du jardin pédagogique de l'association C'est si bio**\n   - **Lieu** : Jardin pédagogique de l'association C'est si bio, Nanterre (92000)\n   - **Dates** : 27 et 28 juin 2026\n\n2. **« Les vues et perspectives de l’Arboretum de la Vallée-aux-Loups », visite guidée**\n   - **Lieu** : Arboretum du Domaine départemental de la Vallée-aux-Loups, Châtenay-Malabry (92290)\n   - **Dates** : Dimanche 7 juin 2026, à 14h00 et 16h00\n\n3. **Atelier plantes mellifères**\n   - **Lieu** : Agrocité de Genevilliers, Gennevilliers\n   - **Dates** : Samedi 8 août 2026, à 15h00",
     "reference": "Côté nature, « Regards sur les arbres du parc du Vieux cimetière » a lieu à Courbevoie (samedi 6 juin, 10h00) et « La forêt s'éveille sur les coteaux » est proposé Place Henri Brousse à Meudon.",
-    "exact_match": 0.0,
-    "token_f1": 0.1984732824427481
+    "token_f1": 0.1984732824427481,
+    "answer_similarity": 0.8382145719230515
   },
   {
     "question": "Que peut-on faire à Issy-les-Moulineaux ?",
     "response": "Voici les événements à venir ou récents à Issy-les-Moulineaux (92) :\n\n**Événements à venir :**\n1. **Ciné Bout'Chou : La grande rêvasion**\n   - **Lieu** : Ciné d'Issy, Issy-les-Moulineaux (92130)\n   - **Date** : Dimanche 28 juin 2026, 11h00\n\n2. **Jeu des différences autour de la Tour aux figures**\n   - **Lieu** : Parc départemental de l’Île Saint-Germain - La Tour aux figures, Issy-les-Moulineaux (92130)\n   - **Date** : Dimanche 7 juin 2026, 14h00\n\n**Événement récent :**\n3. **ANNULÉ Issy Danse - Place de l'Hotel de Ville**\n   - **Lieu** : Place de la Mairie, Issy-les-Moulineaux (92130)\n   - **Date** : Dimanche 21 juin 2026, 15h45\n\n**Autres activités possibles (non issues du contexte) :**\n- Visite de la **Tour aux figures** (œuvre de Jean Dubuffet) dans le Parc départemental de l’Île Saint-Germain.\n- Découverte du **Chemin des Vignes** et de l’histoire des Moulineaux à Issy-les-Moulineaux.",
     "reference": "À Issy-les-Moulineaux, plusieurs événements sont proposés, par exemple l'exposition « Shibori, l'indigo révélé » et les « Contes kamishibaï au jardin japonais » au Temps des Cerises.",
-    "exact_match": 0.0,
-    "token_f1": 0.12269938650306748
+    "token_f1": 0.12269938650306748,
+    "answer_similarity": 0.8299512867795611
   },
   {
     "question": "Quels événements sont prévus à Courbevoie ?",
     "response": "Voici les événements prévus à Courbevoie (92) à partir du 29 juin 2026 :\n\n1. **Me former pour accéder à un emploi durable : du projet à la concretisation !**\n   - **Lieu** : Agence Courbevoie, 17 rue du président Kruger, Courbevoie (92400)\n   - **Date** : Lundi 29 juin 2026, de 14h00 à 16h30\n\n2. **Les Blanchisseuses de Courbevoie**\n   - **Lieu** : Théâtre de Verdure, parc de Bécon, Courbevoie (92400)\n   - **Date** : 18 et 19 septembre 2026, de 18h00 à 19h20",
     "reference": "À Courbevoie, on trouve notamment l'exposition « Écrire la ville » au Musée Roybet Fould (20 et 21 septembre 2025), la « Visite libre du Pavillon des Indes », ainsi que des ateliers emploi de France Travail.",
-    "exact_match": 0.0,
-    "token_f1": 0.15384615384615385
+    "token_f1": 0.15384615384615385,
+    "answer_similarity": 0.8370442560481993
   },
   {
     "question": "Qu'y a-t-il à faire à Colombes ?",
     "response": "Voici les événements à venir ou récents à Colombes (92) :\n\n**Événements à venir :**\n- **Atelier Découverte des Métiers de l'Industrie**\n  Lieu : Agence Colombes, Colombes (92700)\n  Date : Lundi 22 juin 2026, 14h00\n\n**Événements passés (avant le 2026-06-29) :**\n- **Mai à Vélo 2026**\n  Lieu : Colombes à vélo, Colombes (92700)\n  Date : 1 - 31 mai 2026 *(déjà terminé)*\n\n- **Présentation de Numbr - Quel statut juridique choisir pour lancer votre activité ?**\n  Lieu : Agence Colombes, Colombes (92700)\n  Date : Lundi 20 avril 2026, 14h00 *(déjà terminé)*\n\n- **Pause thé au musée !**\n  Lieu : Musée d'art et d'histoire de Colombes, Colombes (92700)\n  Date : Samedi 20 septembre 2025 *(déjà terminé)*\n\n- **Visite guidée des coulisses de l'Avant-Seine**\n  Lieu : L'Avant Seine - Théâtre de Colombes, Colombes (92700)\n  Date : Samedi 20 septembre 2025 *(déjà terminé)*\n\n- **France Travail et Vous**\n  Lieu : Agence Colombes, Colombes (92700)\n  Date : Mercredi 17 décembre 2025 *(déjà terminé)*",
     "reference": "À Colombes, l'Avant-Seine - Théâtre de Colombes propose l'événement « TROC - Happy Culture ! » (5 septembre 2025) et une « Visite guidée des coulisses » (20 septembre 2025), en plus d'ateliers de recrutement.",
-    "exact_match": 0.0,
-    "token_f1": 0.24277456647398843
+    "token_f1": 0.24277456647398843,
+    "answer_similarity": 0.8340880860447762
   },
   {
     "question": "Quels événements ont lieu à Nanterre ?",
     "response": "Voici les événements ayant lieu à Nanterre :\n\n1. **ASSEMBLEE**\n   - **Lieu** : Place de la cathédrale, Nanterre (92000)\n   - **Dates** : 7 juin - 6 juillet 2025 *(passé)*\n\n2. **Au Sommet - Cordée Circassienne**\n   - **Lieu** : Les Arènes de Nanterre, Nanterre (92000)\n   - **Dates** : Jeudi 20 novembre 2025, 14h00 *(passé)* et Vendredi 21 novembre 2025, 20h00 *(passé)*\n\n3. **Les Échappées Cirque - Boule Champs Pierreux**\n   - **Lieu** : Boule Champs Pierreux, Nanterre (92000)\n   - **Date** : Mercredi 9 juillet 2025, 17h00 *(passé)*\n\n4. **Les ateliers qui dépoussièrent les archives !**\n   - **Lieu** : 137 avenue Joliot Curie, 92000 NANTERRE, Nanterre (92000)\n   - **Date** : Mercredi 10 juin 2026, 10h00 et 14h30 *(passé)*\n\n5. **Nanterre fête la musique - Programme**\n   - **Lieu** : marché Pablo Picasso, Nanterre (92000)\n   - **Date** : Dimanche 21 juin 2026, 14h00 *(passé)*",
     "reference": "À Nanterre, on peut voir « Au Sommet - Cordée Circassienne » aux Arènes de Nanterre (20 et 21 novembre 2025), le spectacle « ASSEMBLÉE » Place de la cathédrale, et le concert « TM+ - Vanishings » à la Maison de la musique.",
-    "exact_match": 0.0,
-    "token_f1": 0.2953020134228188
+    "token_f1": 0.2953020134228188,
+    "answer_similarity": 0.9005230508592
   },
   {
     "question": "Que peut-on faire à Meudon ?",
     "response": "Voici une sélection d'événements et activités à Meudon (92) que vous pouvez faire :\n\n### **Nature et Découverte**\n1. **Dimanches au Vert en famille avec enfants de 3 à 10 ans**\n   - **Lieu** : Parc de l'Observatoire de Meudon, en haut de l'avenue du Château, Meudon (92360)\n   - **Dates** : Jusqu'au **31 mai 2026**, certains dimanches de 10h à 12h\n   - **Activités** : Aventures nature, éveil sensoriel, ateliers créatifs (peinture végétale, bijoux végétaux, etc.), jeux et contes sur la nature.\n   - **Organisateur** : Anne-Jeanne (Éducatrice Nature/Educatrice Montessori)\n   - **Réservation** : [EcoNature](https://www.eco-nature.org/experience/decouverte-nature-en-famille-avec-enfants-de-2-a-10-ans-en-foret-de-meudon-92-745)\n\n2. **La forêt s'éveille sur les coteaux Meudon !**\n   - **Lieu** : Place Henri Brousse, Meudon (92190)\n   - **Dates** : Jusqu'au **28 mars 2026**, certains jours (ex. : identification des plantes, floraisons printanières)\n   - **Activités** : Balades en famille ou entre amis pour découvrir les plantes sauvages, comestibles et médicinales.\n   - **Organisateur** : Nathalie (guide nature qualinat et paysagiste)\n   - **Réservation** : [EcoNature](https://www.eco-nature.org/experience/la-foret-s-eveille-sur-les-coteaux-meudon-758)\n\n---\n\n### **Culture et Patrimoine**\n3. **Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon**\n   - **Lieu** : Musée d'art et d'histoire, Meudon (92190)\n   - **Date** : **Dimanche 7 juin 2026** à 15h et 16h\n   - **Activités** : Visite guidée gratuite de l'exposition temporaire *« L’âme artistique et urbaine de l’ouest parisien, la collection Courtois »* (30 min).\n   - **Accès** : Sans réservation.\n\n4. **Visite éclair \"Dans l'intimité de la création\"**\n   - **Lieu** : Musée Rodin - Meudon, Meudon (92190)\n   - **Dates** : **20 et 21 septembre 2025** (départs à 11h, 11h30 et 12h)\n   - **Activités** : Découverte de la maison-atelier d'Auguste Rodin et de son univers créatif.\n   - **Public** : À partir de 12 ans.\n\n5. **Visite de l'église de Meudon-la-Forêt**\n   - **Lieu** : Église du Saint-Esprit, Meudon (92360)\n   - **Dates** : **19 et 20 septembre 2026** (8h à 15h45)\n   - **Activités** : Découverte d'un édifice religieux moderne (architecture des années 1960, symbolique post-Vatican II).\n\n---\n### **Événements à venir (2026)**\n6. **Journée Portes Ouvertes**\n   - **Lieu** : Campus éducatif et écologique Saint-Philippe, Meudon (92190)\n   - **Dates** : **24 janvier 2026** et **23 janvier 2027**\n   - **Activités** : Découverte des métiers de l'horticulture, du maraîchage, de la fleuristerie, et visite des plateaux techniques.\n   - **Public** : Familles, élèves, professionnels.\n\n---\n### **À noter**\n- Les événements **nature** (ex. *Dimanches au Vert*) et **culturels** (ex. *Musée Rodin*) sont récurrents ou ponctuels. Vérifiez les dates exactes sur les liens fournis.\n- Pour les **activités nature**, une réservation est souvent nécessaire (liens dans les descriptions).\n\nSi vous cherchez un type d'activité spécifique (ex. : ateliers pour enfants, expositions), précisez votre demande !",
     "reference": "À Meudon, le Musée d'art et d'histoire propose une « Visite Flash », « La forêt s'éveille sur les coteaux » se tient Place Henri Brousse, et les « Dimanches au Vert en famille » ont lieu au Parc de l'Observatoire.",
-    "exact_match": 0.0,
-    "token_f1": 0.14686825053995678
+    "token_f1": 0.14686825053995678,
+    "answer_similarity": 0.8355986738517834
   },
   {
     "question": "Quels événements à Boulogne-Billancourt ?",
     "response": "Voici les événements à Boulogne-Billancourt (92) **à venir** après le 20 juin 2026 :\n\n1. **Bourse aux vélos**\n   - **Lieu** : Grand' Place Boulogne Billancourt, Boulogne-Billancourt (92100)\n   - **Date** : Samedi 30 mai 2026, 10h00\n\n*(Les autres événements mentionnés dans le contexte sont passés ou ont eu lieu avant le 20 juin 2026.)*",
     "reference": "À Boulogne-Billancourt, le Musée Albert-Kahn propose le festival photographique « Mondes en commun » et une « Action collective », tandis que le Musée Paul Belmondo accueille « Lire les yeux fermés ».",
-    "exact_match": 0.0,
-    "token_f1": 0.17721518987341772
+    "token_f1": 0.17721518987341772,
+    "answer_similarity": 0.7867397764821195
   },
   {
     "question": "Quels événements sont organisés à Saint-Cloud ?",
     "response": "Voici les événements organisés à Saint-Cloud (92) mentionnés dans le contexte :\n\n1. **Broderie royale**\n   - **Lieu** : Musée des Avelines, Saint-Cloud (92210)\n   - **Date** : Samedi 20 septembre 2025, 15h00\n\n2. **« La classe, l’œuvre ! » - Les coups de cœur des lycéens**\n   - **Lieu** : Musée des Avelines, Saint-Cloud (92210)\n   - **Date** : Samedi 23 mai 2026, 19h00\n\n3. **Open Zik - La scène ouverte de l'ECLA**\n   - **Lieu** : Le Carré, Saint-Cloud (92210)\n   - **Dates** :\n     - Vendredi 6 février 2026, 20h00\n     - Vendredi 29 mai 2026, 20h00\n\n4. **Micro-visite : présentation de la maquette du pavillon Turc**\n   - **Lieu** : Musée historique - Domaine national de Saint-Cloud, Saint-Cloud (92210)\n   - **Date** : Samedi 20 septembre 2025, 14h30\n\n5. **Visite historique guidée du Bureau international des poids et mesures à Sèvres**\n   - **Lieu** : Bureau international des poids et mesures, Saint-Cloud (92210)\n   - **Dates** : 20 et 21 septembre 2025",
     "reference": "À Saint-Cloud, le Musée des Avelines propose « Broderie royale », le Domaine national présente la maquette du pavillon Turc, et la scène ouverte « Open Zik » se tient au Carré (gratuit).",
-    "exact_match": 0.0,
-    "token_f1": 0.29268292682926833
+    "token_f1": 0.29268292682926833,
+    "answer_similarity": 0.8501501095114983
   },
   {
     "question": "Y a-t-il des compétitions de ski alpin dans les Hauts-de-Seine ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à une compétition de ski alpin dans les Hauts-de-Seine.",
     "reference": "Non, je n'ai pas trouvé d'événement correspondant à des compétitions de ski alpin dans les données.",
-    "exact_match": 0.0,
-    "token_f1": 0.7567567567567567
+    "token_f1": 0.7567567567567567,
+    "answer_similarity": 0.9206686360341939
   },
   {
     "question": "Quels événements sont prévus à Marseille ?",
     "response": "Je n'ai pas trouvé d'événement prévu à Marseille dans le contexte fourni.",
     "reference": "Aucun événement à Marseille n'est disponible : les données ne couvrent que le département des Hauts-de-Seine (92).",
-    "exact_match": 0.0,
-    "token_f1": 0.30303030303030304
+    "token_f1": 0.30303030303030304,
+    "answer_similarity": 0.8880521624481473
   },
   {
     "question": "Où voir un match de basket NBA dans les Hauts-de-Seine ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à un match de basket NBA dans les Hauts-de-Seine dans le contexte fourni.",
     "reference": "Aucun match de basket NBA n'est proposé : je n'ai pas trouvé d'événement de ce type dans les données.",
-    "exact_match": 0.0,
-    "token_f1": 0.6363636363636365
+    "token_f1": 0.6363636363636365,
+    "answer_similarity": 0.9002833825038944
   },
   {
     "question": "Y a-t-il une compétition de surf de prévue ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à une compétition de surf dans les Hauts-de-Seine.",
     "reference": "Non, je n'ai pas trouvé de compétition de surf dans les données des Hauts-de-Seine.",
-    "exact_match": 0.0,
-    "token_f1": 0.7428571428571428
+    "token_f1": 0.7428571428571428,
+    "answer_similarity": 0.9680303208559103
   },
   {
     "question": "Quand a lieu le festival de montgolfières ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à un festival de montgolfières dans les Hauts-de-Seine.",
     "reference": "Je n'ai pas trouvé de festival de montgolfières dans les événements disponibles.",
-    "exact_match": 0.0,
-    "token_f1": 0.7096774193548387
+    "token_f1": 0.7096774193548387,
+    "answer_similarity": 0.9293924529205767
   },
   {
     "question": "Y a-t-il une course de chiens de traîneau organisée ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à une course de chiens de traîneau dans les Hauts-de-Seine.",
     "reference": "Non, aucune course de chiens de traîneau ne figure dans les données.",
-    "exact_match": 0.0,
-    "token_f1": 0.4375
+    "token_f1": 0.4375,
+    "answer_similarity": 0.8858579702629317
   },
   {
     "question": "Où assister à une corrida dans les Hauts-de-Seine ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à une corrida dans les Hauts-de-Seine.",
     "reference": "Je n'ai pas trouvé d'événement de corrida dans les données.",
-    "exact_match": 0.0,
-    "token_f1": 0.7857142857142857
+    "token_f1": 0.7857142857142857,
+    "answer_similarity": 0.9091317829578193
   },
   {
     "question": "Y a-t-il un safari animalier à proximité ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à un safari animalier dans les Hauts-de-Seine.",
     "reference": "Non, aucun safari animalier ne figure parmi les événements disponibles.",
-    "exact_match": 0.0,
-    "token_f1": 0.22222222222222224
+    "token_f1": 0.22222222222222224,
+    "answer_similarity": 0.8966027156224832
   },
   {
     "question": "Où puis-je assister à un Grand Prix de Formule 1 dans les Hauts-de-Seine ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à un Grand Prix de Formule 1 dans les Hauts-de-Seine dans le contexte fourni.",
     "reference": "Aucun Grand Prix de Formule 1 n'est proposé : il n'y a pas d'événement de ce type dans les Hauts-de-Seine dans les données.",
-    "exact_match": 0.0,
-    "token_f1": 0.627450980392157
+    "token_f1": 0.627450980392157,
+    "answer_similarity": 0.9571831128583653
   },
   {
     "question": "Quels événements culturels y a-t-il à Lyon ?",
     "response": "Je n'ai pas trouvé d'événement culturel à Lyon dans le contexte fourni.",
     "reference": "Aucun événement à Lyon n'est disponible : les données ne couvrent que le département des Hauts-de-Seine (92).",
-    "exact_match": 0.0,
-    "token_f1": 0.30303030303030304
+    "token_f1": 0.30303030303030304,
+    "answer_similarity": 0.8585029346092434
   },
   {
     "question": "Que peut-on faire à Bordeaux ce week-end ?",
     "response": "Je n'ai pas trouvé d'événement correspondant à Bordeaux dans le département des Hauts-de-Seine (92).",
     "reference": "Aucun événement à Bordeaux n'est disponible : les données ne couvrent que le département des Hauts-de-Seine (92).",
-    "exact_match": 0.0,
-    "token_f1": 0.5945945945945946
+    "token_f1": 0.5945945945945946,
+    "answer_similarity": 0.9373713290836343
   },
   {
     "question": "Quel temps fera-t-il ce week-end dans les Hauts-de-Seine ?",
     "response": "Je n'ai pas trouvé d'événement ou d'information concernant la météo dans les Hauts-de-Seine pour ce week-end (1er et 2 juillet 2026) dans le contexte fourni.",
     "reference": "Je ne peux pas répondre à cette question : je renseigne uniquement sur les événements culturels des Hauts-de-Seine, pas sur la météo.",
-    "exact_match": 0.0,
-    "token_f1": 0.2962962962962963
+    "token_f1": 0.2962962962962963,
+    "answer_similarity": 0.8865892174608112
   },
   {
     "question": "Où et quand a lieu « Ateliers d'initiation aux techniques de la police scientifique » ?",
     "response": "**Ateliers d'initiation aux techniques de la police scientifique**\n- **Lieu** : Médiathèque La Buanderie, Clamart (92140)\n- **Date** : Samedi 4 octobre 2025 à 10h00",
     "reference": "« Ateliers d'initiation aux techniques de la police scientifique » a lieu à Médiathèque La Buanderie à Clamart, Samedi 4 octobre 2025, 10h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.9090909090909091
+    "token_f1": 0.9090909090909091,
+    "answer_similarity": 0.9545625722647293
   },
   {
     "question": "Dans quelle ville se déroule « Entrée des artistes » ?",
     "response": "« Entrée des artistes » se déroule à **Clichy (92110)**.",
     "reference": "« Entrée des artistes » se déroule à Clichy (au lieu : Conservatoire Léo Delibes).",
-    "exact_match": 0.0,
-    "token_f1": 0.7000000000000001
+    "token_f1": 0.7000000000000001,
+    "answer_similarity": 0.937630234271019
   },
   {
     "question": "Quand a lieu « Visite libre du Pavillon des Indes » ?",
     "response": "L'événement **« Visite libre du Pavillon des Indes »** a eu lieu les **20 et 21 septembre 2025** au **Pavillon des Indes, Courbevoie (92400)**.",
     "reference": "« Visite libre du Pavillon des Indes » a lieu : 20 et 21 septembre 2025 (à Le pavillon des Indes, Courbevoie).",
-    "exact_match": 0.0,
-    "token_f1": 0.8095238095238095
+    "token_f1": 0.8095238095238095,
+    "answer_similarity": 0.9766226452539227
   },
   {
     "question": "Dans quel lieu se tient « Broderie royale » à Saint-Cloud ?",
     "response": "« Broderie royale » se tient au **Musée des Avelines**, à Saint-Cloud (92210).",
     "reference": "« Broderie royale » se tient à Musée des Avelines, à Saint-Cloud, Samedi 20 septembre 2025, 15h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.7142857142857143
+    "token_f1": 0.7142857142857143,
+    "answer_similarity": 0.9550816633131911
   },
   {
     "question": "Où et quand a lieu « Voyage dans le temps à l’Hôtel de Ville de Boulogne-Billancourt » ?",
     "response": "« Voyage dans le temps à l’Hôtel de Ville de Boulogne-Billancourt » a lieu à l’Hôtel de ville de Boulogne-Billancourt, le dimanche 19 octobre 2025, de 14h00 à 16h00.",
     "reference": "« Voyage dans le temps à l’Hôtel de Ville de Boulogne-Billancourt » a lieu à Hôtel de ville Boulogne-Billancourt à Boulogne-Billancourt, Dimanche 19 octobre 2025, 14h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.8813559322033899
+    "token_f1": 0.8813559322033899,
+    "answer_similarity": 0.9942434784387244
   },
   {
     "question": "Dans quelle ville se déroule « Atelier calligrammes autour des animaux » ?",
     "response": "L'événement **« Atelier calligrammes autour des animaux »** se déroule à **Villeneuve-la-Garenne (92390)**.",
     "reference": "« Atelier calligrammes autour des animaux » se déroule à Villeneuve-la-Garenne (au lieu : Bibliothèque Municipale Aimé-Césaire).",
-    "exact_match": 0.0,
-    "token_f1": 0.7096774193548386
+    "token_f1": 0.7096774193548386,
+    "answer_similarity": 0.9443753259117599
   },
   {
     "question": "Quand a lieu « Nanterre fête la musique - Programme » ?",
     "response": "« Nanterre fête la musique - Programme » a lieu le **dimanche 21 juin 2026, de 14h00 à 19h00** au **marché Pablo Picasso, Nanterre (92000)**.",
     "reference": "« Nanterre fête la musique - Programme » a lieu : Dimanche 21 juin, 14h00 (à marché Pablo Picasso, Nanterre).",
-    "exact_match": 0.0,
-    "token_f1": 0.8421052631578948
+    "token_f1": 0.8421052631578948,
+    "answer_similarity": 0.9744776127942335
   },
   {
     "question": "Dans quel lieu se tient « MANAGER DE TRANSITION / Nouvelle vie pro ? gagnez en efficacité ! » à Courbevoie ?",
     "response": "L'événement **« MANAGER DE TRANSITION / Nouvelle vie pro ? gagnez en efficacité ! »** se tient à l'**Agence Courbevoie**, située à **Courbevoie (92400)**.\n\n*Dates de l'événement : Mercredi 8 avril 2026, de 10h00 à 12h00.*",
     "reference": "« MANAGER DE TRANSITION / Nouvelle vie pro ? gagnez en efficacité ! » se tient à Agence Courbevoie, à Courbevoie, Mercredi 8 avril, 10h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.7547169811320755
+    "token_f1": 0.7547169811320755,
+    "answer_similarity": 0.9502512836251791
   },
   {
     "question": "Où et quand a lieu « Visite de la Maison Marie Walewska » ?",
     "response": "La **Visite de la Maison Marie Walewska** a lieu à la **Maison Marie Walewska**, à Boulogne-Billancourt (92100), le **dimanche 19 octobre 2025 à 16h00**.",
     "reference": "« Visite de la Maison Marie Walewska » a lieu à Maison Marie Walewska à Boulogne-Billancourt, Dimanche 19 octobre 2025, 16h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.888888888888889
+    "token_f1": 0.888888888888889,
+    "answer_similarity": 0.9732836088773673
   },
   {
     "question": "Dans quelle ville se déroule « Célébrons les Producteurs de chez Nous au U EXPRESS RUEIL MALMAISON » ?",
     "response": "L'événement **« Célébrons les Producteurs de chez Nous au U EXPRESS RUEIL MALMAISON »** se déroule à **Rueil-Malmaison** (92500).\n\n- **Titre** : Célébrons les Producteurs de chez Nous au U EXPRESS RUEIL MALMAISON\n- **Lieu** : U Express RUEIL MALMAISON, Rueil-Malmaison (92500)\n- **Dates** : 5 - 7 juin 2026",
     "reference": "« Célébrons les Producteurs de chez Nous au U EXPRESS RUEIL MALMAISON » se déroule à Rueil-Malmaison (au lieu : U Express RUEIL MALMAISON).",
-    "exact_match": 0.0,
-    "token_f1": 0.6666666666666666
+    "token_f1": 0.6666666666666666,
+    "answer_similarity": 0.9338895924551134
   },
   {
     "question": "Quand a lieu « Visite guidée de l'église Saint-Hermeland » ?",
     "response": "La **Visite guidée de l'église Saint-Hermeland** a lieu le **samedi 20 septembre 2025 à 18h30** à l'**Église Saint-Hermeland, Bagneux (92220)**.",
     "reference": "« Visite guidée de l'église Saint-Hermeland » a lieu : Samedi 20 septembre 2025, 18h30 (à Église Saint-Hermeland, Bagneux).",
-    "exact_match": 0.0,
-    "token_f1": 0.8837209302325582
+    "token_f1": 0.8837209302325582,
+    "answer_similarity": 0.9778565625764003
   },
   {
     "question": "Dans quel lieu se tient « ASSEMBLEE » à Nanterre ?",
     "response": "« ASSEMBLEE » se tient à la **Place de la cathédrale, Nanterre (92000)**.",
     "reference": "« ASSEMBLEE » se tient à Place de la cathédrale, Nanterre, à Nanterre, 7 juin - 6 juillet 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.6666666666666666
+    "token_f1": 0.6666666666666666,
+    "answer_similarity": 0.9503890883596157
   },
   {
     "question": "Où et quand a lieu « Webinaire : 10 questions à se poser pour les futurs créateurs » ?",
     "response": "**Webinaire : 10 questions à se poser pour les futurs créateurs**\n- **Lieu** : Agence Courbevoie, Courbevoie (92400)\n- **Date** : Mardi 2 juin 2026, 14h30",
     "reference": "« Webinaire : 10 questions à se poser pour les futurs créateurs » a lieu à Agence Courbevoie à Courbevoie, Mardi 2 juin, 14h30.",
-    "exact_match": 0.0,
-    "token_f1": 0.8571428571428571
+    "token_f1": 0.8571428571428571,
+    "answer_similarity": 0.9544228061156379
   },
   {
     "question": "Dans quelle ville se déroule « Café Flora avec l'autrice Isabelle Pandazopoulos » ?",
     "response": "« Café Flora avec l'autrice Isabelle Pandazopoulos » se déroule à **Nanterre (92000)**.\n\n- **Titre** : Café Flora avec l'autrice Isabelle Pandazopoulos\n- **Lieu** : Médiathèque Flora-Tristan, Nanterre (92000)\n- **Dates** : Dimanche 5 octobre 2025, 10h30",
     "reference": "« Café Flora avec l'autrice Isabelle Pandazopoulos » se déroule à Nanterre (au lieu : Médiathèque Flora-Tristan).",
-    "exact_match": 0.0,
-    "token_f1": 0.625
+    "token_f1": 0.625,
+    "answer_similarity": 0.9477128817247834
   },
   {
     "question": "Quand a lieu « Portes ouvertes au jardin pédagogique Jeanne Barret » ?",
     "response": "L'événement **« Portes ouvertes au jardin pédagogique Jeanne Barret »** a eu lieu le **dimanche 7 juin 2026**, de 10h00 à 13h00, au **Jardin pédagogique Jeanne Barret** à Châtillon (92320).",
     "reference": "« Portes ouvertes au jardin pédagogique Jeanne Barret » a lieu : Dimanche 7 juin, 10h00, 13h00 (à Jardin pédagogique Jeanne Barret, Châtillon).",
-    "exact_match": 0.0,
-    "token_f1": 0.8163265306122449
+    "token_f1": 0.8163265306122449,
+    "answer_similarity": 0.9691984033282501
   },
   {
     "question": "Dans quel lieu se tient « Brumes - Version hors les murs » à Antony ?",
     "response": "« Brumes - Version hors les murs » se tient au **Lycée Descartes (Théâtre de Rungis - Tournée dans les lycées)**, Antony (92160), les **4 et 5 décembre 2025**.",
     "reference": "« Brumes - Version hors les murs » se tient à Lycée Descartes (Théâtre de Rungis - Tournée dans les lycées), à Antony, 4 et 5 décembre 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.8979591836734694
+    "token_f1": 0.8979591836734694,
+    "answer_similarity": 0.9875536674452238
   },
   {
     "question": "Où et quand a lieu « Eglise de Meudon-la-Forêt » ?",
     "response": "L'événement **« Eglise de Meudon-la-Forêt »** a lieu à l'**Église du Saint-Esprit, Meudon (92360)** les **19 et 20 septembre 2026**.",
     "reference": "« Eglise de Meudon-la-Forêt » a lieu à Église du Saint-Esprit à Meudon, 19 et 20 septembre.",
-    "exact_match": 0.0,
-    "token_f1": 0.8292682926829269
+    "token_f1": 0.8292682926829269,
+    "answer_similarity": 0.9569935881950961
   },
   {
     "question": "Dans quelle ville se déroule « Visite temple Bouddhiste Tibétain » ?",
     "response": "La « Visite temple Bouddhiste Tibétain » se déroule à **Levallois-Perret**.\n\n- **Titre** : Visite temple Bouddhiste Tibétain\n- **Lieu** : Centre Rigpa, Levallois-Perret (92300)\n- **Dates** : 20 et 21 septembre 2025",
     "reference": "« Visite temple Bouddhiste Tibétain » se déroule à Levallois-Perret (au lieu : Centre Rigpa).",
-    "exact_match": 0.0,
-    "token_f1": 0.6
+    "token_f1": 0.6,
+    "answer_similarity": 0.9347898016173647
   },
   {
     "question": "Quand a lieu « Exposition - Dessins manga par Cojeval » ?",
     "response": "L'événement **« Exposition - Dessins manga par Cojeval »** a eu lieu du **11 avril au 3 mai 2026** au **Le Temps des Cerises** à Issy-les-Moulineaux (92130).",
     "reference": "« Exposition - Dessins manga par Cojeval » a lieu : 11 avril - 3 mai (à Le Temps des Cerises, Issy-les-Moulineaux).",
-    "exact_match": 0.0,
-    "token_f1": 0.8260869565217391
+    "token_f1": 0.8260869565217391,
+    "answer_similarity": 0.9678694195926267
   },
   {
     "question": "Dans quel lieu se tient « Exposition : Shibori, l'indigo révélé » à Issy-les-Moulineaux ?",
     "response": "L’exposition **« Exposition : Shibori, l'indigo révélé »** se tient au **Le Temps des Cerises**, à Issy-les-Moulineaux (92130), du **5 décembre 2025 au 25 janvier 2026**.",
     "reference": "« Exposition : Shibori, l'indigo révélé » se tient à Le Temps des Cerises, à Issy-les-Moulineaux, 5 décembre 2025 - 25 janvier 2026.",
-    "exact_match": 0.0,
-    "token_f1": 0.8571428571428572
+    "token_f1": 0.8571428571428572,
+    "answer_similarity": 0.9842076126826633
   },
   {
     "question": "Où et quand a lieu « Visite éclair \"Dans l'intimité de la création\" » ?",
     "response": "« Visite éclair \"Dans l'intimité de la création\" » a lieu au **Musée Rodin - Meudon**, Meudon (92190), les **20 et 21 septembre 2025**.",
     "reference": "« Visite éclair \"Dans l'intimité de la création\" » a lieu à Musée Rodin - Meudon à Meudon, 20 et 21 septembre 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.8837209302325582
+    "token_f1": 0.8837209302325582,
+    "answer_similarity": 0.9906176480143336
   },
   {
     "question": "Dans quelle ville se déroule « Concert de la violoncelliste Thuy-Nhi Au-Quang » ?",
     "response": "Le **Concert de la violoncelliste Thuy-Nhi Au-Quang** se déroule à **Garches** (92380).\n\nLieu : Fonds culturel de l’Ermitage, Garches (92380)\nDate : Dimanche 28 juin 2026, 15h00",
     "reference": "« Concert de la violoncelliste Thuy-Nhi Au-Quang » se déroule à Garches (au lieu : Fonds culturel de l’Ermitage).",
-    "exact_match": 0.0,
-    "token_f1": 0.7659574468085106
+    "token_f1": 0.7659574468085106,
+    "answer_similarity": 0.9318809711758739
   },
   {
     "question": "Quand a lieu « Bourse aux vélos » ?",
     "response": "La **Bourse aux vélos** a lieu le **samedi 30 mai 2026** de 10h00 à 18h00 à **Grand' Place Boulogne Billancourt**, Boulogne-Billancourt (92100).",
     "reference": "« Bourse aux vélos » a lieu : Samedi 30 mai, 10h00 (à Grand' Place Boulogne Billancourt, Boulogne-Billancourt).",
-    "exact_match": 0.0,
-    "token_f1": 0.8205128205128205
+    "token_f1": 0.8205128205128205,
+    "answer_similarity": 0.9675367366171441
   },
   {
     "question": "Dans quel lieu se tient « Les Soeurs Hilton » à Châtenay-Malabry ?",
     "response": "Le spectacle **« Les Soeurs Hilton »** se tient au **Théâtre Firmin Gémier / La Piscine** à Châtenay-Malabry (92290), les **7 et 8 octobre 2025**.",
     "reference": "« Les Soeurs Hilton » se tient à Theatre Firmin Gémier / La Piscine, à Châtenay-Malabry, 7 et 8 octobre 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.8571428571428571
+    "token_f1": 0.8571428571428571,
+    "answer_similarity": 0.9776451602422346
   },
   {
     "question": "Où et quand a lieu « Visite du CFA BTP DE RUEIL-MALMAISON » ?",
     "response": "« Visite du CFA BTP DE RUEIL-MALMAISON » a lieu au **CFA BTP DE RUEIL-MALMAISON**, Rueil-Malmaison (92500), le **20 novembre 2025 de 10h00 à 11h00**.",
     "reference": "« Visite du CFA BTP DE RUEIL-MALMAISON » a lieu à CFA BTP DE RUEIL-MALMAISON à Rueil-Malmaison, Jeudi 20 novembre 2025, 10h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.8571428571428572
+    "token_f1": 0.8571428571428572,
+    "answer_similarity": 0.9867679822915623
   },
   {
     "question": "Dans quelle ville se déroule « Atelier réparation et entretien de vélo » ?",
     "response": "« Atelier réparation et entretien de vélo » se déroule à **Fontenay-aux-Roses (92260)**.\nLieu : École municipale du vélo, 2 place de Gaulle, Fontenay-aux-Roses (92260)\nDates : Samedi 18 octobre 2025, de 9h à 12h",
     "reference": "« Atelier réparation et entretien de vélo » se déroule à Fontenay-aux-Roses (au lieu : Ecole municipale du vélo).",
-    "exact_match": 0.0,
-    "token_f1": 0.6415094339622641
+    "token_f1": 0.6415094339622641,
+    "answer_similarity": 0.9412386674056493
   },
   {
     "question": "Quand a lieu « Atelier plantes méllifères » ?",
     "response": "L'événement **« Atelier plantes méllifères »** a lieu le **samedi 8 août 2026, de 15h00 à 17h30**, à l'**Agrocité de Genevilliers**, à Gennevilliers.",
     "reference": "« Atelier plantes méllifères » a lieu : Samedi 8 août, 15h00 (à Agrocité de Genevilliers, Gennevilliers).",
-    "exact_match": 0.0,
-    "token_f1": 0.7567567567567568
+    "token_f1": 0.7567567567567568,
+    "answer_similarity": 0.9671272538254413
   },
   {
     "question": "L'entrée à « Navettes gratuites entre \"La Ferme\" et le \"Dépôt-Atelier\" » est-elle gratuite ?",
     "response": "Oui, l'entrée aux **« Navettes gratuites entre \"La Ferme\" et le \"Dépôt-Atelier\"** » est gratuite.\n\n- **Titre** : Navettes gratuites entre \"La Ferme\" et le \"Dépôt-Atelier\"\n- **Lieu** : Chemin de Fer des Chanteraines, Villeneuve-la-Garenne (92390)\n- **Dates** : 20 et 21 septembre 2025",
     "reference": "Oui, l'entrée à « Navettes gratuites entre \"La Ferme\" et le \"Dépôt-Atelier\" » (Chemin de Fer des Chanteraines, Villeneuve-la-Garenne) est gratuite.",
-    "exact_match": 0.0,
-    "token_f1": 0.6875000000000001
+    "token_f1": 0.6875000000000001,
+    "answer_similarity": 0.9549278546034076
   },
   {
     "question": "Où et quand a lieu « « La classe, l’œuvre ! » - Les coups de cœur des lycéens » ?",
     "response": "« La classe, l’œuvre ! » - Les coups de cœur des lycéens a lieu au **Musée des Avelines**, à **Saint-Cloud (92210)**, le **samedi 23 mai 2026 à 19h00**.",
     "reference": "« « La classe, l’œuvre ! » - Les coups de cœur des lycéens » a lieu à Musée des Avelines à Saint-Cloud, Samedi 23 mai, 19h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.92
+    "token_f1": 0.92,
+    "answer_similarity": 0.9709533067848005
   },
   {
     "question": "Dans quelle ville se déroule « Un Emploi Pour Tous » ?",
     "response": "« Un Emploi Pour Tous » se déroule à **Nanterre** (92000).\n\n**Titre** : Un Emploi Pour Tous\n**Lieu** : Chambre de métiers et de l'artisanat IDF-92, Nanterre (92000)\n**Date** : Mardi 23 septembre 2025, 09h30",
     "reference": "« Un Emploi Pour Tous » se déroule à Nanterre (au lieu : Chambre de métiers et de l'artisanat IDF-92).",
-    "exact_match": 0.0,
-    "token_f1": 0.7058823529411765
+    "token_f1": 0.7058823529411765,
+    "answer_similarity": 0.9321830908426317
   },
   {
     "question": "Quand a lieu « \"The grand Budapest hotel\" Wes Anderson. 2014 » ?",
     "response": "L'événement **« The grand Budapest hotel » Wes Anderson. 2014** a eu lieu le **samedi 18 octobre 2025** à **11h00** au **Cinéma Landowski - Salle Henri-Alekan**, Boulogne-Billancourt (92100).",
     "reference": "« \"The grand Budapest hotel\" Wes Anderson. 2014 » a lieu : Samedi 18 octobre 2025, 11h00 (à Cinéma Landowski - Salle Henri-Alekan, Boulogne-Billancourt).",
-    "exact_match": 0.0,
-    "token_f1": 0.88
+    "token_f1": 0.88,
+    "answer_similarity": 0.9529174575338434
   },
   {
     "question": "Dans quel lieu se tient « Visite des réserves et quiz du patrimoine » à Sceaux ?",
     "response": "Le lieu de l'événement **« Visite des réserves et quiz du patrimoine »** est :\n**Bibliothèque municipale, Sceaux (92330)**.",
     "reference": "« Visite des réserves et quiz du patrimoine » se tient à Bibliothèque municipale, à Sceaux, Samedi 20 septembre 2025, 11h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.5555555555555555
+    "token_f1": 0.5555555555555555,
+    "answer_similarity": 0.9274374201995239
   },
   {
     "question": "Où et quand a lieu « Atelier bouturage » ?",
     "response": "L'événement **« Atelier bouturage »** a lieu :\n- **Lieu** : Jardin partagé Hoffmann, Bourg-la-Reine (92340)\n- **Date** : Dimanche 30 août 2026, de 15h00 à 17h00",
     "reference": "« Atelier bouturage » a lieu à Jardin partagé Hoffmann à Bourg-la-Reine, Dimanche 30 août, 15h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.7692307692307693
+    "token_f1": 0.7692307692307693,
+    "answer_similarity": 0.9335126816184075
   },
   {
     "question": "Dans quelle ville se déroule « Visites des installations pour les vélotaffeurs » ?",
     "response": "La ville où se déroule **« Visites des installations pour les vélotaffeurs »** est **Puteaux**.",
     "reference": "« Visites des installations pour les vélotaffeurs » se déroule à Puteaux (au lieu : Tour Séquoia).",
-    "exact_match": 0.0,
-    "token_f1": 0.6666666666666666
+    "token_f1": 0.6666666666666666,
+    "answer_similarity": 0.9233152658045565
   },
   {
     "question": "Quand a lieu « Open Zik - La scène ouverte de l'ECLA » ?",
     "response": "Je n'ai pas trouvé d'événement correspondant.",
     "reference": "« Open Zik - La scène ouverte de l'ECLA » a lieu : Vendredi 6 février, 20h00 (à Le Carré, Saint-Cloud).",
-    "exact_match": 0.0,
-    "token_f1": 0.0
+    "token_f1": 0.0,
+    "answer_similarity": 0.7426175716447092
   },
   {
     "question": "Dans quel lieu se tient « Regards sur les arbres du parc du Vieux cimetière » à Courbevoie ?",
     "response": "L'événement **« Regards sur les arbres du parc du Vieux cimetière »** se tient au **Parc du Vieux cimetière**, à Courbevoie (92400).",
     "reference": "« Regards sur les arbres du parc du Vieux cimetière » se tient à Parc du Vieux cimetière, à Courbevoie, Samedi 6 juin, 10h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.7906976744186046
+    "token_f1": 0.7906976744186046,
+    "answer_similarity": 0.9515230403729096
   },
   {
     "question": "Où et quand a lieu « Bourse Fondation Siemens France - STEM'Pulse » ?",
     "response": "La bourse **STEM'Pulse** organisée par la Fondation Siemens France a lieu à **Siemens, Courbevoie (92400)** aux dates suivantes :\n- **Vendredi 7 novembre 2025** (de 00h00 à 23h59)\n- **Lundi 3 novembre 2025** (de 00h30 à 23h59)",
     "reference": "« Bourse Fondation Siemens France - STEM'Pulse » a lieu à Siemens à Courbevoie, Vendredi 7 novembre 2025, 00h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.6538461538461539
+    "token_f1": 0.6538461538461539,
+    "answer_similarity": 0.9447096598404772
   },
   {
     "question": "Dans quelle ville se déroule « Diaporama sur l'architecture du prieuré Sainte-Bathilde » ?",
     "response": "« Diaporama sur l'architecture du prieuré Sainte-Bathilde » se déroule à **Vanves** (92170), au **Prieuré Sainte-Bathilde**.\n\n*Titre* : Diaporama sur l'architecture du prieuré Sainte-Bathilde\n*Lieu* : Prieuré Sainte-Bathilde, Vanves (92170)\n*Dates* : 20 et 21 septembre 2025",
     "reference": "« Diaporama sur l'architecture du prieuré Sainte-Bathilde » se déroule à Vanves (au lieu : Prieuré Sainte-Bathilde).",
-    "exact_match": 0.0,
-    "token_f1": 0.6181818181818182
+    "token_f1": 0.6181818181818182,
+    "answer_similarity": 0.9517243743963372
   },
   {
     "question": "Quand a lieu « MARNES-LA-COQUETTE : Faites le tri dans votre vie ! » ?",
     "response": "L'événement **« MARNES-LA-COQUETTE : Faites le tri dans votre vie ! »** a eu lieu le **dimanche 14 septembre 2025** de **10h00 à 18h00** au **Square Pasteur, Marnes-la-Coquette (92430)**.",
     "reference": "« MARNES-LA-COQUETTE : Faites le tri dans votre vie ! » a lieu : Dimanche 14 septembre 2025, 10h00 (à Square Pasteur, Marnes-la-Coquette).",
-    "exact_match": 0.0,
-    "token_f1": 0.846153846153846
+    "token_f1": 0.846153846153846,
+    "answer_similarity": 0.9730205585523092
   },
   {
     "question": "Dans quel lieu se tient « Les ateliers qui dépoussièrent les archives ! » à Nanterre ?",
     "response": "Les ateliers qui dépoussièrent les archives ! se tiennent au **137 avenue Joliot Curie, 92000 Nanterre**.",
     "reference": "« Les ateliers qui dépoussièrent les archives ! » se tient à 137 avenue Joliot Curie, 92000 NANTERRE, à Nanterre, Mercredi 10 juin, 10h00, 14h30.",
-    "exact_match": 0.0,
-    "token_f1": 0.7027027027027029
+    "token_f1": 0.7027027027027029,
+    "answer_similarity": 0.9634218718116738
   },
   {
     "question": "Où et quand a lieu « Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon » ?",
     "response": "« Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon » a lieu au **Musée d'art et d'histoire**, Meudon (92190), le **dimanche 7 juin 2026 à 15h et 16h**.",
     "reference": "« Visite Flash de l'exposition | Musée d'art et d'histoire de Meudon » a lieu à Musée d'art et d'histoire à Meudon, Dimanche 7 juin, 15h00, 16h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.8387096774193549
+    "token_f1": 0.8387096774193549,
+    "answer_similarity": 0.9770207620910917
   },
   {
     "question": "Dans quelle ville se déroule « Journée Portes Ouvertes » ?",
     "response": "La ville où se déroule **« Journée Portes Ouvertes »** est **Meudon (92190)**.\n\n- **Titre** : Journée Portes Ouvertes\n- **Lieu** : Campus éducatif et écologique Saint-Philippe, Meudon (92190)\n- **Dates** : 24 janvier 2026 et 23 janvier 2027",
     "reference": "« Journée Portes Ouvertes » se déroule à Meudon (au lieu : Campus educatif et écologique saint philippe).",
-    "exact_match": 0.0,
-    "token_f1": 0.5531914893617021
+    "token_f1": 0.5531914893617021,
+    "answer_similarity": 0.9169707004793508
   },
   {
     "question": "Quand a lieu « Concert intime avec Célestin chez Rémi à Courbevoie – 7 février 2026 » ?",
     "response": "Le concert « Concert intime avec Célestin chez Rémi à Courbevoie – 7 février 2026 » a eu lieu le **samedi 7 février 2026 à 20h00** à **Apparemment C, Courbevoie (92400)**.",
     "reference": "« Concert intime avec Célestin chez Rémi à Courbevoie – 7 février 2026 » a lieu : Samedi 7 février, 20h00 (à Apparemment C, Courbevoie).",
-    "exact_match": 0.0,
-    "token_f1": 0.8571428571428571
+    "token_f1": 0.8571428571428571,
+    "answer_similarity": 0.9769781446740341
   },
   {
     "question": "Dans quel lieu se tient « La forêt s'éveille sur les coteaux Meudon ! » à Meudon ?",
     "response": "« La forêt s'éveille sur les coteaux Meudon ! » se tient à la **Place Henri Brousse**, à Meudon (92190).",
     "reference": "« La forêt s'éveille sur les coteaux Meudon ! » se tient à Place Henri Brousse, à Meudon, 22 mars 2024 - 28 mars 2026.",
-    "exact_match": 0.0,
-    "token_f1": 0.7999999999999999
+    "token_f1": 0.7999999999999999,
+    "answer_similarity": 0.9581662035368872
   },
   {
     "question": "Où et quand a lieu « Jeu de briques, jeu de façade - Activité créative jeune public » ?",
     "response": "« Jeu de briques, jeu de façade - Activité créative jeune public » a lieu au **Le JAD Jardin des métiers d'Art et du Design**, à Sèvres (92310), les **20 et 21 septembre 2025**.",
     "reference": "« Jeu de briques, jeu de façade - Activité créative jeune public » a lieu à Le JAD Jardin des métiers d'Art et du Design à Sèvres, 20 et 21 septembre 2025.",
-    "exact_match": 0.0,
-    "token_f1": 0.9354838709677419
+    "token_f1": 0.9354838709677419,
+    "answer_similarity": 0.9908361164624352
   },
   {
     "question": "Dans quelle ville se déroule « Atelier Découverte des Métiers de l'Industrie » ?",
     "response": "L'événement **« Atelier Découverte des Métiers de l'Industrie »** se déroule à **Colombes (92700)**.\n\n- **Titre** : Atelier Découverte des Métiers de l'Industrie\n- **Lieu** : Agence Colombes, Colombes (92700)\n- **Date** : Lundi 22 juin 2026, 14h00",
     "reference": "« Atelier Découverte des Métiers de l'Industrie » se déroule à Colombes (au lieu : Agence Colombes).",
-    "exact_match": 0.0,
-    "token_f1": 0.5833333333333333
+    "token_f1": 0.5833333333333333,
+    "answer_similarity": 0.9151091004482312
   },
   {
     "question": "Quand a lieu « Habilitation Impression 3D » ?",
     "response": "« Habilitation Impression 3D » a lieu le **samedi 20 septembre 2025, de 14h30 à 16h**, au **Le Temps des Cerises**, à Issy-les-Moulineaux (92130).",
     "reference": "« Habilitation Impression 3D » a lieu : Samedi 20 septembre 2025, 14h30 (à Le Temps des Cerises, Issy-les-Moulineaux).",
-    "exact_match": 0.0,
-    "token_f1": 0.8571428571428571
+    "token_f1": 0.8571428571428571,
+    "answer_similarity": 0.9867208421074333
   },
   {
     "question": "Dans quel lieu se tient « Surnatural Orchestra / Clameurs » à Malakoff ?",
     "response": "L'événement **« Surnatural Orchestra / Clameurs »** se tient au **Théâtre 71 Malakoff**, à Malakoff (92240).\n\n*Titre : Surnatural Orchestra / Clameurs*\n*Lieu : Theatre 71 Malakoff, Malakoff (92240)*\n*Date : Jeudi 11 juin 2026, 20h00*",
     "reference": "« Surnatural Orchestra / Clameurs » se tient à Theatre 71 Malakoff, à Malakoff, Jeudi 11 juin, 20h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.6222222222222223
+    "token_f1": 0.6222222222222223,
+    "answer_similarity": 0.9366126566589709
   },
   {
     "question": "Où et quand a lieu « Assadia recrute des alternants garde d'enfant à domicile (h/f) » ?",
     "response": "L'événement **« Assadia recrute des alternants garde d'enfant à domicile (h/f) »** a lieu :\n- **Lieu** : Rueil-Malmaison - Agence Levallois-Perret, 106 Av. Albert 1er, 92500 Rueil-Malmaison\n- **Date** : Mardi 23 juin 2026, de 09h00 à 12h00",
     "reference": "« Assadia recrute des alternants garde d'enfant à domicile (h/f) » a lieu à Rueil-Malmaison - Agence Levallois-Perret à Rueil-Malmaison, Mardi 23 juin, 09h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.7936507936507937
+    "token_f1": 0.7936507936507937,
+    "answer_similarity": 0.942696808884516
   },
   {
     "question": "Dans quelle ville se déroule « \"Corps et bâti\" : Atelier Construction » ?",
     "response": "« \"Corps et bâti\" : Atelier Construction » se déroule à **Bourg-la-Reine**.\n\n- **Lieu** : Villa Saint-Cyr, Bourg-la-Reine (92340)\n- **Dates** : 20 et 21 septembre 2025",
     "reference": "« \"Corps et bâti\" : Atelier Construction » se déroule à Bourg-la-Reine (au lieu : Villa Saint-Cyr).",
-    "exact_match": 0.0,
-    "token_f1": 0.7317073170731707
+    "token_f1": 0.7317073170731707,
+    "answer_similarity": 0.9568354309125809
   },
   {
     "question": "Quand a lieu « Fontenay-aux-Roses au-delà des clichés » ?",
     "response": "« Fontenay-aux-Roses au-delà des clichés » a lieu du **5 au 27 septembre 2026** à la **Médiathèque de Fontenay-aux-Roses**, Fontenay-aux-Roses (92260).",
     "reference": "« Fontenay-aux-Roses au-delà des clichés » a lieu : 5 - 27 septembre (à Médiathèque de Fontenay-aux-Roses, Fontenay-aux-Roses).",
-    "exact_match": 0.0,
-    "token_f1": 0.8936170212765957
+    "token_f1": 0.8936170212765957,
+    "answer_similarity": 0.9708508193053569
   },
   {
     "question": "L'entrée à « À la découverte du jardin pédagogique de l'île de la Jatte » est-elle gratuite ?",
     "response": "Oui, l'entrée à **« À la découverte du jardin pédagogique de l'île de la Jatte »** est gratuite.\n\n**Titre :** À la découverte du jardin pédagogique de l'île de la Jatte\n**Lieu :** Parc de la Jatte, Levallois-Perret (92300)\n**Dates :** 5 juillet - 31 août 2025",
     "reference": "Oui, l'entrée à « À la découverte du jardin pédagogique de l'île de la Jatte » (Parc de la Jatte, Levallois-Perret) est gratuite.",
-    "exact_match": 0.0,
-    "token_f1": 0.6956521739130436
+    "token_f1": 0.6956521739130436,
+    "answer_similarity": 0.9643506004968462
   },
   {
     "question": "Où et quand a lieu « Action collective » ?",
     "response": "**Action collective**\n- **Lieu** : Musée Albert-Kahn, Boulogne-Billancourt (92100)\n- **Date** : Mercredi 24 juin 2026, 14h30",
     "reference": "« Action collective » a lieu à Musée Albert-Kahn à Boulogne-Billancourt, Mercredi 24 juin, 14h30.",
-    "exact_match": 0.0,
-    "token_f1": 0.8000000000000002
+    "token_f1": 0.8000000000000002,
+    "answer_similarity": 0.9390978932092813
   },
   {
     "question": "Dans quelle ville se déroule « Les Échappées Cirque - Boule Champs Pierreux » ?",
     "response": "« Les Échappées Cirque - Boule Champs Pierreux » se déroule à **Nanterre**.",
     "reference": "« Les Échappées Cirque - Boule Champs Pierreux » se déroule à Nanterre (au lieu : Boule Champs Pierreux).",
-    "exact_match": 0.0,
-    "token_f1": 0.8
+    "token_f1": 0.8,
+    "answer_similarity": 0.9872307736295749
   },
   {
     "question": "Quand a lieu « Paul Landowski dans le roman « Les Sept sœurs » de Lucinda Riley » ?",
     "response": "L'événement **« Paul Landowski dans le roman « Les Sept sœurs » de Lucinda Riley »** a eu lieu le **samedi 23 mai 2026 à 21h00** au **Musée des années trente, médiathèque et cinéma Paul Landowski** à Boulogne-Billancourt (92100).",
     "reference": "« Paul Landowski dans le roman « Les Sept sœurs » de Lucinda Riley » a lieu : Samedi 23 mai, 21h00 (à Musée des années trente, médiathèque et cinéma Paul Landowski, Boulogne-Billancourt).",
-    "exact_match": 0.0,
-    "token_f1": 0.8787878787878788
+    "token_f1": 0.8787878787878788,
+    "answer_similarity": 0.9707679612700562
   },
   {
     "question": "Dans quel lieu se tient « Voyage au Château de Versailles à la cour du Roi-Soleil » à Issy-les-Moulineaux ?",
     "response": "Le lieu de l'événement **« Voyage au Château de Versailles à la cour du Roi-Soleil »** est :\n**Le Temps des Cerises, Issy-les-Moulineaux (92130)**\n**Date :** Samedi 20 septembre 2025, de 15h à 16h.",
     "reference": "« Voyage au Château de Versailles à la cour du Roi-Soleil » se tient à Le Temps des Cerises, à Issy-les-Moulineaux, Samedi 20 septembre 2025, 15h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.7540983606557378
+    "token_f1": 0.7540983606557378,
+    "answer_similarity": 0.9434605852521902
   },
   {
     "question": "Où et quand a lieu « Ciné Bout'Chou : La grande rêvasion » ?",
     "response": "**Ciné Bout'Chou : La grande rêvasion**\n- **Lieu** : Ciné d'Issy, Issy-les-Moulineaux (92130)\n- **Date** : Dimanche 28 juin 2026, 11h00",
     "reference": "« Ciné Bout'Chou : La grande rêvasion » a lieu à Ciné d'Issy à Issy-les-Moulineaux, Dimanche 28 juin, 11h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.85
+    "token_f1": 0.85,
+    "answer_similarity": 0.9305675019705895
   },
   {
     "question": "Dans quelle ville se déroule « Atelier jeux autour des animaux » ?",
     "response": "« Atelier jeux autour des animaux » se déroule à **Villeneuve-la-Garenne (92390)**.\n\n- **Titre** : Atelier jeux autour des animaux\n- **Lieu** : Bibliothèque Municipale Aimé-Césaire, Villeneuve-la-Garenne (92390)\n- **Date** : Jeudi 10 juillet 2025, 15h00",
     "reference": "« Atelier jeux autour des animaux » se déroule à Villeneuve-la-Garenne (au lieu : Bibliothèque Municipale Aimé-Césaire).",
-    "exact_match": 0.0,
-    "token_f1": 0.64
+    "token_f1": 0.64,
+    "answer_similarity": 0.9309863599821759
   },
   {
     "question": "Quand a lieu « Les Petites Bêtes et la Nature, Contes avec Creativ'Envol » ?",
     "response": "L'événement **« Les Petites Bêtes et la Nature, Contes avec Creativ'Envol »** a lieu les **27 juin et 29 août 2026** au **Jardin des voisins** à Sceaux (92330).",
     "reference": "« Les Petites Bêtes et la Nature, Contes avec Creativ'Envol » a lieu : 27 juin et 29 août (à Le Jardin des voisins, Sceaux).",
-    "exact_match": 0.0,
-    "token_f1": 0.8627450980392156
+    "token_f1": 0.8627450980392156,
+    "answer_similarity": 0.9702421305576459
   },
   {
     "question": "Dans quel lieu se tient « Lire les yeux fermés » à Boulogne-Billancourt ?",
     "response": "L'événement **« Lire les yeux fermés »** se tient au **Musée Paul Belmondo** à Boulogne-Billancourt (92100).\n\n- **Titre** : Lire les yeux fermés\n- **Lieu** : Musée Paul Belmondo, Boulogne-Billancourt (92100)\n- **Date** : Dimanche 7 juin 2026, 16h00",
     "reference": "« Lire les yeux fermés » se tient à Musée Paul Belmondo, à Boulogne-Billancourt, Dimanche 7 juin, 16h00.",
-    "exact_match": 0.0,
-    "token_f1": 0.627450980392157
+    "token_f1": 0.627450980392157,
+    "answer_similarity": 0.9363016292644463
   }
 ]

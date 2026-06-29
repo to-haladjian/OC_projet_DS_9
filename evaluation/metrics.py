@@ -1,21 +1,26 @@
-"""Deterministic, LLM-free evaluation metrics (exact match + token-level F1).
+"""Reference-based evaluation metrics that do not need an LLM judge.
 
-These complement the Ragas judge metrics with a reference baseline that needs no API
-call: given the system answer and the human reference, they score lexical overlap only.
-Because they are pure and deterministic, they double as the offline CI gate — the test
-suite recomputes them over a committed answers snapshot (see
-``tests/test_eval_metrics.py``) on every push/PR, whereas Ragas stays a manual job.
+These complement the Ragas judge metrics with a cheaper, reproducible baseline:
 
-The normalisation is SQuAD-style (lowercase, strip accents/punctuation, collapse
-whitespace) so that cosmetic differences ("À 20h00." vs "a 20h00") do not penalise a
-correct answer.
+* ``token_f1`` — lexical overlap between the answer and the reference. Pure text, so it
+  is **recomputed offline** by the test suite over the committed answers snapshot (see
+  ``tests/test_eval_metrics.py``) on every push / PR — the per-PR quality gate.
+* ``cosine_similarity`` — semantic closeness of two embedding vectors. The text→vector
+  step needs the embedding API, so ``answer_similarity`` is computed **when the eval
+  runs** (``scripts/evaluate_rag.py``) and stored in the snapshot; the offline gate reads
+  that recorded value. Embeddings are deterministic, so the score is reproducible.
+
+The token normalisation is SQuAD-style (lowercase, strip accents/punctuation, collapse
+whitespace) so cosmetic differences ("À 20h00." vs "a 20h00") do not penalise an answer.
 """
 
 from __future__ import annotations
 
+import math
 import re
 import string
 import unicodedata
+from typing import Sequence
 
 _PUNCT = str.maketrans({c: " " for c in string.punctuation + "«»–—’“”…"})
 
@@ -32,9 +37,19 @@ def _tokens(text: str) -> list[str]:
     return normalize_answer(text).split()
 
 
-def exact_match(prediction: str, reference: str) -> float:
-    """1.0 if the normalized prediction equals the normalized reference, else 0.0."""
-    return 1.0 if normalize_answer(prediction) == normalize_answer(reference) else 0.0
+def cosine_similarity(a: Sequence[float], b: Sequence[float]) -> float:
+    """Cosine similarity of two vectors (0.0 if either is empty or zero-norm).
+
+    Pure vector math (no API): the embeddings are produced upstream by the model and
+    passed in here. Range is [-1, 1]; for sentence embeddings of related French text it
+    sits well above 0.
+    """
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = math.sqrt(sum(x * x for x in a))
+    norm_b = math.sqrt(sum(y * y for y in b))
+    if norm_a == 0.0 or norm_b == 0.0:
+        return 0.0
+    return dot / (norm_a * norm_b)
 
 
 def token_f1(prediction: str, reference: str) -> float:
@@ -66,14 +81,18 @@ def token_f1(prediction: str, reference: str) -> float:
 
 
 def score_pairs(pairs: list[dict]) -> dict[str, float]:
-    """Mean exact_match and token_f1 over ``[{"response", "reference"}, ...]``.
+    """Mean deterministic scores over ``[{"response", "reference", ...}, ...]``.
 
-    Returns ``{"exact_match": 0.0, "token_f1": 0.0}`` for an empty list so callers (and
-    the CI gate) never divide by zero.
+    ``token_f1`` is **recomputed** from the text. ``answer_similarity`` is **read** from a
+    pre-stored ``"answer_similarity"`` field when present (it cannot be recomputed without
+    the embedding API) and omitted otherwise. Returns ``{"token_f1": 0.0}`` for an empty
+    list so callers (and the CI gate) never divide by zero.
     """
     if not pairs:
-        return {"exact_match": 0.0, "token_f1": 0.0}
+        return {"token_f1": 0.0}
     n = len(pairs)
-    em = sum(exact_match(p["response"], p["reference"]) for p in pairs) / n
-    f1 = sum(token_f1(p["response"], p["reference"]) for p in pairs) / n
-    return {"exact_match": em, "token_f1": f1}
+    means = {"token_f1": sum(token_f1(p["response"], p["reference"]) for p in pairs) / n}
+    sims = [p["answer_similarity"] for p in pairs if "answer_similarity" in p]
+    if sims:
+        means["answer_similarity"] = sum(sims) / len(sims)
+    return means

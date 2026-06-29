@@ -40,7 +40,7 @@ from ragas.metrics import (  # noqa: E402
     faithfulness,
 )
 
-from evaluation.metrics import exact_match, score_pairs, token_f1  # noqa: E402
+from evaluation.metrics import cosine_similarity, score_pairs, token_f1  # noqa: E402
 from src import config  # noqa: E402
 from src.indexing.build_index import build_index  # noqa: E402
 from src.rag.chain import RAGChain  # noqa: E402
@@ -96,19 +96,53 @@ def run_chain(chain: RAGChain, entries: list[dict]) -> list[dict]:
     return samples
 
 
+def _embed_all(embeddings, texts: list[str], batch: int = 64) -> list[list[float]]:
+    """Embed ``texts`` in batches, backing off on Mistral 429s."""
+    vectors: list[list[float]] = []
+    for start in range(0, len(texts), batch):
+        chunk = texts[start : start + batch]
+        delay = 5.0
+        for attempt in range(7):
+            try:
+                vectors.extend(embeddings.embed_documents(chunk))
+                break
+            except Exception as exc:  # noqa: BLE001 - retry only on rate limits
+                if "429" not in str(exc) or attempt == 6:
+                    raise
+                print(f"      rate-limited (embeddings), retrying in {delay:.0f}s ...")
+                time.sleep(delay)
+                delay = min(delay * 2, 90)
+    return vectors
+
+
+def add_answer_similarity(embeddings, samples: list[dict]) -> None:
+    """Attach the cosine similarity between each answer and its reference (in place).
+
+    Uses the same ``mistral-embed`` model as retrieval; embeddings are deterministic, so
+    the stored similarity is reproducible. This is the only API-dependent deterministic
+    metric — hence it is computed here (at eval time) and merely read by the offline gate.
+    """
+    print("Embedding answers/references for semantic similarity ...")
+    answer_vecs = _embed_all(embeddings, [s["response"] for s in samples])
+    reference_vecs = _embed_all(embeddings, [s["reference"] for s in samples])
+    for sample, av, rv in zip(samples, answer_vecs, reference_vecs):
+        sample["answer_similarity"] = cosine_similarity(av, rv)
+
+
 def write_answers_snapshot(samples: list[dict]) -> None:
     """Persist the run's answers + deterministic per-pair scores (committed golden file).
 
-    The offline CI gate (tests/test_eval_metrics.py) recomputes the deterministic metrics
-    from this snapshot on every PR, so the quality gate runs without any Mistral call.
+    The offline CI gate (tests/test_eval_metrics.py) recomputes ``token_f1`` from this
+    snapshot on every PR and reads the stored ``answer_similarity``, so the quality gate
+    runs without any Mistral call.
     """
     snapshot = [
         {
             "question": s["user_input"],
             "response": s["response"],
             "reference": s["reference"],
-            "exact_match": exact_match(s["response"], s["reference"]),
             "token_f1": token_f1(s["response"], s["reference"]),
+            "answer_similarity": s.get("answer_similarity"),
         }
         for s in samples
     ]
@@ -152,6 +186,7 @@ def main() -> None:
 
     print("Running the RAG chain on the test set ...")
     samples = run_chain(chain, entries)
+    add_answer_similarity(chain.embeddings, samples)
     dataset = EvaluationDataset.from_list(samples)
 
     judge = LangchainLLMWrapper(
@@ -182,9 +217,9 @@ def main() -> None:
         flag = "" if threshold is None else ("  OK" if value >= threshold else "  BELOW")
         print(f"  {name:<20} {value:.3f}{flag}")
 
-    # Deterministic baseline: lexical overlap vs the reference, no judge LLM.
+    # Deterministic baseline (no judge LLM): lexical overlap + embedding similarity.
     offline_means = score_pairs(samples)
-    print("\n=== Deterministic scores (no judge: lexical overlap vs reference) ===")
+    print("\n=== Deterministic scores (no judge: vs reference) ===")
     for name, value in offline_means.items():
         threshold = config.OFFLINE_EVAL_THRESHOLDS.get(name)
         flag = "" if threshold is None else ("  OK" if value >= threshold else "  BELOW")

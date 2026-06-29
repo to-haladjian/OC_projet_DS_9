@@ -104,13 +104,14 @@ EVAL_THRESHOLDS = {
     "context_recall": 0.50,
 }
 
-# Deterministic, LLM-free baseline metrics (evaluation/metrics.py). Thresholds are
-# deliberately modest: generative answers rephrase the reference, so exact match is rare
-# and token-F1 measures lexical overlap, not correctness. The goal is regression
-# detection in the offline CI gate (tests/test_eval_metrics.py), not a high bar.
+# Reference-based baseline metrics without an LLM judge (evaluation/metrics.py).
+# token_f1 measures lexical overlap (recomputed offline); answer_similarity is the cosine
+# similarity of mistral-embed vectors (computed at eval time, read by the offline gate).
+# Thresholds are floors for regression detection, set well below the observed means
+# (token_f1 ~0.6, answer_similarity ~0.93), not a high bar.
 OFFLINE_EVAL_THRESHOLDS = {
-    "exact_match": 0.0,
     "token_f1": 0.30,
+    "answer_similarity": 0.80,
 }
 
 

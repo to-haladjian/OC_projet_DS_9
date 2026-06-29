@@ -247,7 +247,7 @@ Détails en §6.
 | Données | **pandas**, **requests**, **BeautifulSoup4** | Collecte, nettoyage, structuration |
 | API | **FastAPI** + **Uvicorn** | Endpoints REST, Swagger automatique |
 | Interface | **Dash** | Chat de démonstration |
-| Tests | **pytest**, **httpx** | 74 tests unitaires |
+| Tests | **pytest**, **httpx** | 77 tests unitaires |
 | Évaluation | **Ragas**, **datasets** | Métriques de qualité RAG (juge LLM) + métriques déterministes + porte CI |
 | Config / secrets | **python-dotenv** | Chargement de `MISTRAL_API_KEY` depuis `.env` |
 | Conteneurisation | **Docker**, **docker compose** | Image multi-stage, stack API + UI lancée en une commande |
@@ -540,7 +540,7 @@ Un script de **smoke test fonctionnel** (`scripts/api_test.py`, appels Mistral r
 
 ### Tests effectués et documentés
 
-**74 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
+**77 tests unitaires** (`poetry run pytest`), sans appel réseau (LLM et dépendances
 mockés). Ils sont **relancés automatiquement en CI** à chaque push / pull request
 (workflow `tests`, sans clé API) ; ils embarquent la **porte qualité hors-ligne** de
 l'évaluation (`test_eval_metrics.py`, §7), tandis que l'évaluation Ragas complète reste
@@ -550,7 +550,7 @@ un job manuel :
 |---|---|---|
 | `tests/test_clean.py` | Nettoyage : HTML, dates, code postal, département, doublons, périmètre 92 | 14 |
 | `tests/test_filters.py` | Extraction JSON (fences, prose, clés inconnues) + prédicats de filtrage (ville tolérante) | 12 |
-| `tests/test_eval_metrics.py` | Métriques déterministes (exact match, token-F1) + porte hors-ligne sur l'instantané | 11 |
+| `tests/test_eval_metrics.py` | Métriques sans juge (token-F1, similarité cosinus) + porte hors-ligne sur l'instantané | 14 |
 | `tests/test_api.py` | Endpoints `/health` `/metadata` `/ask` `/rebuild` : succès, 422, 502, 409, garde par jeton | 9 |
 | `tests/test_chain.py` | Chaîne RAG : récupération (+ repli plein-corpus), génération, format des réponses | 7 |
 | `tests/test_dash.py` | Rendu des messages / sources de l'interface | 7 |
@@ -579,13 +579,14 @@ Ragas score le tout contre une réponse de référence à l'aide d'un **LLM juge
 **petit index dédié** à partir de `evaluation/corpus.csv` (rapide, déterministe,
 adapté à la CI) ; `--index faiss_index` évalue contre le corpus complet.
 
-En complément des métriques du juge LLM, le même script calcule des **métriques
-déterministes sans appel d'API** (correspondance exacte + F1 lexical, cf. *Métriques*),
-qui servent aussi de **porte qualité hors-ligne en intégration continue** : à chaque
-exécution, `evaluate_rag.py` écrit un instantané des réponses
-(`evaluation/answers_latest.json`) que la suite de tests (`pytest`) recharge à chaque
-push / PR pour recalculer ces métriques et **échouer en cas de régression**, sans aucune
-clé Mistral. Le job Ragas, lui, reste **manuel** (`workflow_dispatch`) car coûteux.
+En complément du juge LLM, le même script calcule des **métriques sans juge** (F1 lexical
++ similarité cosinus réponse ↔ référence, cf. *Métriques*) et écrit un instantané des
+réponses (`evaluation/answers_latest.json`). Cet instantané sert de **porte qualité
+hors-ligne en intégration continue** : à chaque push / PR, la suite de tests (`pytest`)
+**recalcule** le F1 lexical depuis le texte et **lit** la similarité enregistrée, puis
+**échoue en cas de régression**, sans aucune clé Mistral. La similarité, qui nécessite le
+modèle d'embeddings, est produite à la génération de l'instantané (où l'API est déjà
+sollicitée) ; le job Ragas, lui, reste **manuel** (`workflow_dispatch`) car coûteux.
 
 ### Jeu de test annoté
 
@@ -638,20 +639,19 @@ Deux familles de métriques sont calculées, chacune avec ses seuils plancher
 | **context_precision** | Les contextes récupérés sont-ils utiles (peu de bruit) ? | ≥ 0.50 |
 | **context_recall** | Le contexte couvre-t-il la réponse de référence ? | ≥ 0.50 |
 
-**Métriques déterministes (sans juge LLM)** — `OFFLINE_EVAL_THRESHOLDS`, recalculées
-hors-ligne et servant de **porte CI par PR** (cf. plus haut). Elles répondent à la
-recommandation de la mission (score de similarité / *Exact Match*) avec un repère
-**reproductible et gratuit**, indépendant du juge :
+**Métriques sans juge** — `OFFLINE_EVAL_THRESHOLDS`, servant de **porte CI par PR**
+(cf. plus haut). Elles répondent à la recommandation de la mission (score de similarité)
+avec un repère **reproductible**, indépendant du juge LLM :
 
 | Métrique | Mesure | Seuil |
 |---|---|---|
-| **exact_match** | La réponse normalisée est-elle identique à la référence ? | ≥ 0.00 |
-| **token_f1** | Recouvrement lexical (F1 sur les tokens) réponse ↔ référence | ≥ 0.30 |
+| **token_f1** | Recouvrement lexical (F1 sur les tokens) réponse ↔ référence ; *recalculé hors-ligne* | ≥ 0.30 |
+| **answer_similarity** | Similarité cosinus des embeddings `mistral-embed` réponse ↔ référence ; *enregistrée puis lue par la porte* | ≥ 0.80 |
 
-> Les seuils déterministes sont volontairement modestes : une réponse générative
-> reformule la référence (l'*exact match* est donc rare et le F1 mesure le recouvrement
-> lexical, pas la justesse). L'objectif est de **détecter une régression**, pas de fixer
-> une barre haute.
+> Les seuils sont des **planchers de détection de régression**, fixés bien en dessous des
+> moyennes observées (token-F1 ≈ 0.61, similarité ≈ 0.93), pas une barre haute. La
+> similarité cosinus capte la proximité *sémantique* même quand la formulation diffère —
+> là où une correspondance exacte resterait nulle pour une réponse générative.
 
 ### Résultats obtenus
 
@@ -666,14 +666,14 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 | answer_relevancy (juge) | 0.74 | 0.70 | ✅ |
 | context_precision (juge) | 0.78 | 0.50 | ✅ |
 | context_recall (juge) | 0.90 | 0.50 | ✅ |
-| token_f1 (déterministe) | 0.61 | 0.30 | ✅ |
-| exact_match (déterministe) | 0.00 | 0.00 | ✅ |
+| token_f1 (sans juge) | 0.61 | 0.30 | ✅ |
+| answer_similarity (sans juge) | 0.93 | 0.80 | ✅ |
 
 > Les valeurs Ragas varient légèrement d'un run à l'autre (juge LLM non déterministe) ;
-> les métriques déterministes, elles, sont reproductibles à l'identique. La **porte CI**
-> par PR (suite `pytest`, hors-ligne) échoue si une métrique déterministe passe sous son
-> seuil ; `scripts/evaluate_rag.py --fail-under` applique en plus les seuils Ragas lors
-> d'une exécution manuelle.
+> les métriques sans juge sont reproductibles. La **porte CI** par PR (suite `pytest`,
+> hors-ligne) échoue si l'une d'elles passe sous son seuil ;
+> `scripts/evaluate_rag.py --fail-under` applique en plus les seuils Ragas lors d'une
+> exécution manuelle.
 
 ### Analyse quantitative
 
@@ -685,9 +685,9 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 - **Pertinence** : `answer_relevancy` ≈ 0.74 — c'est la métrique la plus **sensible** (la
   plus proche de son seuil), les questions de sujet large et les refus laissant moins de
   prise à une réponse « pile » à la question.
-- **Repère déterministe** : `token_f1` ≈ 0.61 confirme un recouvrement lexical
-  substantiel avec la référence sans dépendre d'un juge ; `exact_match` reste à 0 par
-  nature (réponses reformulées), d'où un seuil plancher à 0.
+- **Repère sans juge** : `answer_similarity` ≈ 0.93 (similarité cosinus) confirme une
+  forte proximité sémantique réponse ↔ référence, et `token_f1` ≈ 0.61 un recouvrement
+  lexical substantiel — deux repères reproductibles, indépendants du juge LLM.
 
 ### Analyse qualitative
 
@@ -703,7 +703,7 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 ### Ce qui fonctionne bien
 
 - **Pipeline reproductible** de bout en bout (collecte → nettoyage → index → API),
-  testé (74 tests) et reconstructible à chaud via `/rebuild`.
+  testé (77 tests) et reconstructible à chaud via `/rebuild`.
 - **Chaîne à deux appels** : le pré-filtrage par métadonnées resserre nettement la
   recherche tout en restant robuste grâce au repli plein-corpus.
 - **Réponses sourcées et honnêtes** : citations systématiques et refus explicite
@@ -769,7 +769,7 @@ au corpus d'évaluation, juge `mistral-small-latest`), horodatés dans
 ├── evaluation/               # Évaluation : corpus.csv, build_corpus.py, testset.json,
 │                             #   build_testset.py, metrics.py (déterministes),
 │                             #   answers_latest.json (instantané), _compat.py, results/ (gitignoré)
-├── tests/                    # 74 tests unitaires (pytest)
+├── tests/                    # 77 tests unitaires (pytest)
 ├── data/                     # Données collectées/nettoyées (gitignoré)
 ├── faiss_index/              # Index vectoriel persisté (gitignoré, régénérable)
 ├── .github/workflows/        # CI : tests pytest (push/PR) + évaluation Ragas (workflow_dispatch)
@@ -853,15 +853,16 @@ Building eval index from evaluation/corpus.csv ...
 Running the RAG chain on the test set ...
   [1/99] Quelles visites guidées de médiathèques sont proposées à Clamart ?
   ...
+Embedding answers/references for semantic similarity ...
 Scoring with Ragas (judge: mistral-small-latest) ...
 === Ragas scores (mean over the test set, LLM judge) ===
   faithfulness          0.792  OK
   answer_relevancy      0.738  OK
   context_precision     0.783  OK
   context_recall        0.902  OK
-=== Deterministic scores (no judge: lexical overlap vs reference) ===
-  exact_match           0.000  OK
+=== Deterministic scores (no judge: vs reference) ===
   token_f1              0.608  OK
+  answer_similarity     0.925  OK
 Refreshed answers snapshot -> evaluation/answers_latest.json
 PASS: all metrics meet their thresholds.
 ```

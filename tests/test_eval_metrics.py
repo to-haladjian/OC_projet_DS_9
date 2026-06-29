@@ -12,7 +12,12 @@ import json
 
 import pytest
 
-from evaluation.metrics import exact_match, normalize_answer, score_pairs, token_f1
+from evaluation.metrics import (
+    cosine_similarity,
+    normalize_answer,
+    score_pairs,
+    token_f1,
+)
 from src import config
 
 
@@ -26,14 +31,22 @@ def test_normalize_collapses_whitespace():
     assert normalize_answer("  deux\tmots  ") == "deux mots"
 
 
-# --- exact_match ---
+# --- cosine_similarity ---
 
-def test_exact_match_ignores_cosmetic_differences():
-    assert exact_match("La Vénus électrique.", "la venus electrique") == 1.0
+def test_cosine_similarity_identical_vectors_is_one():
+    assert cosine_similarity([1.0, 2.0, 3.0], [1.0, 2.0, 3.0]) == pytest.approx(1.0)
 
 
-def test_exact_match_rejects_different_answers():
-    assert exact_match("Nanterre", "Antony") == 0.0
+def test_cosine_similarity_orthogonal_is_zero():
+    assert cosine_similarity([1.0, 0.0], [0.0, 1.0]) == pytest.approx(0.0)
+
+
+def test_cosine_similarity_opposite_is_minus_one():
+    assert cosine_similarity([1.0, 0.0], [-1.0, 0.0]) == pytest.approx(-1.0)
+
+
+def test_cosine_similarity_zero_vector_is_zero():
+    assert cosine_similarity([0.0, 0.0], [1.0, 1.0]) == 0.0
 
 
 # --- token_f1 ---
@@ -58,18 +71,25 @@ def test_token_f1_handles_empty_inputs():
 
 # --- score_pairs ---
 
-def test_score_pairs_averages_over_pairs():
+def test_score_pairs_recomputes_token_f1_and_reads_similarity():
     pairs = [
-        {"response": "concert a nanterre", "reference": "Concert à Nanterre"},  # EM 1
-        {"response": "exposition meudon", "reference": "Concert à Nanterre"},  # EM 0
+        {"response": "concert a nanterre", "reference": "Concert à Nanterre",
+         "answer_similarity": 0.9},
+        {"response": "exposition meudon", "reference": "Concert à Nanterre",
+         "answer_similarity": 0.5},
     ]
     means = score_pairs(pairs)
-    assert means["exact_match"] == 0.5
     assert 0.0 <= means["token_f1"] <= 1.0
+    assert means["answer_similarity"] == pytest.approx(0.7)  # read, not recomputed
+
+
+def test_score_pairs_omits_similarity_when_absent():
+    means = score_pairs([{"response": "a", "reference": "a"}])
+    assert "answer_similarity" not in means
 
 
 def test_score_pairs_empty_is_zero():
-    assert score_pairs([]) == {"exact_match": 0.0, "token_f1": 0.0}
+    assert score_pairs([]) == {"token_f1": 0.0}
 
 
 # --- Offline regression gate over the committed snapshot ---
